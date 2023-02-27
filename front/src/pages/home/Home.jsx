@@ -1,5 +1,6 @@
 import React from 'react';
 import TopSection from "../../components/TopSection/TopSection";
+import Courses from "../../components/Courses/Courses";
 // import Courses from "../../Components/Courses/Courses";
 // import News from "../../Components/News/News";
 // import Sources from "../../Components/Sources/Sources";
@@ -9,7 +10,7 @@ const Home = () => {
     return (
         <div>
            <TopSection/>
-            {/*<Courses/>*/}
+            <Courses/>
             {/*<News/>*/}
             {/*<Sources/>*/}
         </div>

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,QAAQ;EACN,OAAO,EAAE,MAAM;;AAEjB,eAAe;EACb,SAAS,EAAE,IAAI;EACf,aAAa,EAAE,IAAI",
+"sources": ["Courses.module.scss"],
+"names": [],
+"file": "Courses.module.css"
+}
