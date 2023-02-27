@@ -53,7 +53,7 @@ const Header = ({authed}) => {
                                     <li><NavLink to="/" className="dropdown-item">Структура</NavLink></li>
                                     <li><NavLink to="/" className="dropdown-item">Нормативные документы</NavLink></li>
                                     <li><NavLink to="/" className="dropdown-item">Компании-партнеры</NavLink></li>
-                                    <li><NavLink to="/" className="dropdown-item">Вступить в общество</NavLink></li>
+                                    <li><NavLink to="/signup" className="dropdown-item">Вступить в общество</NavLink></li>
                                     <li><NavLink to="/" className="dropdown-item">Оплатить взносы</NavLink></li>
                                     <li><NavLink to="/" className="dropdown-item">Фотогалерея</NavLink></li>
                                 </ul>
@@ -86,7 +86,7 @@ const Header = ({authed}) => {
 
 
                         <div className={`nav-item ms-2 mb-2 ${styles.headerAccountIcon}`}>
-                            <NavLink to="/" className="nav-link" aria-current="page"><img src={authed ? User : Exit}
+                            <NavLink to="/login" className="nav-link" aria-current="page"><img src={authed ? User : Exit}
                                                                                           alt="account"/></NavLink>
                         </div>
                     </div>

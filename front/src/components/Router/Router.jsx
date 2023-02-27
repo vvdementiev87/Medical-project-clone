@@ -16,17 +16,21 @@ import Footer from "../Footer/Footer";
 // import BackToTopButton from "../BackToTopButton/BackToTopButton";
 import routes from '../../routes/route';
 import BackToTopButton from "../BackToTopButton/BackToTopButton";
+import Registration from "../../pages/home/Registration";
+import Login from "../../pages/home/Login";
 
 
 
 function Router() {
-    const [authed, setAuthed] = useState(false);
+    const [authed, setAuthed] = useState(true);
     return (
         <BrowserRouter>
             <Header authed={authed}/>
             <div style={{minHeight:'100vh'}}>
                 <Routes>
                     <Route exec path={routes.HOME} element={<Home/>}/>
+                    <Route path="signup" element={<Registration/>}/>
+                    <Route path="login" element={<Login/>}/>
                     <Route path="*" element={<h2 className={styles.h2}>Страница не найдена</h2>}/>
                 </Routes>
             </div>

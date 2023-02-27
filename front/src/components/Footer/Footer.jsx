@@ -22,7 +22,7 @@ const Footer = () => {
                             <li><NavLink to="/">Устав</NavLink></li>
                             <li><NavLink to="/">Структура</NavLink></li>
                             <li><NavLink to="/"> Нормативные документы</NavLink></li>
-                            <li><NavLink to="/">Вступить в общество</NavLink></li>
+                            <li><NavLink to="/signup">Вступить в общество</NavLink></li>
                             <li><NavLink to="/">Оплатить взносы</NavLink></li>
                             <li><NavLink to="/">Фотогалерея</NavLink></li>
                         </ul>
