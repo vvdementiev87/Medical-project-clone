@@ -14,6 +14,7 @@ import Footer from "../Footer/Footer";
 // import Login from "../Login/Login";
 // import Footer from "../Footer/Footer";
 // import BackToTopButton from "../BackToTopButton/BackToTopButton";
+import routes from '../../routes/route';
 
 
 function Router() {
@@ -23,7 +24,7 @@ function Router() {
             <Header authed={authed}/>
             <div style={{minHeight:'100vh'}}>
                 <Routes>
-                    <Route exec path="/" element={<Home/>}/>
+                    <Route exec path={routes.HOME} element={<Home/>}/>
                     <Route path="*" element={<h2 className={styles.h2}>Страница не найдена</h2>}/>
                 </Routes>
             </div>

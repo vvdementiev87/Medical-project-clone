@@ -5,8 +5,11 @@
   background: linear-gradient(to bottom right, white, #d1c8c8);
   text-align: center;
   padding: 12px 0;
+  box-shadow: inset 0 0 10px white;
   position: sticky;
-  top: 0; }
+  z-index: 5;
+  top: 0;
+  transition: all 0.2s ease; }
   .header form {
     position: fixed;
     top: 0;

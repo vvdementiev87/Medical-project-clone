@@ -9,8 +9,11 @@
   @include headerBackgroundGradient;
   text-align: center;
   padding: 12px 0;
+  box-shadow: inset 0 0 10px rgba(255,255,255,1);
   position: sticky;
+  z-index: 5;
   top: 0;
+  transition: all 0.2s ease;
   form{
     position: fixed;
     top: 0;

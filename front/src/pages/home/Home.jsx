@@ -1,5 +1,5 @@
 import React from 'react';
-// import Top from "../../Components/Top/Top";
+import TopSection from "../../components/TopSection/TopSection";
 // import Courses from "../../Components/Courses/Courses";
 // import News from "../../Components/News/News";
 // import Sources from "../../Components/Sources/Sources";
@@ -8,11 +8,10 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            {/*<Top/>*/}
+           <TopSection/>
             {/*<Courses/>*/}
             {/*<News/>*/}
             {/*<Sources/>*/}
-            Home
         </div>
     );
 };
