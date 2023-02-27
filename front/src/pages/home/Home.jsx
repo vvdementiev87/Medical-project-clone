@@ -2,9 +2,8 @@ import React from 'react';
 import TopSection from "../../components/TopSection/TopSection";
 import Courses from "../../components/Courses/Courses";
 import News from "../../components/News/News";
-// import Courses from "../../Components/Courses/Courses";
-// import News from "../../Components/News/News";
-// import Sources from "../../Components/Sources/Sources";
+import Sources from "../../components/Sources/Sources";
+
 
 
 const Home = () => {
@@ -13,7 +12,7 @@ const Home = () => {
            <TopSection/>
             <Courses/>
             <News/>
-            {/*<Sources/>*/}
+            <Sources/>
         </div>
     );
 };

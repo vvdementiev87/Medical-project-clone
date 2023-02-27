@@ -65,6 +65,7 @@ $max-tablet-width: '991px';
 
 
 .footer a:hover img {
+  transition: all 1s linear;
   transform: scale(1.1);
 }
 
