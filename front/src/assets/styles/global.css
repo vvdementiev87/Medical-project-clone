@@ -11,3 +11,64 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*Общие стили*/
+ul, li {
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+h2{
+  text-align: center;
+}
+
+button {
+  border: 0;
+  outline: none;
+  background: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+a.active {
+  font-weight: 600;
+  color: brown;
+}
+img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+input{
+  box-sizing: border-box;
+}
+/*Переопределение bootstrap header nav*/
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: 0 0 2px #000;
+}
+.nav-item{
+  margin-right: 15px;
+}
+
+li.nav-item.active,li.nav-item:hover,li.nav-item:focus{
+  border-bottom:1px solid rgba(38, 38, 38, 0.4);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: rgba(38, 38, 38, 0.5);
+  color:#fff;
+}
+
+.navbar-custom {
+  background: transparent !important;
+}

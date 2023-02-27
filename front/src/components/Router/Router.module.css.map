@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,GAAI;EACF,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,GAAG;EAChB,YAAY,EAAE,UAAU;EACxB,UAAU,EAAE,MAAM",
+"sources": ["Router.module.scss"],
+"names": [],
+"file": "Router.module.css"
+}
