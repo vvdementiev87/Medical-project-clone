@@ -15,6 +15,8 @@ import Footer from "../Footer/Footer";
 // import Footer from "../Footer/Footer";
 // import BackToTopButton from "../BackToTopButton/BackToTopButton";
 import routes from '../../routes/route';
+import BackToTopButton from "../BackToTopButton/BackToTopButton";
+
 
 
 function Router() {
@@ -28,7 +30,7 @@ function Router() {
                     <Route path="*" element={<h2 className={styles.h2}>Страница не найдена</h2>}/>
                 </Routes>
             </div>
-            {/*<BackToTopButton/>*/}
+            <BackToTopButton/>
             <Footer/>
 
         </BrowserRouter>
