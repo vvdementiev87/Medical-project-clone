@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('education')->nullable();
             $table->string('place_work')->nullable();
             $table->boolean('sign_for_news')->default(false);
-            $table->string('position')->nullable();
+            $table->string('position');
             $table->string('category')->nullable();
             $table->string('experience')->nullable();
             $table->string('other_info')->nullable();
