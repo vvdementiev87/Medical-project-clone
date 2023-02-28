@@ -6,7 +6,7 @@ import Search from "../../assets/images/search.png";
 import User from "../../assets/images/user.png";
 import Exit from "../../assets/images/exit.png";
 
-const Header = ({authed}) => {
+const Header = ({isAuth}) => {
     const [isSearchVisible, setSearchVisible] = useState(false);
     const header = useRef();
     window.onscroll = function () {
@@ -72,9 +72,13 @@ const Header = ({authed}) => {
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link" aria-current="page">Новости</NavLink>
                             </li>
+                            {isAuth && (<li className="nav-item">
+                                <NavLink to="/profile" className="nav-link" aria-current="page">Личный кабинет</NavLink>
+                            </li>)}
                             <li className="nav-item">
                                 <NavLink to="/login" className="nav-link" aria-current="page">Контакты</NavLink>
                             </li>
+                            
                             <li>
 
                                 <button className={`btn ${styles.headerSearchBtnHandler}`} onClick={getSearchVisible}
@@ -86,7 +90,7 @@ const Header = ({authed}) => {
 
 
                         <div className={`nav-item ms-2 mb-2 ${styles.headerAccountIcon}`}>
-                            <NavLink to="/login" className="nav-link" aria-current="page"><img src={authed ? User : Exit}
+                            <NavLink to="/login" className="nav-link" aria-current="page"><img src={isAuth ? User : Exit}
                                                                                           alt="account"/></NavLink>
                         </div>
                     </div>

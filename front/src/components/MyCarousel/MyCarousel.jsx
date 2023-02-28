@@ -12,7 +12,7 @@ const MyCarousel = ({data,height}) => {
         <Carousel activeIndex={index} onSelect={handleSelect}>
             {data.map((slide, i) => {
                 return (
-                    <Carousel.Item style={{height:height}}>
+                    <Carousel.Item key={i} style={{height:height}}>
                         <img
                             className="d-block w-100"
                             src={slide.image}

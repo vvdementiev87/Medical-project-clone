@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBook} from '@fortawesome/free-solid-svg-icons';
 import {faFile} from '@fortawesome/free-solid-svg-icons';
@@ -43,9 +43,9 @@ const Sources = () => {
                 </div>
                 {
                     <div className={`row ${styles.sourcesList}`}>
-                        {data.map((item) => {
+                        {data.map((item,i) => {
                             return (
-                                <div className={`me-auto col-md-4  mb-5 me-auto ${styles.sourcesItem}`}>
+                                <div key={i} className={`me-auto col-md-4  mb-5 me-auto ${styles.sourcesItem}`}>
                                     <div className={styles.sourcesIcon}>{item.image}</div>
                                     <h3 className={styles.sourcesTitle}>{item.title}</h3>
                                     <p className={styles.sourcesText}>
