@@ -1,0 +1,43 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 88px; }
+
+.cardsItem {
+  width: 100%;
+  max-width: 400px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto; }
+
+.cardsImageWrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 55%; }
+  .cardsImageWrapper img {
+    width: 100%;
+    height: 100%; }
+
+.searchBtn {
+  display: none;
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center; }
+  .searchBtn img {
+    width: 32px;
+    height: 32px; }
+
+.cardsImageWrapper:hover .searchBtn {
+  display: flex; }
+
+/*# sourceMappingURL=Cards.module.css.map */

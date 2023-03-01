@@ -1,0 +1,46 @@
+.header {
+  background: white;
+  background: -webkit-linear-gradient(top left, white, #d1c8c8);
+  background: -moz-linear-gradient(top left, white, #d1c8c8);
+  background: linear-gradient(to bottom right, white, #d1c8c8);
+  text-align: center;
+  padding: 12px 0;
+  box-shadow: inset 0 0 10px white;
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  transition: all 0.2s ease; }
+  .header form {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #9ea6e4; }
+
+.logo {
+  width: 130px;
+  object-fit: contain; }
+
+.headerSearchBtn, .headerSearchBtnHandler {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none; }
+
+.headerSearchBtnHandler {
+  margin: 0 auto; }
+
+.headerSearchInput {
+  border: none;
+  outline: none;
+  width: 100%; }
+
+.headerAccountIcon {
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+/*# sourceMappingURL=Header.module.css.map */
