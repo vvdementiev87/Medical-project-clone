@@ -31,7 +31,8 @@ class RegisterController
             'category'=> ['string', 'nullable'],
             'experience'=> ['numeric', 'nullable'],
             'other_info'=> ['boolean', 'nullable'],
-            'sign_for_news'=> ['required','boolean', 'accepted'],
+            'sign_for_news'=> ['boolean'],
+            'has_agree' => ['accepted'],
             'password' => ['required', 'password'],
         ];
     }
