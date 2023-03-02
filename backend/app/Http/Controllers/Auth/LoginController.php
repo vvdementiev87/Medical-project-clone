@@ -5,17 +5,19 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class LoginController
 {
     /**
      * @return array
      */
-    protected function validator()
+    protected function validationInput()
     {
         return [
-            'email'=> ['required', 'email address', 'unique'],
-            'password' => ['requared'],
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ];
     }
 
@@ -41,14 +43,27 @@ class LoginController
      */
     public function login(Request $request) 
     {
-        $request->validate($this->validator());
+        $validator = Validator::make($request->all(), $this->validationInput());
 
-        $credentials = $request->only('email', 'password');
+        if ($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()->toArray()
+            ]);
+       }
 
-        if (Auth::attempt($credentials)) {
+        $auth = $request->only('email', 'password');
+
+        if (!Auth::attempt($auth)) {
             $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+
+                return back()->withErrors([
+                    'email' => 'Неверные email или пароль',
+            ]);
         }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : redirect()->intended('dashboard');;
     }
 }

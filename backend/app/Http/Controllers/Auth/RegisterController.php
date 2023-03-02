@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
 
@@ -14,26 +15,26 @@ class RegisterController
     /**
      * @return array
      */
-    protected function validator()
+    protected function validationInput()
     {
         return [
-            'last_name' => ['required', 'string', 'alpha_dash:ascii'],
-            'first_name'=> ['required', 'string', 'alpha_dash:ascii'],
-            'surname' => ['required', 'string', 'alpha_dash:ascii'],
-            'birth_date' => ['date'],
-            'avatar' => ['image', 'nullable'],
-            'email'=> ['required', 'email address', 'unique'],
-            'phone' => ['unique', 'numeric', 'min:11'],
-            'address' => ['string'],
-            'education'=> ['string', 'nullable'],
-            'place_work' => ['string', 'nullable'],
-            'position'=> ['string', 'nullable'],
-            'category'=> ['string', 'nullable'],
-            'experience'=> ['numeric', 'nullable'],
-            'other_info'=> ['boolean', 'nullable'],
-            'sign_for_news'=> ['boolean'],
-            'has_agree' => ['accepted'],
-            'password' => ['required', 'password'],
+            'last_name' => 'required|string|alpha_dash:ascii',
+            'first_name' => 'required|string|alpha_dash:ascii',
+            'surname' => 'required|string|alpha_dash:ascii',
+            'birth_date' => 'date',
+            'avatar' => 'image|nullable',
+            'email' => 'required|email',
+            'phone' => 'numeric|min:11',
+            'address' => 'string',
+            'education' => 'string|nullable',
+            'place_work' => 'string|nullable',
+            'position' => 'string|nullable',
+            'category' => 'string|nullable',
+            'experience' => 'numeric|nullable',
+            'other_info' => 'boolean|nullable',
+            'sign_for_news' => 'boolean',
+            'has_agree' => 'accepted',
+            'password' => 'required|min:6',
         ];
     }
 
@@ -69,11 +70,17 @@ class RegisterController
      */
     public function register(Request $request)
     {
-        
-        $request->validate($this->validator());
+        $validator = Validator::make($request->all(), $this->validationInput());
 
-        if(empty($data)) $this->create($request->input());
+        if ($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()->toArray()
+            ]);
+       }
 
+       $this->create($request->input());
+    
         return $request->wantsJson()
             ? new JsonResponse([], 201)
             : redirect()->route('#');
