@@ -1,7 +1,9 @@
 {
-"version": 3,
-"mappings": "AAAA,QAAQ;EACN,OAAO,EAAE,MAAM;;AAEjB,eAAe;EACb,SAAS,EAAE,IAAI;EACf,aAAa,EAAE,IAAI",
-"sources": ["Courses.module.scss"],
-"names": [],
-"file": "Courses.module.css"
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAA;EACN,OAAO,EAAE,MAAM;CAChB;;AACD,AAAA,eAAe,CAAA;EACb,SAAS,EAAE,IAAI;EACf,aAAa,EAAE,IAAI;CACpB",
+    "sources": [
+        "Courses.module.scss"
+    ],
+    "names": [],
+    "file": "Courses.module.css"
 }
