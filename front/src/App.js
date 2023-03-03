@@ -1,19 +1,17 @@
 import './assets/styles/App.css';
-import React, { useState } from 'react';
-
-import Router from './components/Router/Router';
-import Loader from './components/Loader/Loader';
+import { Route, Routes } from 'react-router-dom';
+import Registration from './pages/Registration';
+import Login from './pages/Login';
 
 function App() {
-	const [loading] = useState(false);
-	if (loading) {
-		return <Loader />;
-	}
-	return (
-		<div className="App">
-			<Router />
-		</div>
-	);
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="signup" element={<Registration/>}/>
+        <Route path="login" element={<Login/>}/>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
