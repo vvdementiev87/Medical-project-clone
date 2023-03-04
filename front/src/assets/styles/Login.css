@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+.login_container {
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+  max-width: 75%;
+  gap: 24px;
+}
+
+=======
+>>>>>>> 24d006945d2f244abdb8c5bbfc92491f97116f7b
 .login_title {
     font-weight: 700;
     font-size: 36px;
@@ -6,8 +17,11 @@
   }
 
   .login_form {
+<<<<<<< HEAD
+=======
     margin: 0 auto 64px;
     max-width: 65%;
+>>>>>>> 24d006945d2f244abdb8c5bbfc92491f97116f7b
     box-sizing: border-box;
     padding: 48px;
     border-radius: 5px;
@@ -63,4 +77,11 @@
   .login_btn:hover {
     background: rgba(68, 68, 167, 0.9);
     transform: scale(0.95);
+<<<<<<< HEAD
+  }
+  
+  .login_text {
+    font-size: 18px;
+=======
+>>>>>>> 24d006945d2f244abdb8c5bbfc92491f97116f7b
   }
