@@ -17,7 +17,7 @@ class LoginController
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required'
         ];
     }
 
@@ -39,10 +39,11 @@ class LoginController
 
     /**
      * @param  Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function login(Request $request) 
     {
+        dd($request);
         $validator = Validator::make($request->all(), $this->validationInput());
 
         if ($validator->fails()){
@@ -54,16 +55,16 @@ class LoginController
 
         $auth = $request->only('email', 'password');
 
-        if (!Auth::attempt($auth)) {
+        if (Auth::attempt($auth)) {
             $request->session()->regenerate();
 
-                return back()->withErrors([
-                    'email' => 'Неверные email или пароль',
-            ]);
-        }
+            return redirect()->intended('dashboard');
+        }    
 
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect()->intended('dashboard');;
+        return response()->json([
+            'success' => false,
+
+        ]);      
     }
+
 }

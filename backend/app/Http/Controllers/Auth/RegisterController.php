@@ -4,40 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
+use App\Http\Requests\Users\CreateRequest;
 
 class RegisterController
 {
-    /**
-     * @return array
-     */
-    protected function validationInput()
-    {
-        return [
-            'last_name' => 'required|string|alpha_dash:ascii',
-            'first_name' => 'required|string|alpha_dash:ascii',
-            'surname' => 'required|string|alpha_dash:ascii',
-            'birth_date' => 'date',
-            'avatar' => 'image|nullable',
-            'email' => 'required|email',
-            'phone' => 'numeric|min:11',
-            'address' => 'string',
-            'education' => 'string|nullable',
-            'place_work' => 'string|nullable',
-            'position' => 'string|nullable',
-            'category' => 'string|nullable',
-            'experience' => 'numeric|nullable',
-            'other_info' => 'boolean|nullable',
-            'sign_for_news' => 'boolean',
-            'has_agree' => 'accepted',
-            'password' => 'required|min:6',
-        ];
-    }
-
     /**
      * @param  array $data
      * @return User $user
@@ -49,7 +22,7 @@ class RegisterController
             'first_name'=> $data['first_name'],
             'surname' => $data['surname'],
             'birth_date' => $data['birth_date'],
-            'avatar' => $data['image'],
+            'avatar' => $data['avatar'],
             'email'=> $data['email'],
             'phone' => $data['phone'],
             'address' => $data['address'],
@@ -66,24 +39,24 @@ class RegisterController
 
     /**
      * @param  Request $request
-     * @return JsonResponse|RedirectResponse
+     * @return JsonResponse
      */
-    public function register(Request $request)
+    public function register(CreateRequest $request,)
     {
-        $validator = Validator::make($request->all(), $this->validationInput());
+        
+        $validate = $request->validated();
 
-        if ($validator->fails()){
+        $user = $this->create($validate);
+
+
+        if($user) {
             return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()->toArray()
+                'success' => true,
             ]);
-       }
+        }
 
-       $this->create($request->input());
-    
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect()->route('#');
-
+        return response()->json([
+            'success' => false,
+        ]);
     }
 }
