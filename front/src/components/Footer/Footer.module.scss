@@ -1,11 +1,6 @@
-$max-tablet-width: '991px';
+$max-tablet-width: '550px';
 
-@mixin headerBackgroundGradient() {
-  background: rgba(220, 214, 214, 1.0);
-  background: -webkit-linear-gradient(top left, rgba(220, 214, 214, 1.0), rgba(209, 200, 200, 1.0));
-  background: -moz-linear-gradient(top left, rgba(220, 214, 214, 1.0), rgba(209, 200, 200, 1.0));
-  background: linear-gradient(to bottom right, rgba(220, 214, 214, 1.0), rgba(209, 200, 200, 1.0));
-}
+// 
 
 @mixin tablet {
   @media(max-width: $max-tablet-width) {
@@ -14,17 +9,45 @@ $max-tablet-width: '991px';
 }
 
 .footer {
-  @include headerBackgroundGradient;
+  background-color: rgba(68, 68, 167, 0.1);
   font-size: 15px;
-  padding: 40px 0;
-  @include tablet() {
-    text-align: center;
+  div {
+      padding: 24px 0 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      @include tablet() {
+        padding: 24px;
+        flex-direction: column;
+      }
   }
-  a{
-    color: rgba(38, 38, 38, 0.6);
+  h5 {
+    color: rgb(51, 51, 51);
+    font-size: 20px;
+    @include tablet() {
+      font-size: 18px;
+    }
+  }
+  a {
+    color: rgba(51, 51, 51, 0.9);
+    font-size: 18px;
+    font-weight: 400;
     &:hover{
-      color: rgba(38, 38, 38, 1);
-      text-decoration: underline;
+      color: rgba(68, 68, 167, 0.5);
+    }
+  }
+  section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+  ul {
+    margin: 0;
+    align-items: baseline;
+    gap: 5px;
+    @include tablet() {
+      gap: 10px;
     }
   }
 }
@@ -34,38 +57,35 @@ $max-tablet-width: '991px';
   margin: 0;
   display: flex;
   flex-direction: column;
-  @include tablet() {
-    align-items: center;
-  }
 }
 
 .footerLogo img {
   object-fit: cover;
   object-position: left;
-  width: 140px;
+  width: 240px;
   margin:0;
 }
 
 .footerList {
   display: flex;
   flex-direction: column;
-  &:last-child{
-    @include tablet() {
-      align-items: center;
-    }
-  }
-  li{
-    img{
+  li {
+    img {
+      display: inline;
       width: 24px;
       height: 24px;
       margin-right: 12px;
     }
+    div {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      gap: 5px;
+    }    
   }
 }
-
 
 .footer a:hover img {
   transition: all 1s linear;
   transform: scale(1.1);
 }
-

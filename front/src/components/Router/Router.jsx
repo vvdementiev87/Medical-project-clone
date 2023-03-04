@@ -2,18 +2,15 @@ import React from "react";
 import {
     BrowserRouter,
     Route, Routes,
-   
+    NavLink
 } from 'react-router-dom';
 
 import styles from "./Router.module.css";
+import Exit from "../../assets/images/exit.png";
 import Header from "../Header/Header";
 import Home from "../../pages/home/Home";
 import Footer from "../Footer/Footer";
-// import Home from "../../Pages/Home/Home";
-// import Login from "../Login/Login";
-// import Footer from "../Footer/Footer";
-// import BackToTopButton from "../BackToTopButton/BackToTopButton";
-import { routes, PrivateRoute } from '../../routes/route';
+import routes from '../../routes/route';
 import BackToTopButton from "../BackToTopButton/BackToTopButton";
 import Registration from "../../pages/home/Registration";
 import Login from "../../pages/home/Login";

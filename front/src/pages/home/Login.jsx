@@ -13,16 +13,16 @@ export function Login() {
 
     return <>
         {isAuth ?
-            <div>
-                <h2 className="reg_title">Выход</h2>
+            <div className ="login_container">
+                <h2 className="login_title">Выход</h2>
                 <p>Вы уверены, что хотите выйти?</p>
                 <input className="login_btn" type="submit" value="Выйти" onClick={handleSubmit} />
             </div>
             :
-            <div>
-                <h2 className="reg_title">Вход</h2>
+            <div className ="login_container">
+                <h2 className="login_title">Вход</h2>
                 <LoginForm />
-                <p>Если Вы не зарегистрированы, пожалуйста, заполните <Link to={'/signup'}>форму регистрации</Link>.</p>
+                <p className="login_text">Если Вы не зарегистрированы, пожалуйста, заполните <Link to={'/signup'}>форму регистрации</Link>.</p>
             </div>
         }
     </>
