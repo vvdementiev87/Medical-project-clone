@@ -1,5 +1,6 @@
+import React from 'react';
 import { Link } from "react-router-dom";
-import LoginForm from "../components/loginForm";
+import LoginForm from "../components/LoginForm/loginForm";
 
 import '../assets/styles/Login.css'
 
@@ -7,8 +8,7 @@ function Login() {
     //здесь будет логика проверки токена сессии
     const isAuth = false;
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (data) => {
         console.log("Логика выхода");
     }
 
@@ -22,7 +22,7 @@ function Login() {
             :
             <div>
                 <h2 className="reg_title">Вход</h2>
-                <LoginForm />
+                <LoginForm saveData={handleSubmit} />
                 <p>Если Вы не зарегистрированы, пожалуйста, заполните <Link to={'/signup'}>форму регистрации</Link>.</p>
             </div>
         }

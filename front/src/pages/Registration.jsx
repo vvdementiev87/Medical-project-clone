@@ -1,5 +1,5 @@
 import '../assets/styles/Registration.css'
-import RegistrationForm from '../components/registrationForm';
+import RegistrationForm from '../components/RegistrationForm/registrationForm';
 
 function Registration () {
     return <>
