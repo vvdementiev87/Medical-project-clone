@@ -121,14 +121,14 @@ const Header = ({ authed }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/videos" className="dropdown-item">
 											Учебные материалы
 										</Link>
 									</li>
 								</ul>
 							</li>
 							<li className="nav-item">
-								<Link to="/" className="menu_link" aria-current="page">
+								<Link to="/news" className="menu_link" aria-current="page">
 									Новости
 								</Link>
 							</li>
