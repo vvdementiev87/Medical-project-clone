@@ -1,0 +1,91 @@
+$max-tablet-width: '550px';
+
+// 
+
+@mixin tablet {
+  @media(max-width: $max-tablet-width) {
+    @content;
+  }
+}
+
+.footer {
+  background-color: rgba(68, 68, 167, 0.1);
+  font-size: 15px;
+  div {
+      padding: 24px 0 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      @include tablet() {
+        padding: 24px;
+        flex-direction: column;
+      }
+  }
+  h5 {
+    color: rgb(51, 51, 51);
+    font-size: 20px;
+    @include tablet() {
+      font-size: 18px;
+    }
+  }
+  a {
+    color: rgba(51, 51, 51, 0.9);
+    font-size: 18px;
+    font-weight: 400;
+    &:hover{
+      color: rgba(68, 68, 167, 0.5);
+    }
+  }
+  section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+  ul {
+    margin: 0;
+    align-items: baseline;
+    gap: 5px;
+    @include tablet() {
+      gap: 10px;
+    }
+  }
+}
+
+.footerLogo {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLogo img {
+  object-fit: cover;
+  object-position: left;
+  width: 240px;
+  margin:0;
+}
+
+.footerList {
+  display: flex;
+  flex-direction: column;
+  li {
+    img {
+      display: inline;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+    }
+    div {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      gap: 5px;
+    }    
+  }
+}
+
+.footer a:hover img {
+  transition: all 1s linear;
+  transform: scale(1.1);
+}
