@@ -1,0 +1,19 @@
+@import '../../assets/styles/variables';
+.input {
+	label {
+		font-family: 'Rubik';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 140%;
+		color: rgba($primary-text-color, 0.25);
+	}
+	input {
+		font-family: 'Rubik';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 140%;
+		color: rgba($primary-text-color, 0.25);
+	}
+}

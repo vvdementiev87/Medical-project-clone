@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import Search from "../../assets/images/search.png";
 
-const Header = ({ authed }) => {
+сonst Header = ({ authed }) => {
     const [isSearchVisible, setSearchVisible] = useState(false);
     const getSearchVisible = () => {
         setSearchVisible(prev => !prev);
@@ -72,9 +72,13 @@ const Header = ({ authed }) => {
                             <li className="nav-item">
                                 <Link to="/" className="menu_link" aria-current="page">Новости</Link>
                             </li>
+                            {isAuth && (<li className="nav-item">
+                                <NavLink to="/profile" className="nav-link" aria-current="page">Личный кабинет</NavLink>
+                            </li>)}
                             <li className="nav-item">
                                 <Link to="/login" className="menu_link" aria-current="page">Контакты</Link>
                             </li>
+                            
                             <li>
 
                                 <button className={`btn ${styles.headerSearchBtnHandler}`} onClick={getSearchVisible}

@@ -5,13 +5,13 @@ import Router from "./components/Router/Router";
 import Loader from "./components/Loader/Loader";
 
 function App() {
-  const [loading] = useState(false);
-  if (loading) {
-    return <Loader/>
-  }
   return (
     <div className="App">
       <Router/>
+      <Routes>
+        <Route path="signup" element={<Registration/>}/>
+        <Route path="login" element={<Login/>}/>
+      </Routes>
     </div>
   );
 }

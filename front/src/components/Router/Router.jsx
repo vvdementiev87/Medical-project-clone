@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Route, Routes,
@@ -14,20 +14,29 @@ import routes from '../../routes/route';
 import BackToTopButton from "../BackToTopButton/BackToTopButton";
 import Registration from "../../pages/home/Registration";
 import Login from "../../pages/home/Login";
+import Profile from "../../pages/profile/Profile";
 
-
+const isAuth=true;
 
 function Router() {
-    const [authed, setAuthed] = useState(true);
     return (
         <BrowserRouter>
-            <Header authed={authed}/>
+            <Header isAuth={isAuth}/>
             <div style={{minHeight:'100vh'}}>
                 <Routes>
                     <Route exec path={routes.HOME} element={<Home/>}/>
                     <Route path="signup" element={<Registration/>}/>
                     <Route path="login" element={<Login/>}/>
                     <Route path="*" element={<h2 className={styles.h2}>Страница не найдена</h2>}/>
+                    
+                    <Route
+					path="/profile"
+					element={
+						<PrivateRoute isAuth={isAuth}>
+							<Profile />
+						</PrivateRoute>
+					}
+				/>
                 </Routes>
             </div>
             <BackToTopButton/>

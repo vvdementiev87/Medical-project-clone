@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+@import './variables';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -42,7 +51,6 @@ a.active {
 img{
   display: block;
   width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center;
 }
@@ -71,4 +79,16 @@ li.nav-item.active,li.nav-item:hover,li.nav-item:focus{
 
 .navbar-custom {
   background: transparent !important;
+}
+
+.rmsc {
+	--rmsc-main: #d3b288 !important;
+	--rmsc-hover: #d3b288 !important;
+	--rmsc-selected: #d3b288 !important;
+	--rmsc-border: #ccc;
+	--rmsc-gray: #aaa;
+	--rmsc-bg: #fff;
+	--rmsc-p: 10px; /* Spacing */
+	--rmsc-radius: 4px; /* Radius */
+	--rmsc-h: 38px; /* Height */
 }
