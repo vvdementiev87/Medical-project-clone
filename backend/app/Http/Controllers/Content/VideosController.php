@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Http\Controllers\Content;
 
@@ -15,7 +15,7 @@ class VideosController extends Controller
     public function index(): string
     {
         $videos = new VideosModel();
-        $result;
+        $result = [];
         foreach ($videos->get() as $item) {
             $result[$item->id] = [
                 'videoYoutubeId' => $item->video_youtube_id,

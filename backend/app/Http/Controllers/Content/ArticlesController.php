@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Http\Controllers\Content;
 
@@ -15,7 +15,7 @@ class ArticlesController extends Controller
     public function index(): string
     {
         $articles = new ArticlesModel();
-        $result;
+        $result = [];
         foreach ($articles->get() as $item) {
             $result[$item->id] = [
                 'author' => $item->author,
