@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import styles from './Router.module.css';
-import Exit from '../../assets/images/exit.png';
 import Header from '../Header/Header';
 import Home from '../../pages/home/Home';
 import Footer from '../Footer/Footer';
@@ -11,6 +10,10 @@ import BackToTopButton from '../BackToTopButton/BackToTopButton';
 import Registration from '../../pages/home/Registration';
 import Login from '../../pages/home/Login';
 import Profile from '../../pages/profile/Profile';
+import VideoGallery from '../../pages/video-gallery/VideoGallery';
+import VideoItemPage from '../../pages/video-item/VideoItemPage';
+import NewsItemPage from '../../pages/news-item/NewsItemPage';
+import NewsGallery from '../../pages/news-gallery/NewsGallery';
 
 const isAuth = true;
 
@@ -27,6 +30,11 @@ function Router() {
 						path="*"
 						element={<h2 className={styles.h2}>Страница не найдена</h2>}
 					/>
+
+					<Route exact path="/videos" element={<VideoGallery />} />
+					<Route path="/videos/:videoId" element={<VideoItemPage />} />
+					<Route exact path="/news" element={<NewsGallery />} />
+					<Route path="/news/:newsId" element={<NewsItemPage />} />
 
 					<Route
 						path="/profile"
