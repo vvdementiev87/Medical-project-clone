@@ -18,7 +18,7 @@ use App\Http\Controllers\Content\ArticlesController;
 */
 
 Route::get('/', function () {
-    return view('main');
+    return view('welcome');
 });
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
