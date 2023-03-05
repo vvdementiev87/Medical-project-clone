@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Content\VideosController;
+use App\Http\Controllers\Content\ArticlesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'content', 'as' => '',], static function () {
+    Route::resource('videos', VideosController::class);
+    Route::resource('articles', ArticlesController::class);
 });
