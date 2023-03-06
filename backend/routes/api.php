@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Content\VideosController;
+use App\Http\Controllers\Content\ArticlesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,8 +29,15 @@ Route::group(['prefix' => 'user','middleware' => 'auth'], function() {
         ->name('account.logout');
 });
 
-
+Route::group(['prefix' => 'auth', 'as' => '',], static function () {
 Route::post('register', [RegisterController::class, 'register'])
         ->name('account_register');
 Route::post('login', [LoginController::class, 'login'])
         ->name('login');    
+    });
+
+        Route::group(['prefix' => 'content', 'as' => '',], static function () {
+            Route::get('videos', [VideosController::class, 'index']);
+            Route::get('articles', [ArticlesController::class, 'index']);
+        });
+        

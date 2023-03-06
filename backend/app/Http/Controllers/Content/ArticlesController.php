@@ -18,6 +18,7 @@ class ArticlesController extends Controller
         $result = [];
         foreach ($articles->get() as $item) {
             $result[$item->id] = [
+                'id'=>$item->id,
                 'author' => $item->author,
                 'title' => $item->title,
                 'description' => $item->description,

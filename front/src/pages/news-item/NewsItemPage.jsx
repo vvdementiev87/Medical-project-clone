@@ -1,15 +1,20 @@
 import { useParams } from 'react-router-dom';
 import Favorites from '../../components/Favorites/Favorites';
-
+import { useQuery } from 'react-query';
+import { NewsService } from '../../services/news.service';
 import styles from './NewsItemPage.module.scss';
 
-import { news } from '../news-gallery/NewsGallery';
 
 const NewsItemPage = () => {
 	const { newsId } = useParams();
-	const newsItem = news.find((news) => String(news.id) === newsId);
+	const { isLoading, data }  = useQuery('News list', () => NewsService.getAll());
+	
+	
+	const newsItem = data?.find((news) => String(news.id) === newsId);
 
-	return (
+	return (isLoading ? (
+		<h1>Loading...</h1>
+	) : (
 		<div className={styles.profile}>
 			<div title={newsItem.title} className={styles.news}>
 				<h2>{newsItem.description}</h2>
@@ -26,7 +31,7 @@ const NewsItemPage = () => {
 				<Favorites />
 			</div>
 		</div>
-	);
+	));
 };
 
 export default NewsItemPage;

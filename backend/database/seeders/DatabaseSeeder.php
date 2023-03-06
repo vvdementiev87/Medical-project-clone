@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AccessGroupSeeder::class,
-            UserSeeder::class,
+            
             VideosSeeder::class,
             ArticlesSeeder::class,
         ]);
