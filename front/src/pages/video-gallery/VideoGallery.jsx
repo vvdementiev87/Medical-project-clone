@@ -7,7 +7,7 @@ import styles from './VideoGallery.module.scss';
 
 const PageSize = 12;
 export const video = [];
-const videoObj = {};
+/* const videoObj = {};
 
 for (let i = 0; i < 37; i++) {
 	videoObj[i] = {
@@ -26,7 +26,7 @@ for (let i = 0; i < 37; i++) {
 for (let i in videoObj) {
 	video.push(videoObj[i]);
 }
-console.log(video);
+console.log(video); */
 
 const VideoGallery = () => {
 	const { isLoading, data } = useQuery('Video list', () =>
@@ -37,9 +37,7 @@ const VideoGallery = () => {
 	const currentTableData = useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * PageSize;
 		const lastPageIndex = firstPageIndex + PageSize;
-		return data
-			? data.slice(firstPageIndex, lastPageIndex)
-			: video.slice(firstPageIndex, lastPageIndex);
+		return data && data.slice(firstPageIndex, lastPageIndex);
 	}, [currentPage, data]);
 	return isLoading ? (
 		<h1>Loading...</h1>

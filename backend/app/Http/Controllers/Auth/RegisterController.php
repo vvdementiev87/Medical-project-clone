@@ -43,7 +43,7 @@ class RegisterController
      */
     public function register(CreateRequest $request,)
     {
-        
+        dd($request);
         $validate = $request->validated();
 
         $user = $this->create($validate);
@@ -51,12 +51,13 @@ class RegisterController
 
         if($user) {
             return response()->json([
-                'success' => true,
+                'accessToken' => true,
+                'user'=>$user
             ]);
         }
 
         return response()->json([
-            'success' => false,
+            'error' => false,
         ]);
     }
 }
