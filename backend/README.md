@@ -7,60 +7,60 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Настройка backend проекта
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ Бэк проекта на Laravel sail, разворачивается через Docker. Данное описание идёт для Windows ^10. Настройка на других ОС или версиях может отличаться.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  Для работы с backend необходим [php^8.1](https://www.php.net/downloads.php), [Composer](https://getcomposer.org/Composer-Setup.exe), [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ Возможна быстрая установка с автонастройкой необходимых компонентов системы для работы с вирт. машиной, но иногда может быть сбой, и нужно будет удалять wsl, отменять настройки и делать всё заново. Установка WSL через powershell, командой:
 
-## Learning Laravel
+                                  	  wsl - - install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+ Можно проделать все тоже самое вручную:
+Перед  установкой проверить, что включена поддержка подсистемы  Linux.
+Включить её можно выполнением команды в powershell, после перезагрузить машину, для итоговой надстройки:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    `dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Далее включить поддержку виртуальной машины для windows:
 
-## Laravel Sponsors
+    `dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+[Качаем отсюда](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi) и устанавливаем пакет обновлений для ядра Linux:
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Перезагружаем машину, для дальнейшей надстройки и обновления WSL до 2 версии, также необходимо задать  поддержку новых дистрибутивов Linux WSL 2 версии
 
-## Contributing
+    `wsl --set-default-version 2`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Качаем нужный дистрибутив в Microsoft store на данный момент мы используем Ubuntu 22.04.2, Перезагружаем машину
 
-## Code of Conduct
+Заходим в терминал Ubuntu устанавливаем username и password, Далее подключаем нужный диск нашей системы, сделать это можно из директории mnt, То-есть подключение диска С, будет выглядеть так:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+      cd  /mnt/c
 
-## Security Vulnerabilities
+Переходим в нужную нам директорию, где заранее был спулен бэк
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**#необходимо сначала установить зависимости в проекте и сгенерировать папку vendor, при возникновении проблем - рекомендуется удалять файл composer.lock и генерировать его через:**
+    
+    `composer install
+     composer dump-autoload`
 
-## License
+Необходимо в корне проекта скопировать файл **.env.example** с новым названием - **.env**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Перед запуском sail необходимо проверить наличие, и настройки в файле **.env** корневой папки **back**, т.к. Файл конфигурации докера **docker-compose.yml** подставляет необходимые значения оттуда.
+
+Запускаем sail для дальнейшей настройки контейнеров в docker  и запуском локалки командой:
+
+
+    `./vendor/bin/sail up`
+
+	
+**#простая настройка контейнера:**
+
+	`docker compose up`
+
+**#если требуется после сборки запуск контейнеров в фоновом режиме:**
+
+    `docker compose up –detach`
