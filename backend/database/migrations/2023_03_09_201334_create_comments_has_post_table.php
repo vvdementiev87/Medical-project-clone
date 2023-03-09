@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('access_group_has_user', function (Blueprint $table) {
+        Schema::create('comments_has_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->references('id')->on('access_group')->cascadeOnDelete();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
+            $table->foreignId('comment_id')->references('id')->on('comments')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_has_users');
+        Schema::dropIfExists('comments_has_post');
     }
 };
