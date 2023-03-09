@@ -6,6 +6,7 @@ import { removeTokensStorage, saveToStorage } from './auth.helpers';
 
 export const AuthService = {
 	async register(
+		password_confirmation,
 		email,
 		password,
 		address,
@@ -23,6 +24,7 @@ export const AuthService = {
 		birth_date
 	) {
 		const response = await axiosClassic.post(getAuthUrl('/register'), {
+			password_confirmation,
 			email,
 			password,
 			address,
@@ -40,10 +42,10 @@ export const AuthService = {
 			birth_date,
 		});
 		console.log(response);
-		if (response.data.accessToken) {
+		if (response?.data.accessToken) {
 			saveToStorage(response.data);
 		}
-		return response.data;
+		return response;
 	},
 
 	async login(email, password) {
@@ -51,8 +53,8 @@ export const AuthService = {
 			email,
 			password,
 		});
-		if (response.data.accessToken) {
-			saveToStorage(response.data);
+		if (response?.data.accessToken) {
+			saveToStorage(response?.data);
 		}
 		return response;
 	},
