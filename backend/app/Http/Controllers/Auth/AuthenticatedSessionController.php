@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Handle an incoming authentication request.
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(LoginRequest $request): JsonResponse
     {
@@ -20,13 +22,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-
-
-        return response()->json(['user'=>auth()->user()]);
+        return response()->json(['user' => auth()->user()]);
     }
 
     /**
-     * Destroy an authenticated session.
+     * @param Request $request
+     * @return Response
      */
     public function destroy(Request $request): Response
     {
