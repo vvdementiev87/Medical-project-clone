@@ -15,7 +15,7 @@ class VideosSeeder extends Seeder
         $data = [];
         for($i = 0; $i < 10; $i++) {
             $data[] = [
-                'video_youtube_id' => \fake()->url(),
+                'video_youtube_id' => '7NvIHqoMDJE',
                 'author' => \fake()->firstName(),
                 'title' => \fake()->word(),
                 'description' => \fake()->sentence(10),

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('surname');
             $table->timestamp('birth_date');
             $table->string('avatar')->nullable();
-            $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('education')->nullable();
@@ -28,8 +27,6 @@ return new class extends Migration
             $table->string('category')->nullable();
             $table->string('experience')->nullable();
             $table->string('other_info')->nullable();
-            $table->timestamp('email_updated_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Favorites from '../../components/Favorites/Favorites';
+import { VideoService } from '../../services/video.service';
 
-import { video } from '../video-gallery/VideoGallery';
 
 import styles from './VideoItemPage.module.scss';
 import YouTube from 'react-youtube';
@@ -19,9 +19,14 @@ const opts = {
 
 const VideoItemPage = () => {
 	const { videoId } = useParams();
-	const videoItem = video.find((video) => String(video.id) === videoId);
+	const { isLoading, data } = useQuery('Video list', () =>
+		VideoService.getAll()
+	);
+	const videoItem = data?.find((video) => String(video.id) === videoId);
 
-	return (
+	return (isLoading ? (
+		<h1>Loading...</h1>
+	) : (
 		<div className={styles.profile}>
 			<div title={videoItem.title} className={styles.video}>
 				<h2>{videoItem.description}</h2>
@@ -38,7 +43,7 @@ const VideoItemPage = () => {
 				<Favorites />
 			</div>
 		</div>
-	);
+	))
 };
 
 export default VideoItemPage;

@@ -18,6 +18,7 @@ class VideosController extends Controller
         $result = [];
         foreach ($videos->get() as $item) {
             $result[$item->id] = [
+                'id'=>$item->id,
                 'videoYoutubeId' => $item->video_youtube_id,
                 'author' => $item->author,
                 'title' => $item->title,
