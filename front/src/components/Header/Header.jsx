@@ -3,6 +3,7 @@ import Bosom from '../../assets/images/logo_bosom_named.png';
 import styles from './Header.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import Search from '../../assets/images/search.png';
+import { routes } from '../../routes/route';
 
 const Header = ({ authed }) => {
 	const [isSearchVisible, setSearchVisible] = useState(false);
@@ -121,7 +122,7 @@ const Header = ({ authed }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/videos" className="dropdown-item">
+										<Link to={routes.STUDY.link} className="dropdown-item">
 											Учебные материалы
 										</Link>
 									</li>

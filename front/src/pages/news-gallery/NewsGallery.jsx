@@ -25,23 +25,20 @@ for (let i = 0; i < 37; i++) {
 }*/
 
 const NewsGallery = () => {
-	const { isLoading, data }  = useQuery('News list', () => NewsService.getAll());
-
-
+	const { isLoading, data } = useQuery('News list', () => NewsService.getAll());
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const currentTableData = useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * PageSize;
 		const lastPageIndex = firstPageIndex + PageSize;
-		return data && data.slice(firstPageIndex, lastPageIndex)
-			
-	}, [currentPage,data]);
+		return data && data.slice(firstPageIndex, lastPageIndex);
+	}, [currentPage, data]);
 
 	return isLoading ? (
 		<h1>Loading...</h1>
 	) : (
 		<div className={styles.container}>
-			<h1>{'Статьи и новости'}</h1>
+			<h1>{'Новости'}</h1>
 			<Pagination
 				currentPage={currentPage}
 				totalCount={news.length}

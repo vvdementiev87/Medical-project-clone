@@ -14,6 +14,9 @@ import VideoGallery from '../../pages/video-gallery/VideoGallery';
 import VideoItemPage from '../../pages/video-item/VideoItemPage';
 import NewsItemPage from '../../pages/news-item/NewsItemPage';
 import NewsGallery from '../../pages/news-gallery/NewsGallery';
+import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVideoSwitchPage';
+import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
+import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
 
 const isAuth = true;
 
@@ -23,7 +26,7 @@ function Router() {
 			<Header isAuth={isAuth} />
 			<div style={{ minHeight: '100vh' }}>
 				<Routes>
-					<Route exec path={routes.HOME} element={<Home />} />
+					<Route exec path={routes.HOME.link} element={<Home />} />
 					<Route path="signup" element={<Registration />} />
 					<Route path="login" element={<Login />} />
 					<Route
@@ -35,6 +38,17 @@ function Router() {
 					<Route path="/videos/:videoId" element={<VideoItemPage />} />
 					<Route exact path="/news" element={<NewsGallery />} />
 					<Route path="/news/:newsId" element={<NewsItemPage />} />
+					<Route exact path="/articles" element={<ArticlesGallery />} />
+					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
+
+					<Route
+						path={routes.STUDY.link}
+						element={
+							<PrivateRoute isAuth={isAuth}>
+								<ArticleVideoSwitchPage />
+							</PrivateRoute>
+						}
+					/>
 
 					<Route
 						path="/profile"
