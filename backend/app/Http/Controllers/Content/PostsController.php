@@ -60,7 +60,7 @@ class PostsController extends Controller
 
         $comments = $post->comments;
         $commentsCollection = [];
-        
+
         foreach ($comments as $comment) {
             $comment_user = $users->find($comment->author_id);
             $commentsCollection[$comment->id] = [
@@ -86,7 +86,7 @@ class PostsController extends Controller
             'comments' => $commentsCollection
         ];
 
-        return json_encode($result);  
+        return json_encode($result);
     }
 
     /**
