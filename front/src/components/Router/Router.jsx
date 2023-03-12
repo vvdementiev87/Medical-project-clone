@@ -55,14 +55,14 @@ function Router() {
 					<Route
 						path={routes.STUDY.link}
 						element={
-							<PrivateRoute isAuth={isAuth}>
+							<PrivateRoute isAuth={!!user}>
 								<ArticleVideoSwitchPage />
 							</PrivateRoute>
 						}
 					/>
 
 					<Route
-						path="/profile"
+						path={routes.PROFILE.link}
 						element={
 							<PrivateRoute isAuth={!!user}>
 								<Profile />

@@ -14,6 +14,6 @@ export function PublicRoute({ isAuth, to = routes.HOME.link, children }) {
 	return !isAuth ? children : <Navigate to={to} replace />;
 }
 
-export function PrivateRoute({ isAuth, to = routes.PROFILE.link, children }) {
+export function PrivateRoute({ isAuth, to = routes.HOME.link, children }) {
 	return !!isAuth ? children : <Navigate to={to} replace />;
 }

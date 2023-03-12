@@ -23,12 +23,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
-    Route::resource('videos', VideosController::class);
-    Route::resource('articles', ArticlesController::class);
-});
-
-
-Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
     Route::get('articles', [ArticlesController::class, 'index']);
 });
