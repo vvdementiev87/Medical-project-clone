@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './News.module.css';
 import NewsInMedicine from '../../assets/testImages/newInMedicine.jpg';
 import Relations from '../../assets/testImages/relations.jpg';
 import Digital from '../../assets/testImages/digital.jpg';
 import { Link } from 'react-router-dom';
 import Cards from '../Cards/Cards';
 import { routes } from '../../routes/route';
+import styles from './News.module.scss';
 
 const data = [
 	{

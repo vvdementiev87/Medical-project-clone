@@ -1,4 +1,4 @@
-export const API_URL = `${process.env.REACT_APP_URL}/api/`;
+export const API_URL = `${process.env.REACT_APP_URL}/`;
 
 export const getAuthUrl = (string) => `auth${string}`;
 export const getVideosUrl = (string) => `content/videos${string}`;

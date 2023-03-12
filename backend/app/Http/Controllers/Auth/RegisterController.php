@@ -38,8 +38,9 @@ class RegisterController
     }
 
     /**
-     * @param  Request $request
+     * @param CreateRequest $request
      * @return JsonResponse
+     *
      */
     public function register(CreateRequest $request,)
     {

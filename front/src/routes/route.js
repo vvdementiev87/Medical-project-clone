@@ -10,10 +10,10 @@ export const routes = {
 	STUDY: { link: '/study', name: 'Study' },
 };
 
-export function PublicRoute({ isAuth, to = '/', children }) {
+export function PublicRoute({ isAuth, to = routes.HOME.link, children }) {
 	return !isAuth ? children : <Navigate to={to} replace />;
 }
 
-export function PrivateRoute({ isAuth, to = '/', children }) {
+export function PrivateRoute({ isAuth, to = routes.PROFILE.link, children }) {
 	return !!isAuth ? children : <Navigate to={to} replace />;
 }
