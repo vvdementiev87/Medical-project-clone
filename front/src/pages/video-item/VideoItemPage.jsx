@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import Favorites from '../../components/Favorites/Favorites';
 import { VideoService } from '../../services/video.service';
 
-
 import styles from './VideoItemPage.module.scss';
 import YouTube from 'react-youtube';
 
@@ -24,7 +23,7 @@ const VideoItemPage = () => {
 	);
 	const videoItem = data?.find((video) => String(video.id) === videoId);
 
-	return (isLoading ? (
+	return isLoading ? (
 		<h1>Loading...</h1>
 	) : (
 		<div className={styles.profile}>
@@ -37,13 +36,12 @@ const VideoItemPage = () => {
 					className={styles.innerHTML}
 					dangerouslySetInnerHTML={{ __html: videoItem.textHTML }}
 				/>
-				<p>{videoItem.author}</p>
 			</div>
 			<div className={styles.right}>
 				<Favorites />
 			</div>
 		</div>
-	))
+	);
 };
 
 export default VideoItemPage;
