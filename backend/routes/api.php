@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\Content\VideosController;
 use App\Http\Controllers\Content\ArticlesController;
+use App\Http\Controllers\Content\PostsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +38,15 @@ Route::post('login', [LoginController::class, 'login'])
         ->name('login');    
     });
 
-        Route::group(['prefix' => 'content', 'as' => '',], static function () {
-            Route::get('videos', [VideosController::class, 'index']);
-            Route::get('articles', [ArticlesController::class, 'index']);
-        });
+Route::group(['prefix' => 'content', 'as' => '',], static function () {
+    Route::get('videos', [VideosController::class, 'index']);
+    Route::get('articles', [ArticlesController::class, 'index']);
+});
+
+Route::group(['prefix' => 'forum', 'as' => '',], static function () {
+    Route::get('posts', [PostsController::class, 'index']);
+    Route::get('/posts/{id}', [PostsController::class, 'show']);
+});
+
+
         
