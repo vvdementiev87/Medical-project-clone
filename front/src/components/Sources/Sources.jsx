@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import styles from './Sources.module.css';
+import styles from './Sources.module.scss';
 import { routes } from '../../routes/route';
 
 const element1 = <FontAwesomeIcon icon={faFile} />;
