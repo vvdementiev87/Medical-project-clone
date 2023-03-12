@@ -126,7 +126,7 @@ const Header = ({ isAuth }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to={routes.VIDEOS.link} className="dropdown-item">
+										<Link to={routes.STUDY.link} className="dropdown-item">
 											Учебные материалы
 										</Link>
 									</li>

@@ -1,10 +1,11 @@
 import React from 'react';
-import styles from './News.module.scss';
 import NewsInMedicine from '../../assets/testImages/newInMedicine.jpg';
 import Relations from '../../assets/testImages/relations.jpg';
 import Digital from '../../assets/testImages/digital.jpg';
 import { Link } from 'react-router-dom';
 import Cards from '../Cards/Cards';
+import { routes } from '../../routes/route';
+import styles from './News.module.scss';
 
 const data = [
 	{
@@ -42,7 +43,7 @@ const News = () => {
 				<div className="row">
 					<div className="col">
 						<Link
-							to="/"
+							to={routes.NEWS.link}
 							className={`${styles.gradientButton} ${styles.allNews}`}
 						>
 							Все новости

@@ -7,6 +7,7 @@ export const routes = {
 	REGISTER: { link: '/register', name: 'Registration' },
 	VIDEOS: { link: '/videos', name: 'Videos' },
 	NEWS: { link: '/news', name: 'News' },
+	STUDY: { link: '/study', name: 'Study' },
 };
 
 export function PublicRoute({ isAuth, to = routes.HOME.link, children }) {

@@ -15,6 +15,9 @@ import VideoItemPage from '../../pages/video-item/VideoItemPage';
 import NewsItemPage from '../../pages/news-item/NewsItemPage';
 import NewsGallery from '../../pages/news-gallery/NewsGallery';
 import { useAuth } from '../../hooks/useAuth';
+import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVideoSwitchPage';
+import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
+import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
 
 function Router() {
 	const { user } = useAuth();
@@ -46,9 +49,20 @@ function Router() {
 					<Route path="/videos/:videoId" element={<VideoItemPage />} />
 					<Route exact path="/news" element={<NewsGallery />} />
 					<Route path="/news/:newsId" element={<NewsItemPage />} />
+					<Route exact path="/articles" element={<ArticlesGallery />} />
+					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 
 					<Route
-						path={routes.PROFILE.link}
+						path={routes.STUDY.link}
+						element={
+							<PrivateRoute isAuth={isAuth}>
+								<ArticleVideoSwitchPage />
+							</PrivateRoute>
+						}
+					/>
+
+					<Route
+						path="/profile"
 						element={
 							<PrivateRoute isAuth={!!user}>
 								<Profile />
