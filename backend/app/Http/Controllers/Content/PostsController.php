@@ -11,6 +11,7 @@ class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return string
      */
     public function index(): string
     {
@@ -18,6 +19,7 @@ class PostsController extends Controller
         $result = [];
         foreach ($posts->get() as $item) {
             $result[$item->id] = [
+                'id' => $item->id,
                 'title' => $item->title,
                 'created_at' => $item->created_at->toDateTimeString(),
                 'last_comment' => $item->comments->map(fn($com) => $com->updated_at->toDateTimeString())->first(),
@@ -45,20 +47,26 @@ class PostsController extends Controller
 
     /**
      * Display the specified resource.
+     * @param  int  $id
+     * @return string
      */
     public function show(int $id): string
     {
         $posts = new PostsModel();
         $post = $posts->find($id);
+
         $users = new UserModel;
         $user = $users->find($post->author_id);
 
         $comments = $post->comments;
-        $commentsArray = [];
+        $commentsCollection = [];
+        
         foreach ($comments as $comment) {
             $comment_user = $users->find($comment->author_id);
-            $commentsArray[$comment->id] = [
+            $commentsCollection[$comment->id] = [
                 'author' => $comment_user->first_name. ' ' .$comment_user->last_name,
+                'author_id' => $comment_user->id,
+                'avatar' => $comment_user->avatar,
                 'description' => $comment->description,
                 'created_at' => $comment->created_at->toDateTimeString(),
                 'updated_at' => $comment->updated_at->toDateTimeString()
@@ -75,7 +83,7 @@ class PostsController extends Controller
                 'user_name' => $user->first_name. ' ' .$user->last_name,
                 'avatar' => $user->avatar
             ],
-            'comments' => $commentsArray
+            'comments' => $commentsCollection
         ];
 
         return json_encode($result);  

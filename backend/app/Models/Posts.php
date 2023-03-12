@@ -21,6 +21,6 @@ class Posts extends Model
     public function comments(): BelongsToMany
     {
         return $this->belongsToMany(Comments::class, 'comments_has_post', 'post_id', 'comment_id')
-        ->orderBy('comments.updated_at', 'desc');
+            ->orderBy('comments.created_at', 'desc');
     }
 }

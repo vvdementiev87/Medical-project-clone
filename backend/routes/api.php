@@ -45,7 +45,7 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('posts', [PostsController::class, 'index']);
-    Route::get('/posts/{id}/show', [PostsController::class, 'show']);
+    Route::get('/posts/{id}', [PostsController::class, 'show']);
 });
 
 
