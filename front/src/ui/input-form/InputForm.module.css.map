@@ -1,1 +1,10 @@
-{"version":3,"sources":["InputForm.module.scss","InputForm.module.css"],"names":[],"mappings":"AAEC;EACC,oBAAA;EACA,kBAAA;EACA,gBAAA;EACA,eAAA;EACA,iBAAA;EACA,0BAAA;ACDF;ADGC;EACC,oBAAA;EACA,kBAAA;EACA,gBAAA;EACA,eAAA;EACA,iBAAA;EACA,0BAAA;ACDF","file":"InputForm.module.css"}
+{
+    "version": 3,
+    "mappings": "AACA,AACC,MADK,CACL,KAAK,CAAC;EACL,WAAW,EAAE,OAAO;EACpB,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,GAAG;EAChB,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,KAAK,ECPc,mBAAO;CDQ1B;;AARF,AASC,MATK,CASL,KAAK,CAAC;EACL,WAAW,EAAE,OAAO;EACpB,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,GAAG;EAChB,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,KAAK,ECfc,mBAAO;CDgB1B",
+    "sources": [
+        "InputForm.module.scss",
+        "../../assets/styles/_variables.scss"
+    ],
+    "names": [],
+    "file": "InputForm.module.css"
+}
