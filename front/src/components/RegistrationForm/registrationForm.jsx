@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { getCsrfToken } from '../../api/interceptors';
+import { hashedPassword } from '../../config/password.config';
+
 import { useActions } from '../../hooks/useActions';
 import { InputField } from '../basic/InputField/InputField';
 
@@ -11,16 +14,54 @@ function RegistrationForm() {
 		reset,
 	} = useForm({ mode: 'all' });
 	const { register: registerAction } = useActions();
+	const [responseError, setResponseError] = useState(null);
 
-	const onSubmit = (data) => {
-		// если форма невалидна, то метод не сработает
-		// data содержит все поля форма
+	const onSubmit = async (data) => {
+		await getCsrfToken();
 		console.log(data);
-		registerAction(data);
-		if (!data.has_agreed) {
-			alert('Пожалуйста, подтверждите, что изучили и принимаете Правила сайта');
+		const {
+			password_confirmation,
+			email,
+			password,
+			address,
+			sign_for_news,
+			position,
+			phone,
+			patronym,
+			other_info,
+			last_name,
+			first_name,
+			experience,
+			education,
+			company,
+			category,
+			birth_date,
+		} = data;
+
+		try {
+			registerAction({
+				password_confirmation: hashedPassword(password_confirmation),
+				email,
+				password: hashedPassword(password),
+				address,
+				sign_for_news,
+				position,
+				phone,
+				patronym,
+				other_info,
+				last_name,
+				first_name,
+				experience,
+				education,
+				company,
+				category,
+				birth_date,
+			});
+		} catch (error) {
+			setResponseError(error.response.data.errors);
 		}
-		reset();
+
+		//reset();
 	};
 
 	return (
@@ -181,6 +222,22 @@ function RegistrationForm() {
 					labelText="Пароль"
 					error={errors.password}
 					{...register('password', {
+						required: { value: true, message: 'Укажите пароль' },
+						minLength: {
+							value: 6,
+							message: 'Пароль должен быть не меньше 6 символов',
+						},
+					})}
+				/>
+				<InputField
+					className="reg_field_width"
+					id="password_confirmation"
+					data-testid="ppassword_confirmation"
+					name="password_confirmation"
+					type="password_confirmation"
+					labelText="Подтвердите пароль"
+					error={errors.password}
+					{...register('password_confirmation', {
 						required: { value: true, message: 'Укажите пароль' },
 						minLength: {
 							value: 6,

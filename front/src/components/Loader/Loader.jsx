@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from "./Loader.module.css";
+import styles from './Loader.module.scss';
 
 const Loader = () => {
-    return (
-        <div className={styles.container}>
-            <div className={styles.ldsDualRing}></div>
-        </div>
-    );
+	return (
+		<div className={styles.container}>
+			<div className={styles.ldsDualRing}></div>
+		</div>
+	);
 };
 
 export default Loader;

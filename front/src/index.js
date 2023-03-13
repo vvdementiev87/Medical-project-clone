@@ -4,9 +4,11 @@ import './assets/styles/global.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+//import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { store } from './store/store.jsx';
+import ReduxToastr from 'react-redux-toastr';
+
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -20,6 +22,15 @@ root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
+				<ReduxToastr
+					timeOut={1000}
+					preventDuplicates
+					position="bottom-left"
+					transitionIn="fadeIn"
+					transitionOut="fadeOut"
+					progressBar
+					closeOnToastrClick
+				/>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>

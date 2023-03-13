@@ -1,10 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Bosom from '../../assets/images/logo_bosom_named.png';
-import styles from './Header.module.css';
-import { Link, NavLink } from 'react-router-dom';
+import styles from './Header.module.scss';
+import { Link } from 'react-router-dom';
 import Search from '../../assets/images/search.png';
+import { useActions } from '../../hooks/useActions';
+import { routes } from '../../routes/route';
+import MaterialIcon from '../../ui/MaterialIcon';
+import cn from 'classnames';
 
-const Header = ({ authed }) => {
+const Header = ({ isAuth }) => {
+	const { logout } = useActions();
 	const [isSearchVisible, setSearchVisible] = useState(false);
 	const getSearchVisible = () => {
 		setSearchVisible((prev) => !prev);
@@ -84,7 +89,7 @@ const Header = ({ authed }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/signup" className="dropdown-item">
+										<Link to={routes.REGISTER.link} className="dropdown-item">
 											Вступить в общество
 										</Link>
 									</li>
@@ -121,20 +126,28 @@ const Header = ({ authed }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/videos" className="dropdown-item">
+										<Link to={routes.STUDY.link} className="dropdown-item">
 											Учебные материалы
 										</Link>
 									</li>
 								</ul>
 							</li>
 							<li className="nav-item">
-								<Link to="/news" className="menu_link" aria-current="page">
+								<Link
+									to={routes.NEWS.link}
+									className="menu_link"
+									aria-current="page"
+								>
 									Новости
 								</Link>
 							</li>
 
 							<li className="nav-item">
-								<Link to="/login" className="menu_link" aria-current="page">
+								<Link
+									to={routes.HOME.link}
+									className="menu_link"
+									aria-current="page"
+								>
 									Контакты
 								</Link>
 							</li>
@@ -160,8 +173,12 @@ const Header = ({ authed }) => {
 						</ul>
 
 						<div className={`nav-item ms-2 mb-2 ${styles.headerAccountIcon}`}>
-							<Link to="/login" className="nav-link" aria-current="page">
-								{authed ? (
+							{isAuth ? (
+								<Link
+									to={routes.PROFILE.link}
+									className="nav-link"
+									aria-current="page"
+								>
 									<svg
 										height="36px"
 										width="36px"
@@ -178,7 +195,13 @@ const Header = ({ authed }) => {
 											<path d="M35.64,30.079H25.031c-7.021,0-12.714,5.739-12.714,12.821v17.771h36.037V42.9 C48.354,35.818,42.661,30.079,35.64,30.079z" />
 										</g>
 									</svg>
-								) : (
+								</Link>
+							) : (
+								<Link
+									to={routes.LOGIN.link}
+									className="nav-link"
+									aria-current="page"
+								>
 									<svg
 										height="36px"
 										width="36px"
@@ -187,8 +210,17 @@ const Header = ({ authed }) => {
 									>
 										<path d="M170.666667 512a42.666667 42.666667 0 0 0 42.666666 42.666667h323.84l-98.133333 97.706666a42.666667 42.666667 0 0 0 0 60.586667 42.666667 42.666667 0 0 0 60.586667 0l170.666666-170.666667a42.666667 42.666667 0 0 0 8.96-14.08 42.666667 42.666667 0 0 0 0-32.426666 42.666667 42.666667 0 0 0-8.96-14.08l-170.666666-170.666667a42.666667 42.666667 0 1 0-60.586667 60.586667l98.133333 97.706666H213.333333a42.666667 42.666667 0 0 0-42.666666 42.666667zM725.333333 85.333333H298.666667a128 128 0 0 0-128 128v128a42.666667 42.666667 0 0 0 85.333333 0V213.333333a42.666667 42.666667 0 0 1 42.666667-42.666666h426.666666a42.666667 42.666667 0 0 1 42.666667 42.666666v597.333334a42.666667 42.666667 0 0 1-42.666667 42.666666H298.666667a42.666667 42.666667 0 0 1-42.666667-42.666666v-128a42.666667 42.666667 0 0 0-85.333333 0v128a128 128 0 0 0 128 128h426.666666a128 128 0 0 0 128-128V213.333333a128 128 0 0 0-128-128z" />
 									</svg>
-								)}
-							</Link>
+								</Link>
+							)}
+							{isAuth && (
+								<Link
+									onClick={() => logout()}
+									className={cn('nav-link', styles.icon)}
+									aria-current="page"
+								>
+									<MaterialIcon name={'MdLogout'} />
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>
