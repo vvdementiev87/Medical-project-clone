@@ -31,7 +31,8 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('posts', [PostsController::class, 'index']);
     Route::get('/posts/{id}', [PostsController::class, 'show']);
     Route::post('/posts/add', [PostsController::class, 'store']);
+    Route::get('/posts/delete/{id}', [PostsController::class, 'destroy']);
     Route::post('/comments/add', [CommentsController::class, 'store']);
-
+    Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
 });
 require __DIR__.'/auth.php';

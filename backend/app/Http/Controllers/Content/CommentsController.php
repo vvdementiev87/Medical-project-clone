@@ -78,9 +78,15 @@ class CommentsController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param  int  $id
+     * @return string
      */
-    public function destroy(string $id)
+    public function destroy(int $id): string
     {
-        //
+        $posts = new CommentsModel();
+        if ($posts->where('id', '=', $id)->delete()) {
+            return 'deleted';
+        } 
+        return 'false';
     }
 }

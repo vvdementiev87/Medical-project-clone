@@ -17,10 +17,12 @@ class PostsController extends Controller
     public function index(): string
     {
         $posts = new PostsModel();
+        
         $result = [];
         foreach ($posts->get() as $item) {
             $result[$item->id] = [
                 'id' => $item->id,
+                'author_id' =>$item->author_id,
                 'title' => $item->title,
                 'created_at' => $item->created_at->toDateTimeString(),
                 'last_comment' => $item->comments->map(fn($com) => $com->updated_at->toDateTimeString())->first(),
@@ -128,10 +130,16 @@ class PostsController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param  int  $id
+     * @return string
      */
-    public function destroy(string $id)
+    public function destroy(int $id): string
     {
-        //
+        $posts = new PostsModel();
+        if ($posts->where('id', '=', $id)->delete()) {
+            return 'deleted';
+        } 
+        return 'false';
     }
 
 }
