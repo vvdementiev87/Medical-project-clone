@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts as PostsModel;
 use App\Models\User as UserModel;
+use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
 {
@@ -39,10 +40,29 @@ class PostsController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param  Request $request
+     * @return string
      */
-    public function store(Request $request)
+    public function store(Request $request): string
     {
-        //
+        $validator = Validator::make($request->all(), [
+                'author_id' => ['required', 'integer'],
+                'title' => ['required', 'string', 'min: 3', 'max: 50'],
+                'description' => ['nullable', 'string']
+            ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ]);
+        }
+        
+        $post = PostsModel::create($validator->validated());
+        if ($post) {
+            return response()->json([
+                'success' => true,
+            ]);
+        } 
     }
 
     /**
@@ -64,6 +84,7 @@ class PostsController extends Controller
         foreach ($comments as $comment) {
             $comment_user = $users->find($comment->author_id);
             $commentsCollection[$comment->id] = [
+                'id' => $comment->id,
                 'author' => $comment_user->first_name. ' ' .$comment_user->last_name,
                 'author_id' => $comment_user->id,
                 'avatar' => $comment_user->avatar,

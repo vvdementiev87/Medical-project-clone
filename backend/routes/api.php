@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Content\VideosController;
 use App\Http\Controllers\Content\ArticlesController;
 use App\Http\Controllers\Content\PostsController;
-
+use App\Http\Controllers\Content\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +30,8 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('posts', [PostsController::class, 'index']);
     Route::get('/posts/{id}', [PostsController::class, 'show']);
+    Route::post('/posts/add', [PostsController::class, 'store']);
+    Route::post('/comments/add', [CommentsController::class, 'store']);
+
 });
 require __DIR__.'/auth.php';
