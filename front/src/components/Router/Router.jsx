@@ -14,6 +14,9 @@ import VideoGallery from '../../pages/video-gallery/VideoGallery';
 import VideoItemPage from '../../pages/video-item/VideoItemPage';
 import NewsItemPage from '../../pages/news-item/NewsItemPage';
 import NewsGallery from '../../pages/news-gallery/NewsGallery';
+import Forum from '../../pages/forum/Forum';
+import ForumTopic from '../../pages/forum-topic/ForumTopic';
+
 
 const isAuth = true;
 
@@ -35,6 +38,9 @@ function Router() {
 					<Route path="/videos/:videoId" element={<VideoItemPage />} />
 					<Route exact path="/news" element={<NewsGallery />} />
 					<Route path="/news/:newsId" element={<NewsItemPage />} />
+
+					<Route path="/forum" element={<Forum />} />	
+					<Route path="forum/:topicId" element={<ForumTopic />} />
 
 					<Route
 						path="/profile"

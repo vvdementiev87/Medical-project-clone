@@ -1,0 +1,104 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/*Общие стили*/
+ul, li {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  border: 0;
+  outline: none;
+  background: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+a.active {
+  font-weight: 600;
+  color: brown;
+}
+
+img {
+  display: block;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*Переопределение bootstrap header nav*/
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 2px #000;
+          box-shadow: 0 0 2px #000;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
+  border-bottom: 1px solid rgba(38, 38, 38, 0.4);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: rgba(38, 38, 38, 0.5);
+  color: #fff;
+}
+
+.navbar-custom {
+  background: transparent !important;
+}
+
+.rmsc {
+  --rmsc-main: #d3b288 !important;
+  --rmsc-hover: #d3b288 !important;
+  --rmsc-selected: #d3b288 !important;
+  --rmsc-border: #ccc;
+  --rmsc-gray: #aaa;
+  --rmsc-bg: #fff;
+  --rmsc-p: 10px;
+  /* Spacing */
+  --rmsc-radius: 4px;
+  /* Radius */
+  --rmsc-h: 38px;
+  /* Height */
+}
+/*# sourceMappingURL=global.css.map */

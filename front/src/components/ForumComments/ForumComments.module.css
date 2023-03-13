@@ -1,0 +1,116 @@
+.comments__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 12px;
+}
+
+.comments__item {
+  width: 100%;
+  border: 3px solid rgba(68, 68, 167, 0.7);
+  border-radius: 5px;
+  padding: 12px;
+}
+
+.comments__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  border: 3px solid rgba(68, 68, 167, 0.7);
+}
+
+.comment__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 24px;
+  overflow-wrap: break-word;
+}
+
+.comment__btn_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  gap: 36px;
+}
+
+.comment__btn {
+  font-size: 18px;
+  line-height: 100%;
+  background: #4444a7;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 5px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.comment__btn:hover {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+  background: rgba(68, 68, 167, 0.7);
+}
+
+.comment__description_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 6px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.comment__description {
+  font-size: 14px;
+  line-height: 100%;
+  margin: 0;
+}
+
+.comment__description span {
+  font-weight: 500;
+}
+
+.topic__title {
+  margin: 32px 0;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 140%;
+}
+
+.topic__container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 48px;
+  border: 3px solid rgba(68, 68, 167, 0.5);
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 24px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=ForumComments.module.css.map */
