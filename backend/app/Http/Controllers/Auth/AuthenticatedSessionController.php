@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -22,7 +23,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json(['user' => auth()->user()]);
+        $user = auth()->user();
+
+        return response()->json([
+            'user' => $user,
+            'token' => $request->user()->createToken('Token API of' . $user->last_name)->plainTextToken()
+        ]);
     }
 
     /**
@@ -32,6 +38,8 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): Response
     {
         Auth::guard('web')->logout();
+
+        $request->user()->currentAccessToken()->delete();
 
         $request->session()->invalidate();
 

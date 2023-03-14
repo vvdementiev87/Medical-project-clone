@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth', 'as' => '',], static function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
-
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
@@ -19,7 +18,7 @@ Route::group(['prefix' => 'auth', 'as' => '',], static function () {
         ->name('password.email');
 
     Route::post('/reset-password', [NewPasswordController::class, 'store'])
-        ->middleware('guest')
+        ->middleware(['guest', 'auth:sanctum'])
         ->name('password.store');
 
     Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -31,7 +30,7 @@ Route::group(['prefix' => 'auth', 'as' => '',], static function () {
         ->name('verification.send');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->middleware('auth')
+        ->middleware(['auth', 'auth:sanctum'])
         ->name('logout');
 
 });
