@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './VideoList.module.scss';
+import { Highlight } from "react-instantsearch-dom";
 const VideoItem = ({ video }) => {
 	const navigate = useNavigate();
 	return (
@@ -10,8 +11,8 @@ const VideoItem = ({ video }) => {
 				navigate(`/videos/${video.id}`);
 			}}
 		>
-			<img src={video.imageUrl} alt={video.id} />
-			<h4>{video.description}</h4>
+			<img src={video.image_url} alt={video.id} />
+			<Highlight className={styles.description} attribute="description" hit={video} />
 		</div>
 	);
 };
