@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Posts as PostsModel;
 use App\Models\User as UserModel;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Posts\CreateRequest;
 
 class PostsController extends Controller
 {
@@ -42,29 +43,16 @@ class PostsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return string
+     * @param  App\Http\Requests\Posts\CreateRequest
+     * @return bool
      */
-    public function store(Request $request): string
-    {
-        $validator = Validator::make($request->all(), [
-                'author_id' => ['required', 'integer'],
-                'title' => ['required', 'string', 'min: 3', 'max: 50'],
-                'description' => ['nullable', 'string']
-            ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ]);
-        }
-        
-        $post = PostsModel::create($validator->validated());
+    public function store(CreateRequest $request): bool
+    {    
+        $post = PostsModel::create($request->validated());
         if ($post) {
-            return response()->json([
-                'success' => true,
-            ]);
+            return true;
         } 
+        return false;
     }
 
     /**

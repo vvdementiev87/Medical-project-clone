@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comments as CommentsModel;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Comments\CreateRequest;
 
 class CommentsController extends Controller
 {
@@ -27,29 +28,17 @@ class CommentsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return string
+     * @param  App\Http\Requests\Comments\CreateRequest
+     * @return bool
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): bool
     {
-        $validator = Validator::make($request->all(), [
-            'author_id' => ['required', 'integer'],
-            'description' => ['required', 'string'],
-            'post_id' => ['exists:posts,id']
-        ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            'errors' => $validator->errors(),
-        ]);
-    }
-    $comment = CommentsModel::create($validator->validated());
-    if ($comment) {
-        $comment->post()->attach($validator->validated()['post_id']);
-        return response()->json([
-            'success' => true,
-        ]);
-    } 
+        $comment = CommentsModel::create($request->validated());
+        if ($comment) {
+            $comment->post()->attach($request->validated()['post_id']);
+            return true;
+        } 
+        return false;
     }
 
     /**
