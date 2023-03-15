@@ -15,7 +15,7 @@ const Footer = () => {
 				<Link to="/" className={styles.footerLogo}>
 					<img src={Bosom} alt="Bosom" />
 				</Link>
-				<section className="footer__list">
+				<section>
 					<h5>Общество</h5>
 					<ul className={styles.footerList}>
 						<li>
@@ -27,12 +27,13 @@ const Footer = () => {
 						<li>
 							<Link to="/"> Нормативные документы</Link>
 						</li>
-						{/* <li><Link to="/signup">Вступить в общество</Link></li>
-                    <li><Link to="/">Оплатить взносы</Link></li>
-                    <li><Link to="/">Фотогалерея</Link></li> */}
+
+						<li>
+							<Link to="/">Фотогалерея</Link>
+						</li>
 					</ul>
 				</section>
-				<section className="footer__list">
+				<section>
 					<h5>Обучение</h5>
 					<ul className={styles.footerList}>
 						<li>
@@ -47,23 +48,23 @@ const Footer = () => {
 					</ul>
 				</section>
 
-				<section className="footer__list">
+				<section>
 					<h5>Контакты</h5>
 					<ul className={styles.footerList}>
 						<li>
-							<Link to="tel:+375(17)6543210">
+							<Link to="tel:+375(17)6543210" className={styles.contactLink}>
 								<img src={Phone} alt="phone" />
 								+375(17)6543210
 							</Link>
 						</li>
 						<li>
-							<Link to="mailto:test@mail.ru">
+							<Link to="mailto:test@mail.ru" className={styles.contactLink}>
 								<img src={Mail} alt="email" />
 								test@mail.ru
 							</Link>
 						</li>
-						<li>
-							<div className="footer__social-media-icons">
+						<li className={styles.socials}>
+							<div>
 								<Link
 									to="https://www.instagram.com/"
 									rel="nofollow noopener noreferrer"

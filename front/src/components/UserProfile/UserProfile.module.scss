@@ -1,28 +1,68 @@
 @import '../../assets/styles/variables';
+
+$max-tablet-width: '991px';
+$max-mobile-width: '768px';
+$max-sm-mobile-width: '575px';
+
+@mixin tablet {
+	@media(max-width: $max-tablet-width) {
+		@content;
+	}
+}
+
+@mixin mobile {
+	@media(max-width: $max-mobile-width) {
+		@content;
+	}
+}
+
+@mixin sm-mobile {
+	@media(max-width: $max-sm-mobile-width) {
+		@content;
+	}
+}
+
 .main {
 	margin-top: 50px;
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 	width: 100%;
+	@include tablet() {
+		flex-wrap: wrap;
+	}
 }
+
 .sidebar {
 	margin-left: 10px;
+	padding: 20px 10px;
 	max-width: 350px;
 	width: 100%;
+	max-height: 1050px;
 	border: none;
 	border-radius: 30px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	overflow: hidden;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+	overflow-y: auto;
+
+	@include tablet() {
+		margin: 60px auto 30px;
+		max-width: 100%;
+		grid-template-columns: repeat(3, 1fr);
+		overflow-y: hidden;
+	}
 }
+
 .wrapper {
 	width: 100%;
-
 	border: none;
 	border-radius: 30px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	overflow: hidden;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
 }
+
 .container {
 	width: 100%;
 }
@@ -32,54 +72,80 @@
 	min-height: 200px;
 	background: rgb(172, 181, 255);
 	background: linear-gradient(
-		75deg,
-		rgba(172, 181, 255, 1) 0%,
-		rgba(88, 88, 88, 1) 100%
+									75deg,
+									rgba(172, 181, 255, 1) 0%,
+									rgba(88, 88, 88, 1) 100%
 	);
 }
+
 .img {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: -100px;
+	margin: -100px 0 0;
+	@include tablet{
+		justify-content: center;
+	}
+
 	.avatar {
-		width: 200px;
-		height: 200px;
+		width: 100%;
+		max-width: 200px;
 		border-radius: 50%;
 		border: 10px solid #ffffff;
-
 		margin-left: 50px;
 		cursor: pointer;
+		@include tablet() {
+			margin: 0 auto;
+		}
 	}
+}
+
+.data {
+	padding: 0 0 60px 20px;
+	position: relative;
+	@include tablet() {
+		margin: 0 auto;
+		padding: 0 0 60px 0;
+	}
+
 	button {
 		overflow: hidden;
 		border-radius: 20px;
 		background-color: rgba(172, 181, 255, 1);
 		border: 10px solid #ffffff;
 		margin-right: 50px;
+		@include tablet() {
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+			z-index: 20;
+		}
 	}
 }
 
-.data {
-	margin-left: 100px;
-	padding-bottom: 30px;
-}
 .name {
 	padding-bottom: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
+	padding-left: 10px;
+
+	@include sm-mobile() {
+		padding-left: 0;
+	}
 
 	input {
-		width: 125px;
+		box-sizing: border-box;
 		font-family: 'Rubik';
 		font-style: normal;
 		font-weight: 700;
 		font-size: 24px;
 		line-height: 140%;
 		color: $primary-text-color;
+		min-height: 10px;
+		@include mobile() {
+			width: 100%;
+		}
 	}
 }
+
 .input {
 	//заглушка
 	background-color: transparent;
@@ -88,32 +154,54 @@
 	cursor: pointer;
 	border: none;
 }
+
 .address {
 	width: 100%;
+	padding-left: 10px;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	@include tablet() {
+		grid-template-columns: 1fr;
+		row-gap: 20px;
+		margin-top: 20px;
+	}
+	@include sm-mobile() {
+		padding-left: 0;
+	}
+
 	label {
 		font-family: 'Rubik';
 		font-style: normal;
 		font-weight: 700;
 		font-size: 18px;
 		line-height: 140%;
-		color: rgba($primary-text-color, 0.25);
+		color: rgba($primary-text-color, 0.4);
+		width: 100%;
+		margin-top: 20px;
 	}
+
 	input {
 		font-family: 'Rubik';
 		font-style: normal;
 		font-weight: 700;
 		font-size: 18px;
-		line-height: 140%;
+		line-height: 110%;
+		height: fit-content;
 		color: rgba($primary-text-color, 0.25);
+		width: 100%;
+		@include tablet() {
+			width: 100%;
+		}
 	}
 }
+
 .textarea {
 	margin-top: 10px;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
+	width: 100%;
+
 	label {
 		font-family: 'Rubik';
 		font-style: normal;
@@ -122,8 +210,9 @@
 		line-height: 140%;
 		color: rgba($primary-text-color, 0.25);
 	}
+
 	input {
-		text-align: justify;
+		text-align: left;
 		resize: none;
 		border: none;
 		height: fit-content;
@@ -133,5 +222,26 @@
 		font-size: 18px;
 		line-height: 140%;
 		color: rgba($primary-text-color, 0.25);
+		flex-basis: 50%;
+		flex-shrink: 0;
+		overflow-x: hidden;
 	}
+}
+
+.recent {
+	overflow-x: scroll;
+	position: relative;
+}
+
+.recentHeading {
+	margin: 30px 0 20px;
+	font-family: 'Rubik';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 140%;
+	color: $primary-text-color;
+	position: sticky;
+	top: 10px;
+	left: 20px;
 }

@@ -49,14 +49,16 @@ const UserProfile = ({ user }) => {
 						/>
 					</form>
 				</div>
-				<div className={styles.wrapper}>
-					<RecentViewed />
+				<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
+				<div className={`${styles.wrapper} ${styles.recent}`}>
+					<RecentViewed/>
 				</div>
 			</div>
 			<div className={styles.sidebar}>
-				<Favorites />
+				<Favorites/>
 			</div>
 		</div>
+
 	);
 };
 
