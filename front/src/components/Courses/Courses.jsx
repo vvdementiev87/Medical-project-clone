@@ -48,7 +48,7 @@ const Courses = () => {
 				</div>
 				<div className="row">
 					<div className="col">
-						<MyCarousel data={data} height="600px" />
+						<MyCarousel data={data}/>
 					</div>
 				</div>
 			</div>

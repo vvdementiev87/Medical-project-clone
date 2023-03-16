@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Bosom from '../../assets/images/logo_bosom_named.png';
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Search from '../../assets/images/search.png';
 import { useActions } from '../../hooks/useActions';
 import { routes } from '../../routes/route';
@@ -11,8 +11,17 @@ import cn from 'classnames';
 const Header = ({ isAuth }) => {
 	const { logout } = useActions();
 	const [isSearchVisible, setSearchVisible] = useState(false);
+	const [expanded, setExpanded] = useState(false);
+	const nav = useRef();
 	const getSearchVisible = () => {
 		setSearchVisible((prev) => !prev);
+	};
+	const getBtnCross = () => {
+		setExpanded((prev) => !prev);
+	};
+	const hideMenu = () => {
+		nav.current.classList.remove('show');
+		setExpanded(false);
 	};
 
 	// const header = useRef();
@@ -32,7 +41,7 @@ const Header = ({ isAuth }) => {
 
 	return (
 		<header className={styles.header} id="header">
-			<nav className="navbar navbar-expand-lg bg-body-tertiary h-100 p-0 navbar-custom">
+			<nav className="navbar navbar-expand-lg  h-100 p-0 navbar-custom">
 				<div className="container">
 					<Link to="/" className={`navbar-brand ${styles.logo}`}>
 						<img src={Bosom} alt="Bosom" />
@@ -45,16 +54,25 @@ const Header = ({ isAuth }) => {
 						aria-controls="navbarSupportedContent"
 						aria-expanded="false"
 						aria-label="Toggle navigation"
+						onClick={getBtnCross}
 					>
-						<span className="navbar-toggler-icon"></span>
+						<span
+							className={!expanded ? 'navbar-toggler-icon' : 'btn-close'}
+						></span>
 					</button>
 					<div
 						className="collapse navbar-collapse d-lg-flex justify-content-lg-between"
 						id="navbarSupportedContent"
+						ref={nav}
 					>
-						<ul className="navbar-nav ms-2 mb-2 mb-lg-0 w-100 justify-content-center">
+						<ul className="navbar-nav me-auto ms-lg-2 mb-2 mb-lg-0 w-100 justify-content-center">
 							<li className="nav-item">
-								<Link to="/" className="menu_link" aria-current="page">
+								<Link
+									to="/"
+									className="menu_link"
+									aria-current="page"
+									onClick={hideMenu}
+								>
 									Главная
 								</Link>
 							</li>
@@ -67,39 +85,43 @@ const Header = ({ isAuth }) => {
 								>
 									Общество
 								</div>
-								<ul className="dropdown-menu">
+								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Устав
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Структура
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Нормативные документы
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Компании-партнеры
 										</Link>
 									</li>
 									<li>
-										<Link to={routes.REGISTER.link} className="dropdown-item">
+										<Link
+											to={routes.REGISTER.link}
+											className="dropdown-item"
+											onClick={hideMenu}
+										>
 											Вступить в общество
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Оплатить взносы
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Фотогалерея
 										</Link>
 									</li>
@@ -114,19 +136,23 @@ const Header = ({ isAuth }) => {
 								>
 									Обучение
 								</div>
-								<ul className="dropdown-menu">
+								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Центры
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item">
+										<Link to="/" className="dropdown-item" onClick={hideMenu}>
 											Курсы
 										</Link>
 									</li>
 									<li>
-										<Link to={routes.STUDY.link} className="dropdown-item">
+										<Link
+											to={routes.STUDY.link}
+											className="dropdown-item"
+											onClick={hideMenu}
+										>
 											Учебные материалы
 										</Link>
 									</li>
@@ -137,6 +163,7 @@ const Header = ({ isAuth }) => {
 									to={routes.NEWS.link}
 									className="menu_link"
 									aria-current="page"
+									onClick={hideMenu}
 								>
 									Новости
 								</Link>
@@ -147,6 +174,7 @@ const Header = ({ isAuth }) => {
 									to={routes.HOME.link}
 									className="menu_link"
 									aria-current="page"
+									onClick={hideMenu}
 								>
 									Контакты
 								</Link>
@@ -160,8 +188,8 @@ const Header = ({ isAuth }) => {
 								>
 									<svg
 										version="1.1"
-										width="36px"
-										height="36px"
+										width="28px"
+										height="28px"
 										viewBox="0 0 122.879 119.799"
 									>
 										<g>
@@ -172,16 +200,19 @@ const Header = ({ isAuth }) => {
 							</li>
 						</ul>
 
-						<div className={`nav-item ms-2 mb-2 ${styles.headerAccountIcon}`}>
+						<div
+							className={`nav-item mb-2 ms-auto ${styles.headerAccountIcon}`}
+						>
 							{isAuth ? (
 								<Link
 									to={routes.PROFILE.link}
 									className="nav-link"
 									aria-current="page"
+									onClick={hideMenu}
 								>
 									<svg
-										height="36px"
-										width="36px"
+										height="32px"
+										width="32px"
 										version="1.1"
 										viewBox="0 0 60.671 60.671"
 									>
@@ -203,8 +234,8 @@ const Header = ({ isAuth }) => {
 									aria-current="page"
 								>
 									<svg
-										height="36px"
-										width="36px"
+										height="32px"
+										width="32px"
 										viewBox="0 0 1024 1024"
 										version="1.1"
 									>

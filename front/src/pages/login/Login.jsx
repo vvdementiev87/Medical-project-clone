@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm/loginForm';
-import '../../assets/styles/Login.css';
 import { routes } from '../../routes/route';
+import './Login.scss';
 
 export function Login() {
 	//здесь будет логика проверки токена сессии
@@ -13,7 +13,7 @@ export function Login() {
 	};
 
 	return (
-		<>
+		<div className="container">
 			{isAuth ? (
 				<div className="login_container">
 					<h2 className="login_title">Выход</h2>
@@ -35,7 +35,7 @@ export function Login() {
 					</p>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 
