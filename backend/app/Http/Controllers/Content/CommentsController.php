@@ -28,7 +28,7 @@ class CommentsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  App\Http\Requests\Comments\CreateRequest
+     * @param CreateRequest
      * @return bool
      */
     public function store(CreateRequest $request): bool
