@@ -93,3 +93,22 @@ li.nav-item.active,li.nav-item:hover,li.nav-item:focus{
 	--rmsc-radius: 4px; /* Radius */
 	--rmsc-h: 38px; /* Height */
 }
+@media screen and (max-width: 286px) {
+  body,li{
+    word-wrap: break-word !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+  }
+  div.menu_link.dropdown-toggle {
+    width: 100% !important;
+  }
+  ul.dropdown-menu.show {
+    width: 95vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  a.dropdown-item {
+    font-size: 13px !important;
+  }
+}

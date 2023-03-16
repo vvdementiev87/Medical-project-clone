@@ -44,28 +44,29 @@ const Sources = () => {
 						<h2 className={styles.sourcesHeading}>Обучающие материалы</h2>
 					</div>
 				</div>
-				{
-					<div className={`row ${styles.sourcesList}`}>
-						{data.map((item, i) => {
-							return (
-								<div
-									key={i}
-									className={`me-auto col-md-4  mb-5 me-auto ${styles.sourcesItem}`}
-								>
-									<div className={styles.sourcesIcon}>{item.image}</div>
-									<h3 className={styles.sourcesTitle}>{item.title}</h3>
-									<p className={styles.sourcesText}>{item.description}</p>
-									<NavLink to={item.url} className={styles.sourcesLink}>
-										{item.link}
-									</NavLink>
-								</div>
-							);
-						})}
-					</div>
-				}
+				<div className="row">
+					{
+						<div className={styles.sources}>
+							{data.map((item, i) => {
+								return (
+									<div key={i} className={`me-auto mb-5 ${styles.sourcesItem}`}>
+										<div className={styles.sourcesIcon}>{item.image}</div>
+										<h3 className={styles.sourcesTitle}>{item.title}</h3>
+										<p className={styles.sourcesText}>
+											{item.description}
+										</p>
+										<NavLink to="/" className={styles.sourcesLink}>Подробнее...</NavLink>
+									</div>
+								)
+							})}
+
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 	);
+
 };
 
 export default Sources;
