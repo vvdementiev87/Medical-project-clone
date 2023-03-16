@@ -69,6 +69,7 @@ $max-mobile-width: '768px';
     line-height: 140%;
     color: $primary-text-color;
     opacity: 0.85;
+    word-break: break-word;
   }
 
   > p {
