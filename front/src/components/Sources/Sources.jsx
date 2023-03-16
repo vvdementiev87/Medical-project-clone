@@ -38,7 +38,7 @@ const data = [
 const Sources = () => {
 	return (
 		<div className={styles.sources} id="sources">
-			<div className="container-fluid">
+			<div className="container">
 				<div className="row">
 					<div className="col">
 						<h2 className={styles.sourcesHeading}>Обучающие материалы</h2>
