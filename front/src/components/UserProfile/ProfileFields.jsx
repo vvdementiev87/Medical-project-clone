@@ -106,7 +106,7 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 					{...register('education', { required: true })}
 				/>
 			</div>
-			<div className={styles.textarea}>
+			<div className={`${styles.textarea} ${styles.address}`}>
 				<InputForm
 					id={'other_info'}
 					className={styles.input}
