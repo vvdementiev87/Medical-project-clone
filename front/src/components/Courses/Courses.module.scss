@@ -20,36 +20,32 @@ $max-small-width: '249px';
   }
 }
 
-.courses{
+.courses {
   padding: 80px 0;
 }
-.coursesHeading{
+
+.coursesHeading {
   font-size: 36px;
   margin-bottom: 40px;
-  @include mobile{
+  @include mobile {
     font-size: 30px;
   }
-  @include small_screen{
+  @include small_screen {
     font-size: 26px;
   }
 }
-.carouselHeight{
-  height: 600px;
-  @include mobile{
-    height: auto;
-  }
 
-}
-.captionStyle{
-  font-size:38px;
-  @include mobile{
+.captionStyle {
+  font-size: 38px;
+  @include mobile {
     font-size: 24px;
   }
 }
-.linkStyle{
-  color:#fff;
+
+.linkStyle {
+  color: #fff;
   font-size: 24px;
-  @include mobile{
+  @include mobile {
     font-size: 22px;
   }
 }

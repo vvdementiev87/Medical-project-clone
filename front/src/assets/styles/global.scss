@@ -112,3 +112,21 @@ li.nav-item.active,li.nav-item:hover,li.nav-item:focus{
     font-size: 13px !important;
   }
 }
+.carousel-item {
+  height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-item > img.d-block{
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+}
