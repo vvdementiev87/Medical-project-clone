@@ -23,6 +23,7 @@ const UserProfile = ({ user }) => {
 		reset();
 	};
 	return (
+		<div className="container">
 		<div className={styles.main}>
 			<div className={styles.container}>
 				<div className={styles.wrapper}>
@@ -49,14 +50,18 @@ const UserProfile = ({ user }) => {
 						/>
 					</form>
 				</div>
-				<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
-				<div className={`${styles.wrapper} ${styles.recent}`}>
+
+				<div className={`${styles.wrapper}`}>
+					<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
 					<RecentViewed/>
 				</div>
 			</div>
+
 			<div className={styles.sidebar}>
+				<h3>{'Избранное'}</h3>
 				<Favorites/>
 			</div>
+		</div>
 		</div>
 
 	);

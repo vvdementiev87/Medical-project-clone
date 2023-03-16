@@ -40,12 +40,9 @@ const statements = [
 const RecentViewed = () => {
 	return (
 		<div className={styles.sidebar}>
-			<h3>{'Недавно просмотренное'}</h3>
-			<div className={styles.list}>
-				{statements.slice(0, 3).map((s, i) => (
+				{statements.map((s, i) => (
 					<RecentViewedItem key={i} statement={s} />
 				))}
-			</div>
 		</div>
 	);
 };
