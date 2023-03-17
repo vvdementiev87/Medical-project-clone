@@ -20,10 +20,10 @@ import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVide
 import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
 import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
 import { useAuth } from '../../hooks/useAuth';
+import NewsList from "../NewsList/NewsList";
+
 
 const isAuth = true;
-
-
 
 function Router() {
 	const { user } = useAuth();
@@ -61,6 +61,7 @@ function Router() {
 					<Route path="/forum" element={<Forum />} />	
 					<Route path="forum/:topicId" element={<ForumTopic />} />
 					<Route path="/profile" element={<Profile />} />
+					<Route path="/news-list" element={<NewsList />} />
 
 					<Route
 						path={routes.STUDY.link}
