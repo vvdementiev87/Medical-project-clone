@@ -4,6 +4,7 @@ import styles from './NewsList.module.scss';
 import NewsInMedicine from "../../assets/testImages/newInMedicine.jpg";
 import Relations from "../../assets/testImages/relations.jpg";
 import Digital from "../../assets/testImages/digital.jpg";
+import NewsItemPage from "../../pages/news-item/NewsItemPage";
 
 const data = [
 	{
@@ -27,6 +28,7 @@ const data = [
 ];
 
 const NewsList = ({ news }) => {
+	console.log(news)
 	return (
 		<div className={styles.newsList}>
 			{news.map((item, index) => (

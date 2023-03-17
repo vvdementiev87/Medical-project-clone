@@ -3,7 +3,6 @@ import NewsList from '../../components/NewsList/NewsList';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './NewsGallery.module.scss';
 import { NewsService } from '../../services/news.service';
-
 import { useQuery } from 'react-query';
 
 const PageSize = 6;
@@ -13,7 +12,7 @@ const NewsGallery = () => {
 	useEffect(()=>{
 		const data=[];
 		const newsObj={}
-		for (let i = 0; i < 18; i++) {
+		for (let i = 1; i <= 18; i++) {
 			newsObj[i] = {
 				id: i,
 				author: 'Author',
@@ -37,14 +36,16 @@ const NewsGallery = () => {
 		const lastPageIndex = firstPageIndex + PageSize;
 		return data && data.slice(firstPageIndex, lastPageIndex);
 	}, [currentPage, data]);
+	console.log(currentTableData)
 
 	// return
 	// isLoading ? (
 	// 	<h1>Loading...</h1>
 	// ) : (
-		return <div className={styles.container}>
-			<h1>{'Новости'}</h1>
+		return <div className="container">
+			<h1 className={styles.heading}>{'Новости'}</h1>
 			<Pagination
+				className={styles.pagination}
 				currentPage={currentPage}
 				totalCount={data.length}
 				pageSize={PageSize}

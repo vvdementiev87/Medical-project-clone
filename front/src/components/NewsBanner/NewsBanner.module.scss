@@ -24,10 +24,12 @@
   height: 100%;
   white-space: nowrap;
   overflow: hidden;
-  line-height: 130%;
+  line-height: 140%;
   font-size: 28px;
   font-weight: 600;
   color: rgba(126,131,166,1);
+  font-stretch: condensed;
+  font-style: oblique;
 }
 
 .marquee * {
