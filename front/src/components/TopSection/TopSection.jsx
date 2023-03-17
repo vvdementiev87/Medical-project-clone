@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './TopSection.module.scss';
 import topFoto from '../../assets/testImages/Top.png';
 import { Parallax } from 'react-parallax';
 import NewsBanner from "../NewsBanner/NewsBanner";
 import {useNavigate} from "react-router-dom";
 
+const text="Новые технологии в медицине. Конференция с международным участием. 10 апреля 2023 года во Дворце Республики." || null;
+
 const TopSection = () => {
+
+	const [announcement,setAnnouncement]=useState();
+	useEffect(()=>{
+		setAnnouncement(text);
+	},[])
 	const navigate = useNavigate();
 	return (
 		<div className={styles.topSection} id="topSection">
@@ -24,12 +31,13 @@ const TopSection = () => {
 								аттестации, внедрение передовых технологий в сфере
 								здравоохранения
 							</p>
-							<button onClick={() => {
-								navigate(`/news`);
-							}}>
-								<NewsBanner/>
-							</button>
-
+							{text?
+								<button onClick={() => {
+									navigate(`/news`);
+								}}>
+									<NewsBanner text={announcement}/>
+								</button>:""
+							}
 						</div>
 					</div>
 					<div className={`col-lg p-0 ${styles.topImage}`}>
