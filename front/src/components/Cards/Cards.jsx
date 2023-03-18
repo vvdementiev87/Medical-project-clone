@@ -12,8 +12,8 @@ const Cards = ({ data }) => {
 						key={i}
 						className={`me-auto col-md-4  mb-5 me-auto ${styles.cardsItem}`}
 					>
-						<NavLink to="/" className={`mb-5 ${styles.cardsImageWrapper}`}>
-							<img src={card.image} alt="course" />
+						<NavLink to={`/news/${card?.id}`} className={`mb-5 ${styles.cardsImageWrapper}`}>
+							<img src={card.imageUrl} alt="course" />
 							<div className={styles.searchBtn}>
 								<img src={Search} alt="search" />
 							</div>
@@ -21,8 +21,8 @@ const Cards = ({ data }) => {
 
 						<div>
 							<h3>{card.title}</h3>
-							<p>{card.description}</p>
-							<p>{card.date}</p>
+							<p>{card.shortText}</p>
+							<p>{card.created_at}</p>
 						</div>
 					</div>
 				);

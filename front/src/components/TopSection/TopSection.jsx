@@ -5,13 +5,21 @@ import { Parallax } from 'react-parallax';
 import NewsBanner from "../NewsBanner/NewsBanner";
 import {useNavigate} from "react-router-dom";
 
-const text="Новые технологии в медицине. Конференция с международным участием. 10 апреля 2023 года во Дворце Республики." || null;
+const news={
+	id: 1,
+		title:
+	'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
+		imageUrl: '/imagesTest/news_1.jpg',
+	shortText:
+	'24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
+		bigText:
+	'24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между  Российским обществом симуляционного обучения (РОСОМЕД)  и Обществом симуляции в здравоохранении (SSH). Соглашение подписали Председатель президиума правления РОСОМЕД, Александр Колыш, и Президент SSH, Хару Окуда. Надеемся на эффективное продолжение многолетнего сотрудничества!',
+};
 
 const TopSection = () => {
-
 	const [announcement,setAnnouncement]=useState();
 	useEffect(()=>{
-		setAnnouncement(text);
+		setAnnouncement(news?.shortText);
 	},[])
 	const navigate = useNavigate();
 	return (
@@ -31,9 +39,9 @@ const TopSection = () => {
 								аттестации, внедрение передовых технологий в сфере
 								здравоохранения
 							</p>
-							{text?
+							{news?
 								<button onClick={() => {
-									navigate(`/news`);
+									navigate(`/news/${news.id}`);
 								}}>
 									<NewsBanner text={announcement}/>
 								</button>:""

@@ -12,7 +12,7 @@ const NewsItem = ({ news }) => {
 		>
 
 			<img src={news.imageUrl} alt={news.id} />
-			<h4>{news.description}</h4>
+			<h4>{news.title}</h4>
 			<p>{news.shortText}</p>
 
 		</div>

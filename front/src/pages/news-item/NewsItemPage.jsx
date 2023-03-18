@@ -17,12 +17,12 @@ const NewsItemPage = () => {
         for (let i = 1; i <= 18; i++) {
             newsObj[i] = {
                 id: i,
-                description:
+                title:
                     'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
                 imageUrl: '/imagesTest/news_1.jpg',
                 shortText:
                     '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
-                textHTML:
+                bigText:
                     '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между  Российским обществом симуляционного обучения (РОСОМЕД)  и Обществом симуляции в здравоохранении (SSH). Соглашение подписали Председатель президиума правления РОСОМЕД, Александр Колыш, и Президент SSH, Хару Окуда. Надеемся на эффективное продолжение многолетнего сотрудничества!',
                 created_at: '12.03.2023'
             };
@@ -48,10 +48,10 @@ const NewsItemPage = () => {
                             className={styles.cardImage}/>
                         <div className={styles.cardContent}>
                             <time dateTime="2021-03-30" className={styles.cardDate}>{newsItem?.created_at}</time>
-                            <span className={styles.cardTitle}>{newsItem?.description}</span>
+                            <span className={styles.cardTitle}>{newsItem?.title}</span>
                         </div>
                     </div>
-                    <p className={styles.cardDescription}>{newsItem?.textHTML}</p>
+                    <p className={styles.cardDescription}>{newsItem?.bigText}</p>
                 </div>
             </div>
         </div>
