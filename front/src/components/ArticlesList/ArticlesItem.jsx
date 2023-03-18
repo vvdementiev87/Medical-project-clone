@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ArticlesList.module.scss';
+import { Highlight } from "react-instantsearch-dom";
 const ArticlesItem = ({ article }) => {
 	const navigate = useNavigate();
 	return (
@@ -10,9 +11,9 @@ const ArticlesItem = ({ article }) => {
 				navigate(`/articles/${article.id}`);
 			}}
 		>
-			<img src={article.imageUrl} alt={article.id} />
-			<h4>{article.description}</h4>
-			<p>{article.shortText}</p>
+			<img src={article.image_url} alt={article.id} />
+			<Highlight className={styles.description} attribute="description" hit={article} />
+			<Highlight className={styles.short_text} attribute="short_text" hit={article} />
 		</div>
 	);
 };
