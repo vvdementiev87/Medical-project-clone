@@ -10,7 +10,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -22,15 +21,15 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse
     {
 
-        $user = User::create(array_merge($request->all(), ['password' => Hash::make($request->password)]));
+        $user = new User();
+        $user->add_data_account_and_user($request);
 
         event(new Registered($user));
 
         Auth::login($user);
 
         return response()->json([
-            'user' => auth()->user(),
-            'token' => $user->createToken('Token API of' . $user->last_name)->plainTextToken()
-        ]);
+            'success' => true,
+        ]);    
     }
 }

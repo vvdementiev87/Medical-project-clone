@@ -8,10 +8,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable;
+
+
+    protected $table = 'accounts';
+
 
     /**
      * The attributes that are mass assignable.
@@ -55,5 +63,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $timestamps = false;
+    /**
+     * @param $data 
+     * @return  int
+     */
+
+    public function add_data_account_and_user($data): void
+    {
+        
+        $user_registration_data = $data->except('email', 'password', 'password_confirmation', 'has_agree');
+        $id_user = DB::table('users')->insertGetId($user_registration_data);
+
+        $user_account_data = (array_merge($data->only('email', 'password'),['password' => Hash::make($data->password)]));
+        $user_account_data['user_id'] = $id_user;
+
+        DB::table('accounts')->insert($user_account_data);
+        
+    }   
+
 }
