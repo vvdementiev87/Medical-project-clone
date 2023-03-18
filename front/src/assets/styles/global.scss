@@ -100,6 +100,34 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   --rmsc-h: 38px; /* Height */
 }
 
+<<<<<<< HEAD
+=======
+.ais-Hits-list {
+  margin: 30px auto 0 !important;
+	width: 100%;
+	display: grid !important;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 30px;
+}
+
+.ais-Hits-item {
+  margin-top: 0 !important;
+  margin-left: 0 !important ;
+  padding: 0 !important;
+  width: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 100%;
+}
+
+.ais-SearchBox-input {
+  margin: 20px 0;
+}
+
+.ais-Pagination {
+  margin: 60px 0 20px;
+}
+>>>>>>> f636fc89183c0beb2990cb0dc100f9d40688942d
 
 @media screen and (max-width: 286px) {
   body, li {
