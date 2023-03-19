@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import Cards from '../Cards/Cards';
 import {routes} from '../../routes/route';
 import styles from './News.module.scss';
+import Banner from "../Banner/Banner";
 
 const data = [
     {
@@ -20,14 +21,14 @@ const data = [
         imageUrl: Relations,
         title: 'Новые технологии в медицине',
         shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
-		created_at: '12.02.2023',
+        created_at: '12.02.2023',
     },
     {
         id: 3,
         imageUrl: Digital,
         title: 'Новые технологии в медицине',
         shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
-		created_at: '12.02.2023',
+        created_at: '12.02.2023',
     },
 ];
 
@@ -38,6 +39,11 @@ const News = () => {
                 <div className="row">
                     <div className="col">
                         <h2 className={styles.newsHeading}>Новости и события</h2>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className={styles.banner}>
+                        <Banner data={data[0]}/>
                     </div>
                 </div>
                 <div className="row">

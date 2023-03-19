@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './NewsBanner.module.scss';
+import styles from './RunningString.module.scss';
 
 
 
-const NewsBanner = ({text}) => {
+const RunningString = ({text}) => {
     return (
         <div className={styles.marquee}><span>{text}</span></div>
     );
 };
 
-export default NewsBanner;
+export default RunningString;
