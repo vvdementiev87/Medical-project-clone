@@ -4,14 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Collection;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Scout\Searchable;
+//use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Searchable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,4 +58,53 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    /**
+     * @return Collection
+     */
+    public function getUsers(): Collection
+    {
+        return \DB::table('users')->select([
+            'id',
+            'last_name',
+            'first_name',
+            'surname',
+            'birth_date',
+            'avatar',
+            'phone',
+            'address',
+            'education',
+            'place_work',
+            'sign_for_news',
+            'position',
+            'category',
+            'experience',
+            'created_at',
+            'updated_at',
+        ])->get();
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function accessGroup(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            AccessGroup::class,
+            'access_group_has_user',
+            'user_id',
+            'group_id',
+            'id',
+            'id',
+        );
+    }
+
+    /**
+     * @param  int  $id
+     * @return mixed
+     */
+    public function getUserById(int $id): mixed
+    {
+        return \DB::table('users')->find($id);
+    }
 }
