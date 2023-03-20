@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Comments as CommentsModel;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Comments\CreateRequest;
+use App\Http\Requests\Comments\EditRequest;
 
 class CommentsController extends Controller
 {
@@ -59,10 +60,18 @@ class CommentsController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *  @param EditRequest
+     *  @return bool
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(EditRequest $request): bool
+    {   
+        $update_data = $request->validated();
+        $comment = CommentsModel::find($update_data['comment_id']);
+        $comment->fill(['description' => $update_data['description']]);
+        if ($comment->save()) {
+            return true;
+        }
+        return false;  
     }
 
     /**
