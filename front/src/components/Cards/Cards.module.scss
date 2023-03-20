@@ -8,9 +8,9 @@
 .cardsItem {
   width: 100%;
   max-width: 400px;
-  height: 480px;
+  //min-height: 480px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin: 0 auto;
 }
 
@@ -19,7 +19,7 @@
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  height: 55%;
+  height: 300px;
 
   img {
     width: 100%;
