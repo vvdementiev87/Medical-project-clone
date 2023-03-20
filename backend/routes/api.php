@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Content\VideosController;
 use App\Http\Controllers\Content\ArticlesController;
+use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 
@@ -25,6 +26,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
     Route::get('articles', [ArticlesController::class, 'index']);
+    Route::get('news', [NewsController::class, 'index']);
+    Route::get('news/{id}', [NewsController::class, 'show']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
