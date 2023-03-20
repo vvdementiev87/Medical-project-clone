@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ForumComments from "../../components/ForumComments/ForumComments";
 import Pagination from "../../components/Pagination";
@@ -90,56 +91,44 @@ const mockComments = [
 ]
 
 function ForumTopic() {
-    const [comments, setComments] = useState([]);
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState(1);
-    const [description, setDescription] = useState('');
     const { topicId } = useParams();
+    const [topic, setTopic] = useState({});
+    const [comments, setComments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [commentsPerPage] = useState(5);
     const [text, setText] = useState('');
 
-    const dispatch = useDispatch();
-
     //тестовые значения
-    const currentUserId = 1;
-    const URL = "127.0.0.1:80/api/"
+    const currentUser = useSelector((state) => state.user.user) || 1;
+    const currentUserId = useSelector((state) => state.user.user?.id) || 1;
+    const token = useSelector((state) => state.user.user?.token);
+    const URL = "127.0.0.1:80/api/";
 
     // запрос на бэк вместо использования мок-массива. Раскомментить после подключения бека:
-    // useEffect(()=>{
-    //     fetch(`${URL}forum/posts/${topicId}`)
-    //     .then((response)=>{
-    //         return response.json()
-    //     })
-    //     .then ((result)=> {
-    //         setAuthor (result.author.id);
-    //         setTitle(result.title);
-    //         setDesription(result.description);
-    //         dispatch(setTitle(result.comments));
-    //     })
-    //     .catch(error=> console.log(error));
-    // }, [])
-    // const comments = useSelector((state)=>state.forum.title);
+    async function loadAllComments() {
+        let response = await fetch(`${URL}forum/posts/${topicId}`);
+        if(response.ok) {
+            let result = await response.json();
+            setTopic({
+                title: result.title,
+                description: result.description
+            });
+            setComments(result.comments);
+        } else {
+            console.log(response.status);
+        }
+    }
 
-    //удалить при подключении бэка
     useEffect(() => {
-        setTitle('Тестовое название');
-        setDescription('Тестовое описание темы');
+        // loadAllComments();
+        //удалить при подключении бэка
+        setTopic({title: 'Тестовое название', description:'Тестовое описание темы'});
         setComments(mockComments);
     }, [])
 
     function handleTextChange(event) {
         setText(event.target.value);
     }
-
-    function getCookie(name) {
-        let matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
-
-    let csrfToken = getCookie('csrftoken');
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -148,39 +137,22 @@ function ForumTopic() {
             'post_id': topicId,
             'description': text,
         };
-        // отправка запроса на бэкенд, на будущее - скорректировать получение csrf токена
-        // fetch(`${URL}forum/comments/add`, {
-        //     method: "POST",
-        //     credentials: "include",
-        //     headers: {
-        //         "X-CSRF-TOKEN": csrfToken,
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // })
-        //     .then(() => {fetch(`${URL}forum/posts/${topicId}`)})
-        //     .then((response) => {
-        //         return response.json()
-        //     })
-        //     .then((result) => {
-        //         setAuthor(result.author.id);
-        //         setTitle(result.title);
-        //         setDescription(result.description);
-        //         dispatch(setTitle(result.comments));
-        //     })
-        //     .catch(error => console.log(error));
-
-        let newItem = {
-            id: (comments.length + 1),
-            author_id: currentUserId,
-            author: "профессор Преображенский",
-            avatar: "https://picsum.photos/50/50",
-            description: text,
-            created_at: "Только что",
-            updated_at: "",
+        // отправка запроса на бэк
+        let response = await fetch(`${URL}forum/comments/add`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Authorisation": token,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+        
+        if (response.ok) {
+            loadAllComments();
+        } else {
+            console.log(response.status);
         }
-        setComments([newItem, ...comments]);
-        console.log(comments);
     }
 
     const lastCommentIndex = currentPage * commentsPerPage;
@@ -192,10 +164,10 @@ function ForumTopic() {
     }
 
     return (<>
-        <h2 className={styles.topic__title}>{title}</h2>
+        <h2 className={styles.topic__title}>{topic.title}</h2>
         <div className={styles.topic__container}>
-            <div className={styles.topic__description}><p>{description}</p></div>
-            <ForumComments comments={currentComment} />
+            <div className={styles.topic__description}><p>{topic.description}</p></div>
+            <ForumComments comments={currentComment} loadAllComments={loadAllComments} />
             <Pagination
                 commentsPerPage={commentsPerPage}
                 totalComments={comments.length} 
@@ -207,7 +179,10 @@ function ForumTopic() {
             <label className={styles.forum__form_field}>
                 <input type="text" placeholder='Текст' onChange = {(e)=> handleTextChange(e)}/>
             </label>
-            <button className={styles.forum__btn} onClick= {(e)=>handleSubmit(e)}>ОТПРАВИТЬ</button>
+            {currentUser?
+                <button className={styles.forum__btn} onClick= {(e)=>handleSubmit(e)}>ОТПРАВИТЬ</button> :
+                <Link to='/login'><button className={styles.forum__btn}>Войти</button></Link>
+            }
         </form>
     </>
     )
