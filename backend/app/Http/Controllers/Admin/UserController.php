@@ -43,25 +43,16 @@ class UserController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-        dd($request);
         $user = User::create($request->validated());
 
         if ($user) {
+            $user = User::create($request->validated());
             $user->accessGroup()->attach($request->getAccessGroupId());
             return redirect()->route('admin.users.index')->with('success', 'User added');
         }
 
         return \back()->with('error', 'Something wrong... Try again later');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
 
     /**
      * @param  User                     $user
@@ -87,7 +78,7 @@ class UserController extends Controller
 
         if ($user) {
             $user->accessGroup()->sync($request->getAccessGroupId());
-            return redirect()->route('admin.users.index')->with('success', 'User changed');
+            return redirect()->route('admin.users.index');
         }
 
         return \back()->with('error', 'Something wrong... Try again later');
