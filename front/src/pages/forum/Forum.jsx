@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ForumForm from '../../components/ForumForm/ForumForm';
-import { setTitlesList } from '../../store/forum/forum.slice';
+import { getTitles } from '../../store/forum/forum.actions';
 import styles from './Forum.module.scss';
 
 function Forum() {
@@ -14,8 +14,8 @@ function Forum() {
 	const token = useSelector((state) => state.user.user?.token);
 	// после настройки бэка моки нужно удалить
 
-	// const titlesList = useSelector((state) => state.forum.titlesList);
-	const [currentTitles, setCurrentTitles] = useState([...titlesList]);
+	const titlesList = useSelector((state) => state.forum.titles);
+	const [currentTitles, setCurrentTitles] = useState([]);
 
 	//редактирование поста
 	const [updPost, setUpdPost] = useState(null);
@@ -34,18 +34,7 @@ function Forum() {
 
 	// запрос на загрузку всех постов с бэка
 	async function loadAllPosts() {
-		let response = await fetch(`${URL}forum/posts`, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			},
-		});
-		if (response.ok) {
-			let result = await response.json();
-			dispatch(setTitlesList(result));
-		} else {
-			console.log(response.status);
-		}
+		return getTitles();
 	}
 
 	// отправка запроса на удаление поста
