@@ -27,15 +27,16 @@ function RegistrationForm() {
 			sign_for_news,
 			position,
 			phone,
-			patronym,
+			surname,
 			other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			company,
+			place_work,
 			category,
 			birth_date,
+			has_agreed,
 		} = data;
 
 		try {
@@ -47,15 +48,16 @@ function RegistrationForm() {
 				sign_for_news,
 				position,
 				phone,
-				patronym,
+				surname,
 				other_info,
 				last_name,
 				first_name,
 				experience,
 				education,
-				company,
+				place_work,
 				category,
 				birth_date,
+				has_agreed,
 			});
 		} catch (error) {
 			setResponseError(error.response.data.errors);
@@ -91,12 +93,12 @@ function RegistrationForm() {
 				/>
 				<InputField
 					className="reg_field_width"
-					id="patronym"
-					name="patronym"
+					id="surname"
+					name="surname"
 					placeholder="Петрович"
 					labelText="Отчество"
 					error={errors.patronym}
-					{...register('patronym', {
+					{...register('surname', {
 						required: { value: true, message: 'Укажите отчество' },
 					})}
 				/>
@@ -153,11 +155,11 @@ function RegistrationForm() {
 				</label>
 				<InputField
 					className="reg_field_width"
-					id="company"
-					name="company"
+					id="place_work"
+					name="place_work"
 					placeholder="..."
 					labelText="Место работы"
-					{...register('company')}
+					{...register('place_work')}
 				/>
 				<InputField
 					className="reg_field_width"
@@ -234,7 +236,7 @@ function RegistrationForm() {
 					id="password_confirmation"
 					data-testid="ppassword_confirmation"
 					name="password_confirmation"
-					type="password_confirmation"
+					type="password"
 					labelText="Подтвердите пароль"
 					error={errors.password}
 					{...register('password_confirmation', {

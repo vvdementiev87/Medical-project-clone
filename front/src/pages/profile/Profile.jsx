@@ -6,6 +6,7 @@ import styles from './Profile.module.scss';
 
 const Profile = () => {
 	const { user } = useAuth();
+	console.log(user);
 	return (
 		<div className={styles.profile}>
 			<UserProfile user={{ ...user, avatar: 'imagesTest/avatar.jpg' }} />
