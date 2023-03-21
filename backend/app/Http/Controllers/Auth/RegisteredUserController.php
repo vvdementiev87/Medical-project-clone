@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
         }
         return response()->json([
             'error' => 'User and account were not created',
-        ], 404);
+        ], 401);
 
 
     }

@@ -26,6 +26,7 @@ class AuthenticatedSessionController extends Controller
         $account = \auth()->user();
         $user = User::where('account_id', $account->id)->first();
         $user['email']= $account->email;
+
         return response()->json([
             'user' => $user,
             'accessToken' => $account->createToken(name: 'accessToken', expiresAt: now()->modify("+1 day"))->plainTextToken
