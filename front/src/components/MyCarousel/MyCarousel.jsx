@@ -14,7 +14,7 @@ const MyCarousel = ({data}) => {
                 return (
                     <Carousel.Item key={i}>
                         <img
-                            className="d-block w-100"
+                            className="d-block w-100 h-100"
                             src={slide.image}
                             alt="slider image"
                         />

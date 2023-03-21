@@ -1,0 +1,29 @@
+.forum__form_field{
+    display: flex;
+    width: 100%;
+    & input {
+      width: 100%;
+      padding: 12px 24px;
+      border-radius: 5px;
+      border: 3px solid rgba(68, 68, 167, 0.5);
+    }
+  }
+  
+  .forum__btn {
+    font-size: 18px;
+    line-height: 100%;
+    background:rgb(68, 68, 167);
+    color:white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    transition: 0.3s;
+    &:hover {
+      transform: scale(0.95);
+      background:rgba(68, 68, 167, 0.7);
+    }
+  }
+  
+  .forum__btn_section {
+    display: flex;
+    justify-content: space-between;
+  }

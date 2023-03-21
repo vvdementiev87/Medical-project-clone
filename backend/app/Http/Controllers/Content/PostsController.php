@@ -8,6 +8,7 @@ use App\Models\Posts as PostsModel;
 use App\Models\User as UserModel;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Posts\CreateRequest;
+use App\Http\Requests\Posts\EditRequest;
 
 class PostsController extends Controller
 {
@@ -43,7 +44,7 @@ class PostsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  App\Http\Requests\Posts\CreateRequest
+     * @param CreateRequest
      * @return bool
      */
     public function store(CreateRequest $request): bool
@@ -110,10 +111,18 @@ class PostsController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *  @param EditRequest
+     *  @return bool
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(EditRequest $request): bool
+    {   
+        $update_data = $request->validated();
+        $post = PostsModel::find($update_data['post_id']);
+        $post->fill(['title' => $update_data['title'], 'description' => $update_data['description']]);
+        if ($post->save()) {
+            return true;
+        }
+        return false;  
     }
 
     /**
