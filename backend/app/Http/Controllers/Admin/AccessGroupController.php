@@ -22,17 +22,9 @@ class AccessGroupController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) //TODO будет дополняться
     {
         //
     }
@@ -40,7 +32,7 @@ class AccessGroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) //TODO будет дополняться
     {
         //
     }
@@ -48,7 +40,7 @@ class AccessGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) //TODO будет дополняться
     {
         //
     }
@@ -56,7 +48,7 @@ class AccessGroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id) //TODO будет дополняться
     {
         //
     }
@@ -64,7 +56,7 @@ class AccessGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) //TODO будет дополняться
     {
         //
     }
