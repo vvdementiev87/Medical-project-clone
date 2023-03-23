@@ -55,12 +55,14 @@ function Forum() {
 							Создать пост
 						</button>
 					)}
-					<Pagination
-						currentPage={currentPage}
-						totalCount={Object.entries(titlesList).length}
-						pageSize={PageSize}
-						onPageChange={(page) => setCurrentPage(page)}
-					/>
+					{currentTableData && (
+						<Pagination
+							currentPage={currentPage}
+							totalCount={Object.entries(titlesList).length}
+							pageSize={PageSize}
+							onPageChange={(page) => setCurrentPage(page)}
+						/>
+					)}
 				</div>
 				{isVisible && <PostAddForm />}
 			</div>
