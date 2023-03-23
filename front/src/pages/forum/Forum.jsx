@@ -1,136 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import ForumForm from '../../components/ForumForm/ForumForm';
-import { getTitles } from '../../store/forum/forum.actions';
+import React, { useEffect, useState, useMemo } from 'react';
+import PostAddForm from '../../components/PostsItem/PostAddForm';
+import PostsItem from '../../components/PostsItem/PostsItem';
+import { useActions } from '../../hooks/useActions';
+import { useForum } from '../../hooks/useForum';
 import styles from './Forum.module.scss';
+import Pagination from '../../ui/pagination/Pagination';
+import { useAuth } from '../../hooks/useAuth';
+
+const PageSize = 9;
 
 function Forum() {
-	const dispatch = useDispatch();
-	//тестовые значения
-	const URL = '127.0.0.1:80/api/';
-	const currentUser = useSelector((state) => state.user.user);
-	const currentUserId = useSelector((state) => state.user.user?.id) || 1;
-	const token = useSelector((state) => state.user.user?.token);
-	// после настройки бэка моки нужно удалить
+	const { user } = useAuth();
+	const { getAllPosts } = useActions();
+	const { posts: titlesList, isLoading } = useForum();
+	const [isVisible, setIsVisible] = useState(false);
 
-	const titlesList = useSelector((state) => state.forum.titles);
-	const [currentTitles, setCurrentTitles] = useState([]);
-
-	//редактирование поста
-	const [updPost, setUpdPost] = useState(null);
-
-	function handleUpdate(e) {
-		const { name, value } = e.target;
-		setUpdPost((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	}
+	const [currentPage, setCurrentPage] = useState(1);
+	const currentTableData = useMemo(() => {
+		const firstPageIndex = (currentPage - 1) * PageSize;
+		const lastPageIndex = firstPageIndex + PageSize;
+		return (
+			titlesList &&
+			Object.fromEntries(
+				Object.entries(titlesList).slice(firstPageIndex, lastPageIndex)
+			)
+		);
+	}, [currentPage, titlesList]);
 
 	useEffect(() => {
-		loadAllPosts();
+		getAllPosts();
 	}, []);
-
-	// запрос на загрузку всех постов с бэка
-	async function loadAllPosts() {
-		return getTitles();
-	}
-
-	// отправка запроса на удаление поста
-	async function handleDelete(event, id) {
-		event.preventDefault();
-		let response = await fetch(`${URL}forum/posts/delete/${id}`, {
-			method: 'DELETE',
-			credentials: 'include',
-			headers: {
-				Authorisation: token,
-				'Content-Type': 'application/json',
-			},
-		});
-		if (response.ok) {
-			loadAllPosts();
-		} else {
-			console.log(response.status);
-		}
-		// после настройки бэка это нужно удалить
-		setCurrentTitles([...currentTitles.filter((item) => item.id !== id)]);
-	}
-
-	// рендер всех постов
-	function renderAllTitles(titleArray) {
-		return titleArray.map((item) => {
-			return (
-				<div key={item.id}>
-					<section className={styles.forum__topic}>
-						<Link to={`${item.id}`}>
-							<h3>
-								#{item.id} {item.title}
-							</h3>
-						</Link>
-						<p>{item.description}</p>
-						<div className={styles.forum__topic_content}>
-							<p className={styles.forum__topic_title}>
-								<span>Создан: </span>
-								{item.created_at}
-							</p>
-							<p className={styles.forum__topic_title}>
-								<span>Комментариев: </span>
-								{item.comments_count}
-							</p>
-							<p className={styles.forum__topic_title}>
-								<span>Последний комментарий: </span>
-								{item.last_comment}
-							</p>
-						</div>
-						{item.author_id === currentUserId && (
-							<div className={styles.forum__btn_section}>
-								<button
-									className={styles.forum__btn}
-									onClick={() => {
-										setUpdPost(item);
-									}}
-								>
-									РЕДАКТИРОВАТЬ
-								</button>
-								<button
-									className={styles.forum__btn}
-									onClick={(e) => {
-										handleDelete(e, item.id);
-									}}
-								>
-									УДАЛИТЬ
-								</button>
-							</div>
-						)}
-					</section>
-					{updPost && updPost.id === item.id && (
-						<ForumForm
-							updPost={updPost}
-							setUpdPost={setUpdPost}
-							loadAllPosts={loadAllPosts}
-						/>
-					)}
-				</div>
-			);
-		});
-	}
 
 	return (
 		<>
-			<h2 className={styles.forum__title}>Форум</h2>
-			<div className={styles.forum__container}>
-				{currentTitles && Array.isArray(currentTitles) ? (
-					renderAllTitles(currentTitles)
-				) : (
+			<h2 className={styles.title}>Форум</h2>
+			<div className={styles.container}>
+				{isLoading ? (
 					<h1>Loading...</h1>
+				) : (
+					Object.keys(currentTableData).map((key) => (
+						<PostsItem key={key} post={currentTableData[key]} />
+					))
 				)}
+				<div className={styles.pagination}>
+					{user && (
+						<button
+							title="Save changes"
+							className={styles.reply}
+							onClick={() => {
+								setIsVisible(!isVisible);
+							}}
+						>
+							Создать пост
+						</button>
+					)}
+					<Pagination
+						currentPage={currentPage}
+						totalCount={Object.entries(titlesList).length}
+						pageSize={PageSize}
+						onPageChange={(page) => setCurrentPage(page)}
+					/>
+				</div>
+				{isVisible && <PostAddForm />}
 			</div>
-			<ForumForm
-				updPost={null}
-				setUpdPost={setUpdPost}
-				loadAllPosts={loadAllPosts}
-			/>
 		</>
 	);
 }

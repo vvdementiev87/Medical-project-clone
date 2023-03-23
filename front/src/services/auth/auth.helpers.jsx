@@ -5,7 +5,7 @@ export const saveTokensStorage = ({ accessToken }) => {
 };
 export const saveToStorage = (data) => {
 	saveTokensStorage(data);
-	localStorage.setItem('user', JSON.stringify(data.user.email));
+	localStorage.setItem('user', JSON.stringify(data.user));
 };
 export const removeTokensStorage = () => {
 	Cookies.remove('accessToken');

@@ -57,7 +57,7 @@ function Router() {
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 
 					<Route path="/forum" element={<Forum />} />
-					<Route path="/forum/:topicId" element={<ForumTopic />} />
+					<Route path="/forum/:postId" element={<ForumTopic />} />
 
 					<Route
 						path={routes.STUDY.link}

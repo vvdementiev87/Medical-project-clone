@@ -3,6 +3,7 @@
 @import 'react-redux-toastr/src/styles/index';
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+@import 'react-quill/dist/quill.snow.css';
 
 * {
   margin: 0;
@@ -168,6 +169,10 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
     font-size: 13px !important;
   }
   
+}
+
+.ql-editor{
+  min-height:120px;
 }
 
 .carousel-item {
