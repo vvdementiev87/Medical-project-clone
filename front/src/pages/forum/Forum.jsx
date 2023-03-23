@@ -38,6 +38,7 @@ function Forum() {
 				{isLoading ? (
 					<h1>Loading...</h1>
 				) : (
+					currentTableData &&
 					Object.keys(currentTableData).map((key) => (
 						<PostsItem key={key} post={currentTableData[key]} />
 					))
