@@ -6,7 +6,7 @@ function Pagination({ commentsPerPage, totalComments, paginate }) {
 
     return (
         <div>
-            <ul className="pagination">
+            <ul className='pagination' style={{margin:0}}>
                 {
                     pageNumbers.map(number => (
                         <li className="page-item" key={number}>

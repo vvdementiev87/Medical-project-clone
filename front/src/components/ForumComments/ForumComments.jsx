@@ -66,9 +66,9 @@ function ForumComments({ comments, loadAllComments }) {
         return (
             <form className={styles.forum__form_container}>
                 <label className={styles.forum__form_field}>
-                    <input type="text" placeholder='Текст' name='description' onChange={handleUpdate} value={updComment?.description} />
+                    <textarea type="text" placeholder='Текст' name='description' onChange={handleUpdate} value={updComment?.description} />
                 </label>
-                <button className={styles.forum__btn} onClick={handleUpdateSubmit}>ГОТОВО</button>
+                <button className={styles.forum__btn} onClick={handleUpdateSubmit}>Готово</button>
             </form>
         )
     }
@@ -81,8 +81,18 @@ function ForumComments({ comments, loadAllComments }) {
                         <section key={comment.id} className={styles.comments__item}>
                             <div className={styles.comment__content}>
                                 <img className={styles.comments__avatar} src={comment.avatar} alt="avatar" />
-                                <p>{comment.description}</p>
+                                <div className={styles.comment__all_text}>
+                                    <div className={styles.comment__description_container}>
+                                        <p className={styles.comment__author}>{comment.author}</p>
+                                        <div> 
+                                            <p className={styles.comment__description}>{comment.created_at}</p>
+                                            {comment.updated_at ? <p className={styles.comment__description}><span>изменен {comment.updated_at}</span></p> : null}
+                                        </div>
+                                    </div>
+                                    <p className={styles.comment__text}>{comment.description}</p>
+                                </div>
                             </div>
+
                             <div className={styles.comment__btn_container}>
                                 {comment.author_id === currentUserId ?
                                     <>
@@ -91,11 +101,6 @@ function ForumComments({ comments, loadAllComments }) {
                                     </>
                                     : null
                                 }
-                                <div className={styles.comment__description_container}>
-                                    <p className={styles.comment__description}><span>Автор: </span>{comment.author}</p>
-                                    <p className={styles.comment__description}><span>Опубликовано: </span>{comment.created_at}</p>
-                                    {comment.updated_at ? <p className={styles.comment__description}><span>Изменено: </span> {comment.updated_at}</p> : null}
-                                </div>
                             </div>
 
                             {updComment && updComment.id === comment.id && renderUpdForm()}

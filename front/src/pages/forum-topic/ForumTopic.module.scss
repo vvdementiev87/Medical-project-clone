@@ -1,25 +1,52 @@
+$bosom_green: rgb(167, 236, 225);
+$bosom_light_green: rgba(167, 236, 225, 0.3);
+$bosom_gray:  rgba(143, 188, 197, 1);
+$bosom_light_gray: rgba(143, 188, 197, 0.3);
+$bosom_violet: rgba(68, 68, 167, 1);
+$bosom_light_violet: rgba(68, 68, 167, 0.5);
+
+.page__container {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.page__content_container {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
 .topic__title {
-  margin: 32px 0;
+  margin: 0;
+  margin-left: 24px;
   font-weight: 700;
   font-size: 36px;
   line-height: 140%;
+  color: #333333;
+}
+
+.forum__greeting {
+  width: 100%;
+  padding-left: 24px;
+  font-size: 16px;
+  border-bottom: 3px solid $bosom_gray;
+  border-top: 3px solid $bosom_gray;
 }
 
 .topic__container {
-  max-width: 960px;
-  margin: 0 auto;
-  margin-bottom: 64px;
-  border-radius: 5px;
-  padding: 36px 48px;
-  border: 3px solid rgba(68, 68, 167, 0.5);
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: center;
+  gap: 12px;
 }
 
 .topic__description {
-  background-color: rgba(68, 68, 167, 0.2);
+  background-color: $bosom_light_gray;
   border-radius: 5px;
   padding: 24px;
   width: 100%;
@@ -30,38 +57,50 @@
 }
 
 .forum__form_container {
-  max-width: 960px;
-  margin: 48px auto;
+  width: 100%;
+  margin: 32px auto;
   border-radius: 5px;
-  padding: 36px 48px;
-  border: 3px solid rgba(68, 68, 167, 0.5);
+  padding: 24px 48px;
+  background-color: $bosom_light_gray;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 12px;
 }
 
 .forum__form_field {
   display: flex;
   width: 100%;
-  & input {
+  & textarea {
     width: 100%;
     padding: 12px 24px;
     border-radius: 5px;
-    border: 3px solid rgba(68, 68, 167, 0.5);
+    border: 3px solid $bosom_gray;
   }
 }
 
 .forum__btn {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 100%;
-  background:rgb(68, 68, 167);
+  background: $bosom_gray;
   color:white;
-  padding: 12px 24px;
+  padding: 10px 16px;
   border-radius: 5px;
-  transition: 0.3s;
+  transition: 0.1s;
   &:hover {
     transform: scale(0.95);
-    background:rgba(68, 68, 167, 0.7);
+    background: $bosom_light_violet;
   }
+}
+
+.forum__topic_title {
+  font-size: 20px;
+  display: block;
+  max-width: 350px;
+  padding-right: 8px;
+  margin: 0;
+}
+
+.pagination {
+  margin: 0;
 }

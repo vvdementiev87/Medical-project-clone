@@ -7,7 +7,7 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
     const currentUser = useSelector((state) => state.user.user) || 1;
     const currentUserId = useSelector((state) => state.user.user?.id) || 1;
     const token = useSelector((state) => state.user.user?.token);
-    // const [show, setShow] = useState(true);
+
     //создание поста
     const [newPost, setNewPost] = useState({
         title: '',
@@ -90,12 +90,12 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
     if (currentUser) {
         return ( 
         <form className={styles.forum__form_container}>
-            {!updPost ? <h3>Создать новый пост</h3> : <h3>Редактировать пост: </h3>}
+            {!updPost ? <h3 className={styles.forum__form_title}>Создать пост:</h3> : <h3 className={styles.forum__form_title}>Редактировать пост: </h3>}
             <label className={styles.forum__form_field}>
                 <input type="text" name='title' placeholder='Название' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.title : updPost?.title} />
             </label>
             <label className={styles.forum__form_field}>
-                <input type="text" name='description' placeholder='Описание' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.description : updPost?.description} />
+                <textarea className={styles.forum__form_description} type="text" name='description' placeholder='Описание' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.description : updPost?.description} />
             </label>
             <button className={styles.forum__btn} onClick={!updPost ? handleSubmit : handleUpdateSubmit}> {!updPost ? "СОЗДАТЬ" : "ГОТОВО"}</button>
         </form>
