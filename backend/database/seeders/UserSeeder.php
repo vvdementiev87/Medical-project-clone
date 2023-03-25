@@ -14,15 +14,15 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $userCollection = [];
-        for ($i = 0; $i <= 5; $i++) {
+        for ($i = 0; $i <= 10; $i++) {
             $userCollection[] = [
                 'last_name' => \fake()->lastName(),
                 'first_name' => \fake()->firstName(),
                 'surname' => \fake()->firstNameFemale(),
+                'phone' => \fake()->phoneNumber(),
                 'birth_date' => \now(),
                 'sign_for_news' => false,
                 'position' => \fake()->jobTitle(),
-                'password' => Hash::make('123'),
             ];
         }
         \DB::table('users')->insert($userCollection);

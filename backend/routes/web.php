@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AccessGroupController;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
+    Route::get('/', AdminController::class)->name('index');
+    Route::resource('users', AdminUserController::class);
+    Route::resource('accessGroup', AccessGroupController::class);
 });
 
 require __DIR__.'/auth.php';
