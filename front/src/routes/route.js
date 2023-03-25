@@ -8,6 +8,7 @@ export const routes = {
 	VIDEOS: { link: '/videos', name: 'Videos' },
 	NEWS: { link: '/news', name: 'News' },
 	STUDY: { link: '/study', name: 'Study' },
+	CONFERENCIES: { link: '/conferencies', name: 'Conferencies' },
 };
 
 export function PublicRoute({ isAuth, to = routes.HOME.link, children }) {
