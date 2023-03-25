@@ -5,19 +5,9 @@ import {hashedPassword} from '../../config/password.config';
 
 import {useActions} from '../../hooks/useActions';
 import {InputField} from '../basic/InputField/InputField';
-import MultipleSelect from "../../ui/multiple-select/MultipleSelect";
-
-
-const customStyles = {
-    control: (styles, state) => ({
-        ...styles,
-        boxShadow: state.isFocused ? "0 0 0 0.1rem rgba(120, 194, 173, 0.25)" : 0,
-        border: state.isFocused ? "1px solid #D0EAE2" : "1px solid #CED4DA",
-        "&:hover": {
-            borderColor: state.isFocused ? "#D0EAE2" : "#CED4DA"
-        }
-    })
-};
+import MultipleSelect from "../multiple-select/MultipleSelect";
+import styles from "../basic/InputField/InputField.module.scss";
+import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
 
 function RegistrationForm() {
     const {
@@ -25,6 +15,7 @@ function RegistrationForm() {
         handleSubmit,
         formState: {errors},
         reset,
+        control
     } = useForm({mode: 'all'});
     const {register: registerAction} = useActions();
     const [responseError, setResponseError] = useState(null);
@@ -33,42 +24,54 @@ function RegistrationForm() {
         await getCsrfToken();
         console.log(data);
         const {
-            password_confirmation,
+            // password_confirmation,
             email,
-             password,
+            // password,
             address,
             sign_for_news,
             position,
             phone,
             patronym,
-            other_info,
+            // other_info,
             last_name,
             first_name,
             experience,
             education,
+            education_end,
             company,
-            category,
+            // category,
             birth_date,
+            specialization,
+            degree,
+            academic_rank,
+            interests,
+            is_member
         } = data;
 
         try {
             registerAction({
-                 password_confirmation: hashedPassword(password_confirmation),
+                // password_confirmation: hashedPassword(password_confirmation),
                 email,
-                 password: hashedPassword(password),
+                // password: hashedPassword(password),
                 address,
                 sign_for_news,
                 position,
                 phone,
                 patronym,
-                 other_info,
+                // other_info,
                 last_name,
                 first_name,
                 experience,
                 education,
+                education_end,
                 company,
-                category,
+                // category,
                 birth_date,
+                specialization,
+                degree,
+                academic_rank,
+                interests,
+                is_member
             });
         } catch (error) {
             setResponseError(error.response.data.errors);
@@ -154,35 +157,31 @@ function RegistrationForm() {
                     })}
                 />
 
-                <label>
-                    Aдрес, включая почтовый индекс
-                    <textarea
+                    <TextAreaField
                         className="reg_field_width"
                         id="address"
                         name="address"
+                        labelText="Aдрес, включая почтовый индекс"
                         placeholder="..."
-						error={errors['address']}
+                        error={errors['address']}
                         aria-label="address"
                         {...register('address', {
                             required: {value: true, message: 'Укажите адрес'}
                         })}
                     />
-                </label>
 
-                <label>
-                    Профессиональное образование: учебное заведение
-                    <textarea
+                    <TextAreaField
                         className="reg_field_width"
                         id="education"
                         name="education"
                         aria-label="education"
-						error={errors['education']}
+                        labelText="Профессиональное образование: учебное заведение"
+                        error={errors['education']}
                         placeholder="..."
                         {...register('education', {
                             required: {value: true, message: 'Укажите учебное заведение'}
                         })}
                     />
-                </label>
 
                 <InputField
                     className="reg_field_width"
@@ -190,7 +189,7 @@ function RegistrationForm() {
                     name="education_end"
                     placeholder="..."
                     labelText="Год окончания учебного заведения"
-					error={errors['education_end']}
+                    error={errors['education_end']}
                     {...register('education_end', {
                         required: {value: true, message: 'Укажите год окончания учебного заведения'}
                     })}
@@ -201,7 +200,7 @@ function RegistrationForm() {
                     id="specialization"
                     name="specialization"
                     placeholder="..."
-					error={errors['specialization']}
+                    error={errors['specialization']}
                     labelText="Специальность"
                     {...register('specialization', {
                         required: {value: true, message: 'Укажите специальность'}
@@ -214,7 +213,7 @@ function RegistrationForm() {
                     name="experience"
                     placeholder="..."
                     type="number"
-					error={errors['experience']}
+                    error={errors['experience']}
                     labelText="Стаж работы в специальности"
                     {...register('experience', {
                         required: {value: true, message: 'Укажите ваш стаж'}
@@ -226,7 +225,7 @@ function RegistrationForm() {
                     id="company"
                     name="company"
                     placeholder="..."
-					error={errors['company']}
+                    error={errors['company']}
                     labelText="Место работы"
                     {...register('company', {
                         required: {value: true, message: 'Укажите место работы'}
@@ -265,26 +264,14 @@ function RegistrationForm() {
                     {...register('academic_rank')}
                 />
 
-                {/*<label>*/}
-                {/*	Дополнительная информация (докторантура, аспирантура, ученая степень,*/}
-                {/*	прочее)*/}
-                {/*	<textarea*/}
-                {/*		className="reg_field_width"*/}
-                {/*		id="other_info"*/}
-                {/*		name="other_info"*/}
-                {/*		placeholder="..."*/}
-                {/*		aria-label="other_info"*/}
-                {/*		{...register('other_info')}*/}
-                {/*	/>*/}
-                {/*</label>*/}
-
-                <label className="interestWrapper">
-                    Область профессиональных интересов
-                    <MultipleSelect {...register('interests', {
+                    <MultipleSelect
+                        id="interests"
+                        name="interests"
+                        labelText="Область профессиональных интересов"
+                        error={errors['interests']}
+                        {...register('interests', {
                         required: {value: true, message: 'Укажите ваши проф. интересы'},
                     })}/>
-                </label>
-
 
                 <InputField
                     className="reg_field_width"
@@ -294,39 +281,6 @@ function RegistrationForm() {
                     labelText="Являетесь ли членом других общественных объединений, если да, то каких"
                     {...register('is_member')}
                 />
-
-                {/*<InputField*/}
-                {/*	className="reg_field_width"*/}
-                {/*	id="password"*/}
-                {/*	data-testid="password"*/}
-                {/*	name="password"*/}
-                {/*	type="password"*/}
-                {/*	labelText="Пароль"*/}
-                {/*	error={errors.password}*/}
-                {/*	{...register('password', {*/}
-                {/*		required: { value: true, message: 'Укажите пароль' },*/}
-                {/*		minLength: {*/}
-                {/*			value: 6,*/}
-                {/*			message: 'Пароль должен быть не меньше 6 символов',*/}
-                {/*		},*/}
-                {/*	})}*/}
-                {/*/>*/}
-                {/*<InputField*/}
-                {/*	className="reg_field_width"*/}
-                {/*	id="password_confirmation"*/}
-                {/*	data-testid="ppassword_confirmation"*/}
-                {/*	name="password_confirmation"*/}
-                {/*	type="password_confirmation"*/}
-                {/*	labelText="Подтвердите пароль"*/}
-                {/*	error={errors.password}*/}
-                {/*	{...register('password_confirmation', {*/}
-                {/*		required: { value: true, message: 'Укажите пароль' },*/}
-                {/*		minLength: {*/}
-                {/*			value: 6,*/}
-                {/*			message: 'Пароль должен быть не меньше 6 символов',*/}
-                {/*		},*/}
-                {/*	})}*/}
-                {/*/>*/}
 
                 <label>
 					<span className="reg_checkbox_text">
@@ -366,3 +320,40 @@ function RegistrationForm() {
 }
 
 export default RegistrationForm;
+
+
+
+
+
+{/*<InputField*/}
+{/*	className="reg_field_width"*/}
+{/*	id="password"*/}
+{/*	data-testid="password"*/}
+{/*	name="password"*/}
+{/*	type="password"*/}
+{/*	labelText="Пароль"*/}
+{/*	error={errors.password}*/}
+{/*	{...register('password', {*/}
+{/*		required: { value: true, message: 'Укажите пароль' },*/}
+{/*		minLength: {*/}
+{/*			value: 6,*/}
+{/*			message: 'Пароль должен быть не меньше 6 символов',*/}
+{/*		},*/}
+{/*	})}*/}
+{/*/>*/}
+{/*<InputField*/}
+{/*	className="reg_field_width"*/}
+{/*	id="password_confirmation"*/}
+{/*	data-testid="ppassword_confirmation"*/}
+{/*	name="password_confirmation"*/}
+{/*	type="password_confirmation"*/}
+{/*	labelText="Подтвердите пароль"*/}
+{/*	error={errors.password}*/}
+{/*	{...register('password_confirmation', {*/}
+{/*		required: { value: true, message: 'Укажите пароль' },*/}
+{/*		minLength: {*/}
+{/*			value: 6,*/}
+{/*			message: 'Пароль должен быть не меньше 6 символов',*/}
+{/*		},*/}
+{/*	})}*/}
+{/*/>*/}

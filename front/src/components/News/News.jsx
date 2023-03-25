@@ -60,11 +60,13 @@ const News = () => {
                 </div>
                 <div className="row">
                     <div className={styles.banner}>
-                        <Banner data={lastNews[lastNews.length-1]}/>
+                        {lastNews?  <Banner data={lastNews[lastNews.length-1]}/>:
+                        <h4>Loading...</h4>}
+
                     </div>
                 </div>
-                <div className="row">
-                    <Cards data={lastNews}/>
+                <div className="row"> {lastNews?   <Cards data={lastNews}/>:
+                    <h4>Loading...</h4>}
                 </div>
                 <div className="row">
                     <div className="col">

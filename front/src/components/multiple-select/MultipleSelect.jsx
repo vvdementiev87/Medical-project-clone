@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useEffect, useState} from 'react';
 import Select from "react-select";
 import styles from './MultipleSelect.module.scss';
-import PopupInput from "../../components/PopupInput/PopupInput";
+import PopupInput from "../PopupInput/PopupInput";
 
 
 const optionList = [
@@ -42,8 +42,8 @@ const customStyles = {
         }
     })
 };
+export const MultipleSelect = forwardRef(({labelText, error, ...props }, ref) => {
 
-const MultipleSelect = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isShowInput, setIsShowInput] = useState(false);
 
@@ -59,8 +59,12 @@ const MultipleSelect = () => {
     }
 
     return (
-        <div className={styles.dropdown}>
+        <label className={styles.dropdown}>
+            {labelText}
             <Select
+                {...props}
+                ref={ref}
+                aria-label={props.name}
                 options={optionList}
                 placeholder=""
                 value={selectedOptions}
@@ -69,11 +73,21 @@ const MultipleSelect = () => {
                 isMulti
                 styles={customStyles}
             />
-            {/*{error && <div className={styles.error}>{error.message}</div>}*/}
+            {selectedOptions.length<=0 && (
+                <span
+                    className={styles.input_field_text_error}
+                    data-testid="select-error"
+                    role="alert"
+                >
+					{'Укажите ваши проф. интересы'}
+				</span>
+            )}
+
+
             <PopupInput setSelectedOptions={setSelectedOptions} isShowInput={isShowInput}
                         setIsShowInput={setIsShowInput}/>
-        </div>
+        </label>
     );
-};
+});
 
 export default MultipleSelect;
