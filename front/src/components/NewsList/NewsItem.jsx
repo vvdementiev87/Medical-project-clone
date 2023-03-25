@@ -11,10 +11,9 @@ const NewsItem = ({ news }) => {
 			}}
 		>
 
-			<img src={news.imageUrl} alt={news.id} />
-			<h4>{news.title}</h4>
-			<p>{news.shortText}</p>
-
+			<img src={news?.image_url} alt={news?.id} />
+			<h4>{news?.title}</h4>
+			<p>{news?.short_description}</p>
 		</div>
 	);
 };

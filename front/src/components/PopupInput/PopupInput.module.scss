@@ -1,0 +1,42 @@
+.inputForm{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 2px solid rgba(68, 68, 167, 0.3);
+  font-size: 18px;
+  color: #333333;
+  outline: none;
+  background: #fff;
+
+  &:focus {
+    box-shadow: 0 0 0 0.1rem rgba(120, 194, 173, 0.25);
+    border: 2px solid #D0EAE2;
+  }
+  &:hover {
+    border-color: #D0EAE2;
+  }
+  input{
+    width: 100%;
+    border: 0;
+    outline: none;
+    height: 100%;
+  }
+  button{
+    margin-left: 6px;
+    background: none;
+    border: 0;
+    outline: none;
+  }
+}
+
+.show {
+  display: none;
+}
+
+.show.active {
+  display: block;
+}

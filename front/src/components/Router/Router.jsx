@@ -60,7 +60,8 @@ function Router() {
 
 					<Route path="/forum" element={<Forum />} />	
 					<Route path="forum/:topicId" element={<ForumTopic />} />
-					<Route path="/profile" element={<Profile />} />
+					{/*<Route path="/profile" element={<Profile />} />*/}
+					{/*<Route path="/study" element={<ArticleVideoSwitchPage />} />*/}
 
 					<Route
 						path={routes.STUDY.link}
