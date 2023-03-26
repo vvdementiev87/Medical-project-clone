@@ -11,4 +11,13 @@ class Gallery extends Model
     use HasFactory, Searchable;
 
     protected $table = 'gallery';
+
+    protected $fillable = [
+        'url',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }
