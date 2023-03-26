@@ -20,7 +20,8 @@ import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVide
 import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
 import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
 import { useAuth } from '../../hooks/useAuth';
-import NewsList from "../NewsList/NewsList";
+import ConferenceItemPage from "../../pages/conference-item/ConferenceItemPage";
+import ConferenceGallery from "../../pages/conference-gallery/ConferenceGallery";
 
 
 const isAuth = true;
@@ -55,6 +56,8 @@ function Router() {
 					<Route path="/videos/:videoId" element={<VideoItemPage />} />
 					<Route exact path="/news" element={<NewsGallery />} />
 					<Route path="/news/:newsId" element={<NewsItemPage />} />
+					<Route exact path="/conferencies" element={<ConferenceGallery/>} />
+					<Route path="/conferencies/:conferenceId" element={<ConferenceItemPage />} />
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 

@@ -24,20 +24,6 @@ const Header = ({ isAuth }) => {
 		setExpanded(false);
 	};
 
-	// const header = useRef();
-
-	// window.onscroll = function () {
-	//     scrollFunction();
-	// };
-
-	// function scrollFunction() {
-	//     console.log(window.pageYOffset)
-	//     if (window.pageYOffset >= 120) {
-	//         header.current.style.padding = "6px 0";
-	//     } else {
-	//         header.current.style.padding = "12px 0";
-	//     }
-	// }
 
 	return (
 		<header className={styles.header} id="header">
@@ -160,7 +146,7 @@ const Header = ({ isAuth }) => {
 							</li>
 							<li className="nav-item">
 								<Link
-									to={`/`}
+									to={routes.CONFERENCIES.link}
 									className="menu_link"
 									aria-current="page"
 									onClick={hideMenu}

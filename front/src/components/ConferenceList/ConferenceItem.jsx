@@ -13,8 +13,8 @@ const ConferenceItem = ({conference}) => {
             <h4>{conference.title}</h4>
             <p>{conference.short_description}</p>
             <button onClick={() => {
-                navigate(`/conferences/${conference.id}`);
-            }}>Подробнее</button>
+                navigate(`/conferencies/${conference.id}`);
+            }}><span>Подробнее</span></button>
         </div>
     );
 };
