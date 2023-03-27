@@ -56,8 +56,22 @@ function Router() {
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 
-					<Route path="/forum" element={<Forum />} />
-					<Route path="/forum/:postId" element={<ForumTopic />} />
+					<Route
+						path={routes.FORUM.link}
+						element={
+							<PrivateRoute isAuth={!!user}>
+								<Forum />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={`${routes.FORUM.link}/:postId`}
+						element={
+							<PrivateRoute isAuth={!!user}>
+								<ForumTopic />
+							</PrivateRoute>
+						}
+					/>
 
 					<Route
 						path={routes.STUDY.link}

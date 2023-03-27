@@ -23,7 +23,8 @@
 }
 
 .description {
-  background-color: rgba($primary-text-color, 0.1);
+  background-color:rgba($primary-text-color, 0.05);
+  border: 1px solid rgba($primary-text-color, 0.3);
   border-radius: 5px;
   padding: 24px;
   width: 100%;

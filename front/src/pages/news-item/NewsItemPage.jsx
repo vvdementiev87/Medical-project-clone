@@ -32,7 +32,10 @@ const NewsItemPage = () => {
 							<span className={styles.cardTitle}>{newsItem?.title}</span>
 						</div>
 					</div>
-					<p className={styles.cardDescription}>{newsItem?.bigText}</p>
+					<div
+						className={styles.cardDescription}
+						dangerouslySetInnerHTML={{ __html: newsItem?.bigText }}
+					/>
 				</div>
 			</div>
 		</div>
