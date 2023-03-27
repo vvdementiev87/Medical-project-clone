@@ -10,7 +10,7 @@ const Cards = ({ data }) => {
 				return (
 					<div
 						key={i}
-						className={`me-auto col-md-4  mb-5 ${styles.cardsItem}`}
+						className={`me-auto mb-5 ${styles.cardsItem}`}
 					>
 						<NavLink to={`/news/${card?.id}`} className={`mb-5 ${styles.cardsImageWrapper}`}>
 							<img src={card.imageUrl} alt="course" />

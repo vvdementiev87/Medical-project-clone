@@ -41,11 +41,11 @@ const News = () => {
                         <h2 className={styles.newsHeading}>Новости и события</h2>
                     </div>
                 </div>
-                <div className="row">
-                    <div className={styles.banner}>
-                        <Banner data={data[0]}/>
-                    </div>
-                </div>
+                {/*<div className="row">*/}
+                {/*    <div className={styles.banner}>*/}
+                {/*        <Banner data={data[0]}/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <div className="row">
                     <Cards data={data}/>
                 </div>
