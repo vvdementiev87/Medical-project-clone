@@ -21,7 +21,7 @@ const NewsItemPage = () => {
 				<div className={styles.profile}>
 					<div className={styles.card}>
 						<img
-							src={newsItem?.imageUrl}
+							src={newsItem?.image_url}
 							alt={newsItem?.id}
 							className={styles.cardImage}
 						/>
