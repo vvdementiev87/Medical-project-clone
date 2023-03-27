@@ -6,11 +6,18 @@ export const ConferenciesService = {
         return axiosClassic.get(getConferenciesUrl(''), {
             params: SearchTerm ? { SearchTerm } : {},
         }).then((res)=>{
-            const conferencies=[]
+            const conferenciesActual=[];
+            const conferenciesOld=[];
+            const date=Date.now();
             for (let i in res?.data) {
-                conferencies.push(res?.data[i]);
+                if(date<Date.parse(res?.data[i]['date_start'])) {
+                    conferenciesActual.push(res?.data[i]);
+
+                }else{
+                    conferenciesOld.push(res?.data[i]);
+                }
             }
-            return conferencies
+            return [conferenciesActual,conferenciesOld]
         });
     },
 };
