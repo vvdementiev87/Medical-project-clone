@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('date_email_update')->nullable();

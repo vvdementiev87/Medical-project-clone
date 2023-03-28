@@ -42,5 +42,4 @@ export const userSlice = createSlice({
 			});
 	},
 });
-console.log(userSlice.getInitialState());
 export const { reducer } = userSlice;
