@@ -6,12 +6,13 @@ import Sources from "../../components/Sources/Sources";
 
 
 
+
 const Home = () => {
     return (
         <div>
            <TopSection/>
-            <Courses/>
             <News/>
+            <Courses/>
             <Sources/>
         </div>
     );

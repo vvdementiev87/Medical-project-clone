@@ -1,4 +1,6 @@
 $max-tablet-width: '991px';
+$max-mobile-width: '767px';
+$max-small-width: '249px';
 
 @mixin tablet {
   @media(max-width: $max-tablet-width) {
@@ -6,15 +8,36 @@ $max-tablet-width: '991px';
   }
 }
 
+@mixin mobile {
+  @media(max-width: $max-mobile-width) {
+    @content;
+  }
+}
+
+@mixin small_screen {
+  @media(max-width: $max-small-width) {
+    @content;
+  }
+}
+
+
 .topSection {
   padding: 80px 0;
+  @include tablet {
+    padding: 40px 0;
+  }
+
 }
 
 .topWrapper {
   width: 100%;
   max-width: 580px;
-  @include tablet{
-    margin: 0 auto 40px;
+  display: flex;
+  flex-wrap: wrap;
+
+
+  @include tablet {
+    margin: 0 auto 30px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -24,23 +47,72 @@ $max-tablet-width: '991px';
 
 .topHeading {
   width: 100%;
+  max-width: 460px;
   font-size: 38px;
   word-wrap: break-word;
   margin-bottom: 40px;
+  @include mobile {
+    font-size: 30px;
+  }
+  @include small_screen {
+    font-size: 26px;
+  }
 }
 
 .topDescription {
   width: 100%;
   max-width: 460px;
-  @include tablet{
+  margin-bottom: 30px;
+  @include tablet {
     max-width: 100%;
   }
 }
 
 .mainFoto {
-  border-radius: 50%;
+  //border-radius: 50%;
+  overflow: hidden;
   transition: all 5s ease-in-out;
-  &:hover{
-      transform: scale(1.1);
+
+  //&:hover {
+  //  transform: scale(1.1);
+  //}
+}
+
+
+
+.topImage{
+  //margin:50px auto;
+  border-radius: 10px;
+  width: 100%;
+  max-width:650px;
+  height:550px;
+  overflow:hidden;
+  position:relative;
+  img {
+    height: 100%;
   }
+  @include tablet(){
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.photoSlider{
+  position:absolute;
+  animation:round 30s infinite;
+  opacity:0;
+  width:100%;
+}
+@keyframes round {
+  25%{opacity:1}
+  40%{opacity:0}
+}
+img:nth-child(1){animation-delay:30s}
+img:nth-child(2){animation-delay:20s}
+img:nth-child(3){animation-delay:10s}
+img:nth-child(4){animation-delay:0s}
+@media(min-width:0px) and (max-width:320px) {
+  .topImage{width:80%;height:190px}
+}
+@media(min-width:321px) and (max-width:480px) {
+  .topImage{width:80%;height:190px}
 }

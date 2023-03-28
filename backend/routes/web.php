@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AccessGroupController;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Content\VideosController;
-use App\Http\Controllers\Content\ArticlesController;
-
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,16 +11,15 @@ use App\Http\Controllers\Content\ArticlesController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
+    Route::get('/', AdminController::class)->name('index');
+    Route::resource('users', AdminUserController::class);
+    Route::resource('accessGroup', AccessGroupController::class);
 });
 
-Route::group(['prefix' => 'content', 'as' => '',], static function () {
-    Route::resource('videos', VideosController::class);
-    Route::resource('articles', ArticlesController::class);
-});
+require __DIR__.'/auth.php';
