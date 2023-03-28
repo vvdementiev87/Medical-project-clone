@@ -263,7 +263,7 @@ $max-mobile-width: '768px';
   color: $primary-text-color;
 
 }
-.link{
+.link,.programLink{
   color: rgba(126,131,166,0.8);
   transition: font-size 0.3s linear;
   opacity: 1.0;
@@ -271,4 +271,8 @@ $max-mobile-width: '768px';
     transition: all 0.3s linear;
    opacity: 0.7;
   }
+}
+
+.programLink{
+  font-size: 15px;
 }

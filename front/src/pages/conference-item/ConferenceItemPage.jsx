@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {useQuery} from 'react-query';
 import styles from './ConferenceItemPage.module.scss';
 import React, {useEffect, useState} from "react";
@@ -7,6 +7,8 @@ import {ConferenciesService} from "../../services/conference.service";
 import {useAuth} from "../../hooks/useAuth";
 import {axiosClassic} from "../../api/interceptors";
 import {getConferenciesUrl} from "../../config/api.config";
+import File from '../../assets/testDocs/Program.pdf';
+import DownloadPdfLink from "../../components/DownloadPdfLink/DownloadPdfLink";
 
 
 const ConferenceItemPage = () => {
@@ -60,7 +62,10 @@ const ConferenceItemPage = () => {
                                 <time dateTime={conferenceItem?.date_start} className={styles.cardDate}>{conferenceItem?.date_start}</time>
                             <p className={styles.subTitle}>Дата окончания:</p>
                             <time dateTime={conferenceItem?.date_end} className={styles.cardDate}>{conferenceItem?.date_end}</time>
-
+                            {isActual && user? (
+                                 <DownloadPdfLink url={conferenceItem?.program} text={`Скачать программу конференции`} />
+                                 ) : ''
+                            }
                         </div>
                     </div>
                     <p className={styles.cardDescription}>{conferenceItem?.description}</p>
