@@ -4,45 +4,47 @@ import styles from './ConferenceItemPage.module.scss';
 import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {ConferenciesService} from "../../services/conference.service";
+import {useAuth} from "../../hooks/useAuth";
+import {axiosClassic} from "../../api/interceptors";
+import {getConferenciesUrl} from "../../config/api.config";
 
 
 const ConferenceItemPage = () => {
+    const { user } = useAuth();
     const navigate = useNavigate();
     const {conferenceId} = useParams();
-    console.log(conferenceId)
-    const [data, setData] = useState([]);
+    const [conferenceItem,setConferenceItem]=useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isActual, setIsActual] = useState(false);
+
+
+     // const { isLoading, data }  = useQuery('Conferencies list', () => ConferenciesService.getAll());
     useEffect(() => {
-        const data = [];
-        const confObj = {}
-        for (let i = 1; i <= 25; i++) {
-            confObj[i] = {
-                id: i,
-                title:
-                    'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-                image_url: '/imagesTest/news_1.jpg',
-                short_description:
-                    '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
-                description:
-                    '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между  Российским обществом симуляционного обучения (РОСОМЕД)  и Обществом симуляции в здравоохранении (SSH). Соглашение подписали Председатель президиума правления РОСОМЕД, Александр Колыш, и Президент SSH, Хару Окуда. Надеемся на эффективное продолжение многолетнего сотрудничества!',
-                place: "Москва, проспект Пушкинский, 21",
-                date_start: '2023-11-09 12:13:40',
-                date_end: '2023-11-12 12:13:40'
+        axiosClassic.get(getConferenciesUrl(''), {
+        }).then((res)=>{
+            const date=Date.now();
+            if(res.data){
+                setIsLoading(false);
+            }
 
-            };
-                data.push(confObj[i])
+            for (let i in res?.data) {
+                if (String(res?.data[i]['id']) === conferenceId) {
+                    setConferenceItem(res?.data[i]);
+                    if(date<Date.parse(res?.data[i]['date_start'])) {
+                        setIsActual(true);
+                    }
+                }
+            }}
+        );
+        // const actualConferencies=JSON.parse(localStorage.getItem('actualConferencies'));
+        // const oldConferencies=JSON.parse(localStorage.getItem('oldConferencies'));
+        // setConferenceItem(actualConferencies.find((conference) => String(conference?.id) === conferenceId)||oldConferencies.find((conference) => String(conference?.id) === conferenceId));
+    }, [conferenceId]);
+    // const conferenceItem = data.find((conference) => String(conference?.id) === conferenceId);
 
-        }
-        setData(data)
-    }, [conferenceId])
-    // const { isLoading, data }  = useQuery('News list', () => ConferenciesService.getAll());
-
-
-    const conferenceItem = data.find((conference) => String(conference?.id) === conferenceId);
-    console.log(conferenceItem)
-    return (
-        // (isLoading ? (
-        // 	<h1>Loading...</h1>
-        // ) : (
+    return isLoading ? (
+        	<h1>Loading...</h1>
+        ) : (
         <div>
             <div className="container">
                 <div className={styles.profile}>
@@ -62,19 +64,20 @@ const ConferenceItemPage = () => {
                         </div>
                     </div>
                     <p className={styles.cardDescription}>{conferenceItem?.description}</p>
+                    {isActual && user?(
+                        <div>
+                            <p>Заявки на участие принимаются до {conferenceItem?.date_start.toLocaleString()}</p>
 
-                    <div>
-                        <p>Заявки на участие принимаются до {conferenceItem?.date_start.toLocaleString()}</p>
+                            <button onClick={() => {
+                                navigate(`/`);
+                            }} className={styles.buttonRequest}><span>Подать заявку на участие</span></button>
+                        </div>):''
 
-                        <button onClick={() => {
-                            navigate(`/`);
-                        }} className={styles.buttonRequest}><span>Подать заявку на участие</span></button>
-                    </div>
-
+                    }
                 </div>
             </div>
         </div>
-    );
+    )
 };
 
 export default ConferenceItemPage;

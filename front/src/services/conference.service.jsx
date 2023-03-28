@@ -1,6 +1,6 @@
 import { axiosClassic } from '../api/interceptors';
 import { getConferenciesUrl } from '../config/api.config';
-
+//Не использован
 export const ConferenciesService = {
     async getAll(SearchTerm = null) {
         return axiosClassic.get(getConferenciesUrl(''), {
@@ -17,6 +17,9 @@ export const ConferenciesService = {
                     conferenciesOld.push(res?.data[i]);
                 }
             }
+
+            // localStorage.setItem('actualConferencies', JSON.stringify(conferenciesActual));
+            // localStorage.setItem('oldConferencies', JSON.stringify(conferenciesOld));
             return [conferenciesActual,conferenciesOld]
         });
     },

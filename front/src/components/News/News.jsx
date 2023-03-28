@@ -30,6 +30,13 @@ const data = [
         shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
         created_at: '12.02.2023',
     },
+    {
+        id: 4,
+        imageUrl: Digital,
+        title: 'Новые технологии в медицине',
+        shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
+        created_at: '12.02.2023',
+    },
 ];
 
 const News = () => {
@@ -41,13 +48,9 @@ const News = () => {
                         <h2 className={styles.newsHeading}>Новости и события</h2>
                     </div>
                 </div>
-                {/*<div className="row">*/}
-                {/*    <div className={styles.banner}>*/}
-                {/*        <Banner data={data[0]}/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+
                 <div className="row">
-                    <Cards data={data}/>
+                    <Cards data={data.slice(-3)}/>
                 </div>
                 <div className="row">
                     <div className="col">

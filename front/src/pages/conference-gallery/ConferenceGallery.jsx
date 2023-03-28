@@ -1,59 +1,58 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect, useCallback} from 'react';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './ConferenceGallery.module.scss';
 import {useQuery} from 'react-query';
 import ConferenceList from "../../components/ConferenceList/ConferenceList";
 import ConferenceBanner from "../../components/ConferenceList/ConferenceBanner";
 import {ConferenciesService} from "../../services/conference.service";
+import {axiosClassic} from "../../api/interceptors";
+import {getConferenciesUrl} from "../../config/api.config";
 
 const PageSize = 6;
 
 const ConferenceGallery = () => {
-    const {isLoading, data} = useQuery('Conferencies list', () => ConferenciesService.getAll());
+    // const {isLoading, data} = useQuery('Conferencies list', () => ConferenciesService.getAll());
+
+
     const [actualConferencies, setActualConferencies] = useState([]);
     const [oldConferencies, setOldConferencies] = useState([]);
     const [banner, setBanner] = useState({});
-    // useEffect(()=>{
-    //     const data=[];
-    //     const data2=[];
-    //     const confObj={}
-    //     for (let i = 1; i <= 25; i++) {
-    //         confObj[i] = {
-    //             id: i,
-    //             title:
-    //                 'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-    //             image_url: '/imagesTest/news_1.jpg',
-    //             short_description:
-    //                 '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
-    //             description:
-    //                 '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между  Российским обществом симуляционного обучения (РОСОМЕД)  и Обществом симуляции в здравоохранении (SSH). Соглашение подписали Председатель президиума правления РОСОМЕД, Александр Колыш, и Президент SSH, Хару Окуда. Надеемся на эффективное продолжение многолетнего сотрудничества!',
-    //             place: "Москва, проспект Пушкинский, 21",
-    //             date_start: '2023-11-09 12:13:40',
-    //             date_end: '2023-11-12 12:13:40'
-    //         };
-    //         if(i===1){
-    //             setBanner(confObj[i])
-    //         }
-    //         if(i<12){
-    //             data.push(confObj[i])
-    //             setData(data)
-    //         }else{
-    //             data2.push(confObj[i])
-    //             setData2(data2)
-    //         }
-    //     }
-    //
-    // },[])
-
-    useEffect(() => {
-        setActualConferencies(data?.[0]);
-        setOldConferencies(data?.[1]);
-        setBanner(data?.[0][0])
-    }, [data])
-
-
+    const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentPage2, setCurrentPage2] = useState(1);
+
+
+    useEffect(() => {
+         axiosClassic.get(getConferenciesUrl(''), {
+            }).then((res)=>{
+                const conferenciesActual=[];
+                const conferenciesOld=[];
+                const date=Date.now();
+                if(res?.data){
+                    setIsLoading(false);
+                }
+                for (let i in res?.data) {
+                    if(date<Date.parse(res?.data[i]['date_start'])) {
+                        conferenciesActual.push(res?.data[i]);
+                    }else{
+                        conferenciesOld.push(res?.data[i]);
+                    }
+                }
+                setActualConferencies(conferenciesActual);
+                setOldConferencies(conferenciesOld);
+                setBanner(conferenciesActual[conferenciesActual.length-1]);
+
+                // localStorage.setItem('actualConferencies', JSON.stringify(conferenciesActual));
+                // localStorage.setItem('oldConferencies', JSON.stringify(conferenciesOld));
+
+            });
+
+        // const actual = JSON.parse(localStorage.getItem('actualConferencies'));
+        // setActualConferencies(JSON.parse(localStorage.getItem('actualConferencies')) || []);
+        // setBanner(actual[actual.length - 1]);
+        // setOldConferencies(JSON.parse(localStorage.getItem('oldConferencies')) || []);
+    }, [actualConferencies,oldConferencies]);
+
 
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
@@ -66,14 +65,12 @@ const ConferenceGallery = () => {
         const lastPageIndex = firstPageIndex + PageSize;
         return oldConferencies && oldConferencies.slice(firstPageIndex, lastPageIndex);
     }, [currentPage2, oldConferencies]);
-    console.log(currentTableData)
-    console.log(currentTableData2)
 
-    // return
-    // isLoading ? (
-    // 	<h1>Loading...</h1>
-    // ) : (
-    return <div className="container">
+
+    return isLoading ? (
+    	<h1>Loading...</h1>
+    ) : (
+     <div className="container">
         <h1 className={styles.heading}>{'Конференции'}</h1>
         <section>
             <ConferenceBanner conference={banner}/>
@@ -81,21 +78,21 @@ const ConferenceGallery = () => {
         <section className={`${styles.current}`}>
             <h2 className={styles.sectionHeading}>{'Предстоящие события'}</h2>
             <div className={styles.sectionWrapper}>
-                <ConferenceList conferencies={currentTableData} />
-                    <Pagination
-                        className={styles.pagination}
-                        currentPage={currentPage}
-                        totalCount={actualConferencies?.length}
-                        pageSize={PageSize}
-                        onPageChange={(page) => setCurrentPage(page)}
-                    />
+                <ConferenceList conferencies={currentTableData}/>
+                <Pagination
+                    className={styles.pagination}
+                    currentPage={currentPage}
+                    totalCount={actualConferencies?.length}
+                    pageSize={PageSize}
+                    onPageChange={(page) => setCurrentPage(page)}
+                />
             </div>
         </section>
 
         <section className={`${styles.last}`}>
             <h2 className={styles.sectionHeading}>{'Прошедшие события'}</h2>
             <div className={styles.sectionWrapper}>
-                <ConferenceList conferencies={currentTableData2} />
+                <ConferenceList conferencies={currentTableData2}/>
                 <Pagination
                     className={styles.pagination}
                     currentPage={currentPage2}
@@ -108,7 +105,7 @@ const ConferenceGallery = () => {
         </section>
 
     </div>
-    // );
+    );
 };
 
 export default ConferenceGallery;
