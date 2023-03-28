@@ -4,7 +4,7 @@ import './assets/styles/global.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-//import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { store } from './store/store.jsx';
 import ReduxToastr from 'react-redux-toastr';
@@ -34,7 +34,7 @@ root.render(
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>
-				{/* <ReactQueryDevtools initialIsOpen={false} /> */}
+				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>
 		</Provider>
 	</React.StrictMode>

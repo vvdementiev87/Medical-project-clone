@@ -170,15 +170,14 @@ const Header = ({ isAuth }) => {
 							</li>
 							<li className="nav-item">
 								<Link
-									to={routes.NEWS.link}
+									to={routes.FORUM.link}
 									className="menu_link"
 									aria-current="page"
 									onClick={hideMenu}
 								>
-									Новости
+									Форум
 								</Link>
 							</li>
-
 
 							<li className="nav-item">
 								<Link
