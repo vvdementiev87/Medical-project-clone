@@ -3,28 +3,18 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Comments as CommentsModel;
-use Illuminate\Support\Facades\Validator;
+use App\QueryBuilders\CommentQueryBuilder;
+use Illuminate\Http\JsonResponse;
+use App\Models\Comments;
 use App\Http\Requests\Comments\CreateRequest;
 use App\Http\Requests\Comments\EditRequest;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index($post_id = 20)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $result = CommentQueryBuilder::getCommentsByPostId($post_id);
+        return response()->json($result);
     }
 
     /**
@@ -32,30 +22,14 @@ class CommentsController extends Controller
      * @param CreateRequest
      * @return bool
      */
-    public function store(CreateRequest $request): bool
+    public function store(CreateRequest $request): JsonResponse
     {
-        $comment = CommentsModel::create($request->validated());
+        $comment = Comments::create($request->validated());
         if ($comment) {
             $comment->post()->attach($request->validated()['post_id']);
             return true;
-        } 
+        }
         return false;
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
@@ -63,15 +37,15 @@ class CommentsController extends Controller
      *  @param EditRequest
      *  @return bool
      */
-    public function update(EditRequest $request): bool
-    {   
+    public function update(EditRequest $request): JsonResponse
+    {
         $update_data = $request->validated();
-        $comment = CommentsModel::find($update_data['comment_id']);
+        $comment = Comments::find($update_data['comment_id']);
         $comment->fill(['description' => $update_data['description']]);
         if ($comment->save()) {
             return true;
         }
-        return false;  
+        return false;
     }
 
     /**
@@ -79,12 +53,12 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return string
      */
-    public function destroy(int $id): string
+    public function destroy(int $id): JsonResponse
     {
         $posts = new CommentsModel();
         if ($posts->where('id', '=', $id)->delete()) {
             return 'deleted';
-        } 
+        }
         return 'false';
     }
 }

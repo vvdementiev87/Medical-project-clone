@@ -23,7 +23,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'author_id' => ['required', 'integer'],
-            'title' => ['required', 'string', 'min: 3', 'max: 50'],
+            'title' => ['required', 'string', 'min: 3', 'max: 90'],
             'description' => ['required', 'string']
         ];
     }

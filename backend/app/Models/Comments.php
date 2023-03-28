@@ -19,6 +19,6 @@ class Comments extends Model
 
     public function post(): BelongsToMany
     {
-        return $this->belongsToMany(Posts::class, 'comments_has_post', 'comment_id', 'post_id');
+        return $this->belongsToMany(Posts::class, 'Post', 'post_id', 'id');
     }
 }
