@@ -1,12 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {getCsrfToken} from '../../api/interceptors';
-import {hashedPassword} from '../../config/password.config';
-
 import {useActions} from '../../hooks/useActions';
 import {InputField} from '../basic/InputField/InputField';
 import MultipleSelect from "../multiple-select/MultipleSelect";
-import styles from "../basic/InputField/InputField.module.scss";
 import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
 
 function RegistrationForm() {
@@ -20,6 +17,7 @@ function RegistrationForm() {
     const {register: registerAction} = useActions();
     const [responseError, setResponseError] = useState(null);
 
+
     const onSubmit = async (data) => {
         await getCsrfToken();
         console.log(data);
@@ -31,7 +29,7 @@ function RegistrationForm() {
             sign_for_news,
             position,
             phone,
-            patronym,
+            surname,
             // other_info,
             last_name,
             first_name,
@@ -57,7 +55,7 @@ function RegistrationForm() {
                 sign_for_news,
                 position,
                 phone,
-                patronym,
+                surname,
                 // other_info,
                 last_name,
                 first_name,
@@ -76,7 +74,6 @@ function RegistrationForm() {
         } catch (error) {
             setResponseError(error.response.data.errors);
         }
-
         //reset();
     };
 
@@ -107,12 +104,12 @@ function RegistrationForm() {
                 />
                 <InputField
                     className="reg_field_width"
-                    id="patronym"
-                    name="patronym"
+                    id="surname"
+                    name="surname"
                     placeholder="Петрович"
                     labelText="Отчество"
-                    error={errors.patronym}
-                    {...register('patronym')}
+                    error={errors.surname}
+                    {...register('surname')}
                 />
                 <InputField
                     className="reg_field_width"
@@ -127,6 +124,20 @@ function RegistrationForm() {
                         required: {value: true, message: 'Укажите дату рождения'},
                     })}
                 />
+
+                <InputField
+                    className="reg_field_width"
+                    id="phone"
+                    name="phone"
+                    placeholder="+375..."
+                    error={errors['phone']}
+                    type="tel"
+                    labelText="Телефон в международном формате"
+                    {...register('phone', {
+                        required: {value: true, message: 'Укажите телефон'}
+                    })}
+                />
+
                 <InputField
                     className="reg_field_width"
                     id="email"
@@ -144,44 +155,32 @@ function RegistrationForm() {
                         },
                     })}
                 />
-                <InputField
+
+                <TextAreaField
                     className="reg_field_width"
-                    id="phone"
-                    name="phone"
-                    placeholder="+375..."
-                    error={errors['phone']}
-                    type="tel"
-                    labelText="Телефон в международном формате"
-                    {...register('phone', {
-                        required: {value: true, message: 'Укажите телефон'}
+                    id="address"
+                    name="address"
+                    labelText="Aдрес, включая почтовый индекс"
+                    placeholder="..."
+                    error={errors['address']}
+                    aria-label="address"
+                    {...register('address', {
+                        required: {value: true, message: 'Укажите адрес'}
                     })}
                 />
 
-                    <TextAreaField
-                        className="reg_field_width"
-                        id="address"
-                        name="address"
-                        labelText="Aдрес, включая почтовый индекс"
-                        placeholder="..."
-                        error={errors['address']}
-                        aria-label="address"
-                        {...register('address', {
-                            required: {value: true, message: 'Укажите адрес'}
-                        })}
-                    />
-
-                    <TextAreaField
-                        className="reg_field_width"
-                        id="education"
-                        name="education"
-                        aria-label="education"
-                        labelText="Профессиональное образование: учебное заведение"
-                        error={errors['education']}
-                        placeholder="..."
-                        {...register('education', {
-                            required: {value: true, message: 'Укажите учебное заведение'}
-                        })}
-                    />
+                <TextAreaField
+                    className="reg_field_width"
+                    id="education"
+                    name="education"
+                    aria-label="education"
+                    labelText="Профессиональное образование: учебное заведение"
+                    error={errors['education']}
+                    placeholder="..."
+                    {...register('education', {
+                        required: {value: true, message: 'Укажите учебное заведение'}
+                    })}
+                />
 
                 <InputField
                     className="reg_field_width"
@@ -244,6 +243,7 @@ function RegistrationForm() {
                     })}
                 />
 
+
                 <InputField
                     className="reg_field_width"
                     id="degree"
@@ -264,12 +264,12 @@ function RegistrationForm() {
                     {...register('academic_rank')}
                 />
 
-                    <MultipleSelect
-                        id="interests"
-                        name="interests"
-                        labelText="Область профессиональных интересов"
-                        error={errors['interests']}
-                        {...register('interests', {
+                <MultipleSelect
+                    id="interests"
+                    name="interests"
+                    labelText="Область профессиональных интересов"
+                    error={errors['interests']}
+                    {...register('interests', {
                         required: {value: true, message: 'Укажите ваши проф. интересы'},
                     })}/>
 
@@ -322,9 +322,6 @@ function RegistrationForm() {
 export default RegistrationForm;
 
 
-
-
-
 {/*<InputField*/}
 {/*	className="reg_field_width"*/}
 {/*	id="password"*/}
@@ -344,7 +341,7 @@ export default RegistrationForm;
 {/*<InputField*/}
 {/*	className="reg_field_width"*/}
 {/*	id="password_confirmation"*/}
-{/*	data-testid="ppassword_confirmation"*/}
+{/*	data-testid="password_confirmation"*/}
 {/*	name="password_confirmation"*/}
 {/*	type="password_confirmation"*/}
 {/*	labelText="Подтвердите пароль"*/}
@@ -357,3 +354,12 @@ export default RegistrationForm;
 {/*		},*/}
 {/*	})}*/}
 {/*/>*/}
+
+//<InputField
+// 	className="reg_field_width"
+// 	id="place_work"
+// 	name="place_work"
+// 	placeholder="..."
+// 	labelText="Место работы"
+// 	{...register('place_work')}
+// />

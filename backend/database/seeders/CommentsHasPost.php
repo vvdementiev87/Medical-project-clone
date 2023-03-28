@@ -15,8 +15,8 @@ class CommentsHasPost extends Seeder
         $data = [];
         for($i = 0; $i < 10; $i++) {
             $data[] = [
-                'post_id' => \fake()->randomDigitNotNull(),
-                'comment_id' => \fake()->randomDigitNotNull(),
+                'post_id' => \fake()->numberBetween(11,19),
+                'comment_id' => \fake()->numberBetween(1,10),
                 'created_at' => \now(),
                 'updated_at' => \now(),
             ];

@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import NewsList from '../../components/NewsList/NewsList';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './NewsGallery.module.scss';
@@ -36,6 +36,7 @@ const NewsGallery = () => {
             <NewsList news={currentTableData}/>
         </div>
     );
+
 };
 
 export default NewsGallery;

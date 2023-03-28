@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', static function (Blueprint $table) {
             $table->id();
+            $table->foreignId('account_id')->references('id')->on('accounts');
             $table->string('last_name');
             $table->string('first_name');
             $table->string('surname');
