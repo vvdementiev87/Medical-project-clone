@@ -10,6 +10,7 @@ import Banner from "../Banner/Banner";
 import {useQuery} from "react-query";
 import {NewsService} from "../../services/news.service";
 
+
 // const data = [
 //     {
 //         id: 1,
@@ -32,6 +33,13 @@ import {NewsService} from "../../services/news.service";
 //         shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
 //         created_at: '12.02.2023',
 //     },
+//     {
+//         id: 4,
+//         imageUrl: Digital,
+//         title: 'Новые технологии в медицине',
+//         shortText: '24 января 2023 года в Орландо (США) в рамках работы Международной конференции по симуляции в здравоохранении (IMSH-2023) было продлено соглашение о сотрудничестве между Российским обществом симуляционно...',
+//         created_at: '12.02.2023',
+//     },
 // ];
 
 
@@ -44,9 +52,7 @@ const News = () => {
             return new Date(a?.created_at) - new Date(b?.created_at);
         });
 
-        setLastNews(data?.splice(-3));
-        // console.log(lastNews)
-        // console.log(fireNews)
+        setLastNews(data?.length>3?data.splice(-3):data);
     }, [data])
 
 
@@ -58,16 +64,13 @@ const News = () => {
                         <h2 className={styles.newsHeading}>Новости и события</h2>
                     </div>
                 </div>
-                <div className="row">
-                    <div className={styles.banner}>
-                        {lastNews?  <Banner data={lastNews[lastNews.length-1]}/>:
-                        <h4>Loading...</h4>}
 
-                    </div>
-                </div>
-                <div className="row"> {lastNews?   <Cards data={lastNews}/>:
+
+                <div className="row">
+                    {lastNews?   <Cards data={lastNews}/>:
                     <h4>Loading...</h4>}
                 </div>
+
                 <div className="row">
                     <div className="col">
                         <Link

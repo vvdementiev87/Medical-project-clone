@@ -146,7 +146,7 @@ const Header = ({ isAuth }) => {
 							</li>
 							<li className="nav-item">
 								<Link
-									to={`/`}
+									to={routes.CONFERENCIES.link}
 									className="menu_link"
 									aria-current="page"
 									onClick={hideMenu}
