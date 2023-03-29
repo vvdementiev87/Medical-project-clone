@@ -26,21 +26,21 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
+    Route::get('videos/{id}', [VideosController::class, 'showVideo']);
     Route::get('articles', [ArticlesController::class, 'index']);
+    Route::get('articles/{id}', [ArticlesController::class, 'showArticle']);
     Route::get('news', [NewsController::class, 'index']);
-    Route::get('news/{id}', [NewsController::class, 'show']);
-    Route::get('gallery', [GalleryThemeController::class, 'index']);
-    Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
-
+    Route::get('news/{id}', [NewsController::class, 'showNews']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('posts', [PostsController::class, 'index']);
-    Route::get('/posts/{id}', [PostsController::class, 'show']);
+    Route::get('/posts/{id}', [PostsController::class, 'showPost']);
     Route::post('/posts/add', [PostsController::class, 'store']);
     Route::get('/posts/delete/{id}', [PostsController::class, 'destroy']);
     Route::post('/posts/edit', [PostsController::class, 'update']);
 
+    Route::get('/comments', [CommentsController::class, 'index']);
     Route::post('/comments/add', [CommentsController::class, 'store']);
     Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::post('/comments/edit', [CommentsController::class, 'update']);

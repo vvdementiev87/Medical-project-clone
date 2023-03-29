@@ -19,13 +19,11 @@ class Comments extends Model
         'description',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function post(): BelongsTo
     {
-        return $this->belongsTo(Posts::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(Posts::class, 'post_id', 'id');
     }
 }

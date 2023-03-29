@@ -3,112 +3,90 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
-use App\Models\User as UserModel;
+use App\QueryBuilders\CommentQueryBuilder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Models\Comments as CommentsModel;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Comments;
 use App\Http\Requests\Comments\CreateRequest;
 use App\Http\Requests\Comments\EditRequest;
 
 class CommentsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param $post_id
+     * @return JsonResponse
      */
-    public function index()
+    public function index($post_id): JsonResponse
     {
-        //
+        $result = CommentQueryBuilder::getCommentsByPostId($post_id);
+
+        if (!$result) {
+            return response()->json([
+                'message' => 'Error loading comments',
+            ], 400);
+        }
+
+        return response()->json($result);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param CreateRequest
-     * @return bool
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
      */
     public function store(CreateRequest $request): JsonResponse
     {
-        $comment = CommentsModel::create($request->validated());
+        $comment = Comments::create($request->validated());
+
         if ($comment) {
-            $comment->post()->attach($request->validated()['post_id']);
-            $post_id=$request->validated()['post_id'];
-            $users = new UserModel();
-            $user = $users->find($request->input('author_id'));
-            return  response()->json(['id' => $comment->id,
-                'author' => $user->first_name . ' ' . $user->last_name,
-                'author_id' => $user->id,
-                'avatar' => $user->avatar,
-                'post_id'=>$post_id,
-                'description' => $comment->description,
-                'created_at' => $comment->created_at->toDateTimeString(),
-                'updated_at' => $comment->updated_at->toDateTimeString()
-        ]);}
+            return response()->json($comment, 201);
+        }
+
         return response()->json([
-        'error' => 'Comment not added',
-    ], 401);
+            'message' => 'Error added comment',
+        ], 400);
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *  @param EditRequest
-     *  @return bool
+     *
+     * @param EditRequest $request
+     * @return JsonResponse
      */
     public function update(EditRequest $request): JsonResponse
     {
         $update_data = $request->validated();
-        $comment = CommentsModel::find($update_data['comment_id']);
+
+        $comment = Comments::find($update_data['comment_id']);
         $comment->fill(['description' => $update_data['description']]);
-        $post_id=$request->input('post_id');
+
         if ($comment->save()) {
             return response()->json([
                 'id' => $comment->id,
-                'post_id'=>$post_id,
-                'description' => $comment->description]);
-
+                'title' => $comment->title,
+                'description' => $comment->description,
+            ], 202);
         }
         return response()->json([
-            'error' => 'Comment not updated',
-        ], 401);
+            'message' => 'Error loading, comment is not updated',
+        ], 400);
     }
 
     /**
-    *
-    */
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
-        $comment = new CommentsModel();
-        if ($comment->where('id', '=', $id)->delete()) {
+        $comments = (new Comments())->where('id', '=', $id)->delete();
+
+        if ($comments) {
             return response()->json([
-                'comment_id'=>$id,
-            ]);
+                'id' => $id,
+            ], 202);
         }
+
         return response()->json([
-            'error' => 'Post not deleted',
-            'comment_id'=>$id,
-        ], 401);
+            'message' => 'Error, comment was not deleted',
+        ], 404);
     }
 }

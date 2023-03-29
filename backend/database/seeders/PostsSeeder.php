@@ -15,7 +15,7 @@ class PostsSeeder extends Seeder
         $data = [];
         for($i = 0; $i < 10; $i++) {
             $data[] = [
-                'author_id' => \fake()->numberBetween(1,1),
+                'author_id' => \fake()->numberBetween(1, 10),
                 'title' => \fake()->word(),
                 'description' => \fake()->sentence(10),
                 'created_at' => \now(),
