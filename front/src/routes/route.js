@@ -9,6 +9,7 @@ export const routes = {
     NEWS: {link: '/news', name: 'News'},
     STUDY: {link: '/study', name: 'Study'},
     CONFERENCIES: {link: '/conferencies', name: 'Conferencies'},
+    PHOTOS: {link: '/photos', name: 'Photos'},
     FORUM: {link: '/forum', name: 'Forum'}
 };
 

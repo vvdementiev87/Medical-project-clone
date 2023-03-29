@@ -27,7 +27,7 @@ const Header = ({ isAuth }) => {
 
 	return (
 		<header className={styles.header} id="header">
-			<nav className="navbar navbar-expand-lg  h-100 p-0 navbar-custom">
+			<nav className="navbar navbar-expand-lg  h-100 navbar-custom">
 				<div className="container">
 					<Link to="/" className={`navbar-brand ${styles.logo}`}>
 						<img src={Bosom} alt="Bosom" />
@@ -107,7 +107,7 @@ const Header = ({ isAuth }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
+										<Link to="/photos" className="dropdown-item" onClick={hideMenu}>
 											Фотогалерея
 										</Link>
 									</li>

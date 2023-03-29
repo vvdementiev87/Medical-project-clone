@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toastr } from 'react-redux-toastr';
-
 import { ForumService } from '../../services/forum.service';
 import { toastrError } from '../../utils/toast-error';
 

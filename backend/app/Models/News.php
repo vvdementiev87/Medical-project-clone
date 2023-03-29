@@ -11,4 +11,13 @@ class News extends Model
     use HasFactory, Searchable;
 
     protected $table = 'news';
+
+    protected $fillable = [
+        'title',
+        'short_description',
+        'description',
+        'image_url',
+        'started_at',
+        'ending_at',
+    ];
 }
