@@ -22,6 +22,7 @@ class EditRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'post_id' => ['required', 'exists:posts,id', 'integer'],
             'title' => ['required', 'string', 'min: 3', 'max: 90'],
             'description' => ['required', 'string'],
         ];
