@@ -8,7 +8,7 @@ import {
 	deletePost,
 	deleteComment,
 	editComment,
-	editPost,
+	editPost
 } from './forum.actions';
 
 const initialState = {

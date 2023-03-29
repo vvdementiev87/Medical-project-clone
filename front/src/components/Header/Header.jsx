@@ -24,24 +24,10 @@ const Header = ({ isAuth }) => {
 		setExpanded(false);
 	};
 
-	// const header = useRef();
-
-	// window.onscroll = function () {
-	//     scrollFunction();
-	// };
-
-	// function scrollFunction() {
-	//     console.log(window.pageYOffset)
-	//     if (window.pageYOffset >= 120) {
-	//         header.current.style.padding = "6px 0";
-	//     } else {
-	//         header.current.style.padding = "12px 0";
-	//     }
-	// }
 
 	return (
 		<header className={styles.header} id="header">
-			<nav className="navbar navbar-expand-lg  h-100 p-0 navbar-custom">
+			<nav className="navbar navbar-expand-lg  h-100 navbar-custom">
 				<div className="container">
 					<Link to="/" className={`navbar-brand ${styles.logo}`}>
 						<img src={Bosom} alt="Bosom" />
