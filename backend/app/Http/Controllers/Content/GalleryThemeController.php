@@ -19,9 +19,11 @@ class GalleryThemeController extends Controller
     public function index(GalleryThemeQueryBuilder $galleryThemeQueryBuilder): string
     {
         $gallery_collection = $galleryThemeQueryBuilder->getCollection();
+        
         if (!empty($gallery_collection)) {
             return response()->json($gallery_collection);
         }
+        
         return response()->json([
             'message' => 'Error loading gallery themes',
         ], 404);
@@ -29,9 +31,9 @@ class GalleryThemeController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  int  $id
-     * @param GalleryThemeQueryBuilder
-     * @param GalleryQueryBuilder
+     * @param  int                     $id
+     * @param GalleryThemeQueryBuilder $galleryThemeQueryBuilder
+     * @param GalleryQueryBuilder      $galleryQueryBuilder
      * @return string
      */
     public function show(int $id, GalleryThemeQueryBuilder $galleryThemeQueryBuilder, GalleryQueryBuilder $galleryQueryBuilder): string
@@ -43,6 +45,7 @@ class GalleryThemeController extends Controller
         if (!empty($theme)) {
             return response()->json($theme);
         }
+        
         return response()->json([
             'message' => 'Error loading gallery items', 
         ], 404);
