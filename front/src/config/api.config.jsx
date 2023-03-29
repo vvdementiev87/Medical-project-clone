@@ -7,3 +7,5 @@ export const getNewsUrl = (string) => `api/content/news${string}`;
 export const getArticlesUrl = (string) => `api/content/articles${string}`;
 export const getPostsUrl = (string) => `api/forum/posts${string}`;
 export const getCommentsUrl = (string) => `api/forum/comments${string}`;
+export const getFavoritesUrl = (string) => `api/profile/favorites${string}`;
+export const getRecentViewedUrl = (string) => `api/profile/viewed${string}`;
