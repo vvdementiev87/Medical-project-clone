@@ -1,10 +1,19 @@
 import { getStoreLocalStorage } from '../../utils/local-storage';
 import { createSlice } from '@reduxjs/toolkit';
-import { logout, login, checkAuth, register } from './user.actions';
+import {
+	logout,
+	login,
+	checkAuth,
+	register,
+	getFavorites,
+	getRecentViewed,
+} from './user.actions';
 
 const initialState = {
 	isLoading: false,
 	user: getStoreLocalStorage('user'),
+	favorites: {},
+	recentViewed: {},
 };
 export const userSlice = createSlice({
 	name: 'user',
@@ -39,6 +48,28 @@ export const userSlice = createSlice({
 			})
 			.addCase(checkAuth.fulfilled, (state, { payload }) => {
 				state.user = payload.user;
+			})
+			.addCase(getFavorites.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getFavorites.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.favorites = { ...state.favorites, ...payload };
+			})
+			.addCase(getFavorites.rejected, (state) => {
+				state.isLoading = false;
+				state.favorites = null;
+			})
+			.addCase(getRecentViewed.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getRecentViewed.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.recentViewed = { ...state.recentViewed, ...payload };
+			})
+			.addCase(getRecentViewed.rejected, (state) => {
+				state.isLoading = false;
+				state.recentViewed = null;
 			});
 	},
 });

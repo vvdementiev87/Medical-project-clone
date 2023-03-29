@@ -25,9 +25,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
+    Route::get('videos/{id}', [VideosController::class, 'show'])->middleware('traffic');
     Route::get('articles', [ArticlesController::class, 'index']);
+    Route::get('articles/{id}', [ArticlesController::class, 'show'])->middleware('traffic');;
     Route::get('news', [NewsController::class, 'index']);
-    Route::get('news/{id}', [NewsController::class, 'show']);
+    Route::get('news/{id}', [NewsController::class, 'show'])->middleware('traffic');
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
@@ -42,4 +44,13 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::post('/comments/edit', [CommentsController::class, 'update']);
 
 });
+
+Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
+    Route::post('favorites/add',[\App\Http\Controllers\Profile\FavoritesController::class, 'add']);
+    Route::post('favorites',[\App\Http\Controllers\Profile\FavoritesController::class, 'show']);
+    Route::post('favorites/check',[\App\Http\Controllers\Profile\FavoritesController::class, 'check']);
+    Route::post('favorites/delete',[\App\Http\Controllers\Profile\FavoritesController::class, 'delete']);
+    Route::get('viewed',[\App\Http\Controllers\Profile\RecentViewedController::class, 'show']);
+});
+
 require __DIR__.'/auth.php';

@@ -15,4 +15,9 @@ export const ArticleService = {
 				return articles;
 			});
 	},
+	async getById(id) {
+		return axiosClassic.get(getArticlesUrl(`/${id}`)).then((res) => {
+			return res.data;
+		});
+	},
 };

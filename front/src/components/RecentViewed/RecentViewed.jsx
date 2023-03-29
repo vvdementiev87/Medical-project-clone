@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RecentViewedItem from './RecentViewedItem';
 import styles from './RecentViewed.module.scss';
+import { useAuth } from '../../hooks/useAuth';
+import { useActions } from '../../hooks/useActions';
 
 const statements = [
 	{
@@ -38,10 +40,28 @@ const statements = [
 ];
 
 const RecentViewed = () => {
+	const { user, recentViewed } = useAuth();
+	const { getRecentViewed } = useActions();
+	useEffect(() => {
+		getRecentViewed();
+	}, []);
+	console.log(recentViewed);
 	return (
 		<div className={styles.sidebar}>
-				{statements.map((s, i) => (
-					<RecentViewedItem key={i} statement={s} />
+			{Object.keys(recentViewed).length > 0 &&
+				Object.keys(recentViewed).map((key) => (
+					<RecentViewedItem
+						key={key}
+						statement={{
+							...recentViewed[key].object,
+							type: recentViewed[key].type,
+							link:
+								(recentViewed[key].type === 1 &&
+									`/videos/${recentViewed[key].type_id}`) ||
+								(recentViewed[key].type === 2 &&
+									`/articles/${recentViewed[key].type_id}`),
+						}}
+					/>
 				))}
 		</div>
 	);

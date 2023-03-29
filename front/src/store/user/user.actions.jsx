@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toastr } from 'react-redux-toastr';
 
 import { AuthService } from '../../services/auth/auth.service';
+import { FavoritesService } from '../../services/favorites.service';
+import { RecentViewedService } from '../../services/recentViewed.service';
 import { toastrError } from '../../utils/toast-error';
 
 export const register = createAsyncThunk(
@@ -83,6 +85,35 @@ export const checkAuth = createAsyncThunk(
 		} catch (error) {
 			thunkApi.dispatch(logout());
 			return thunkApi.rejectWithValue(error);
+		}
+	}
+);
+
+export const getFavorites = createAsyncThunk(
+	'user/favorites/get',
+	async ({ user_id }, thunkApi) => {
+		try {
+			const response = await FavoritesService.getFavorite(user_id);
+			toastr.success('Favorites', 'Get successfully');
+			return response;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const getRecentViewed = createAsyncThunk(
+	'user/recentViewed/get',
+	async (_, thunkApi) => {
+		try {
+			const response = await RecentViewedService.getRecentViewed();
+			toastr.success('RecentViewed', 'Get successfully');
+			console.log(response);
+			return response;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error.response.data);
 		}
 	}
 );

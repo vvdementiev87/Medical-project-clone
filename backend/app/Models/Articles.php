@@ -11,4 +11,5 @@ class Articles extends Model
     use HasFactory, Searchable;
 
     protected $table = 'articles';
+    protected $primaryKey = 'id';
 }

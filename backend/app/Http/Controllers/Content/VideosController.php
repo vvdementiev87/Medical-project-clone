@@ -31,50 +31,25 @@ class VideosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $item = VideosModel::find($id);
+        if ($item) {
+            return response()->json([
+                'id'=>$item->id,
+                'videoYoutubeId' => $item->video_youtube_id,
+                'author' => $item->author,
+                'title' => $item->title,
+                'description' => $item->description,
+                'imageUrl' => $item->image_url,
+                'textHTML' => $item->text_html
+            ]);
+        }
+        return response()->json([
+            'error' => 'Video not found',
+        ], 401);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
