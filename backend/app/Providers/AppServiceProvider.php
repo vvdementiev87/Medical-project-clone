@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\QueryBuilders\GalleryThemeQueryBuilder;
+use App\QueryBuilders\GalleryQueryBuilder;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(QueryBuilder::class, GalleryThemeQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, GalleryQueryBuilder::class);
     }
 
     /**
