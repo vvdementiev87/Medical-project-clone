@@ -21,6 +21,13 @@ import { useAuth } from '../../hooks/useAuth';
 import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVideoSwitchPage';
 import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
 import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
+import PhotoGallery from '../../pages/photo-gallery/PhotoGallery'
+import EventPhotos from '../../pages/event-photos/EventPhotos'
+import { useAuth } from '../../hooks/useAuth';
+import NewsList from "../NewsList/NewsList";
+
+
+const isAuth = true;
 
 function Router() {
 	const { user } = useAuth();
@@ -94,6 +101,16 @@ function Router() {
 							</PrivateRoute>
 						}
 					/>
+
+					<Route
+						path={routes.PHOTOS.link}
+						element={
+							// <PrivateRoute isAuth={!!user}>
+								<PhotoGallery />
+							// </PrivateRoute>
+						}
+					/>
+					<Route path={`${routes.PHOTOS.link}/:id`} element={<EventPhotos />} />
 					<Route
 						path="*"
 						element={<h2 className={styles.h2}>Страница не найдена</h2>}
