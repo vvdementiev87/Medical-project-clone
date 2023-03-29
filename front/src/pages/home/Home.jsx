@@ -5,12 +5,10 @@ import News from "../../components/News/News";
 import Sources from "../../components/Sources/Sources";
 
 
-
-
 const Home = () => {
     return (
         <div>
-           <TopSection/>
+            <TopSection/>
             <News/>
             <Courses/>
             <Sources/>

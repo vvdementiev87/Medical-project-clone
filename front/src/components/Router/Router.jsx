@@ -12,10 +12,12 @@ import Login from '../../pages/login/Login';
 import Profile from '../../pages/profile/Profile';
 import VideoGallery from '../../pages/video-gallery/VideoGallery';
 import VideoItemPage from '../../pages/video-item/VideoItemPage';
-import NewsItemPage from '../../pages/news-item/NewsItemPage';
 import NewsGallery from '../../pages/news-gallery/NewsGallery';
+import NewsItemPage from '../../pages/news-item/NewsItemPage';
 import Forum from '../../pages/forum/Forum';
 import ForumTopic from '../../pages/forum-topic/ForumTopic';
+
+import { useAuth } from '../../hooks/useAuth';
 import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVideoSwitchPage';
 import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
 import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
@@ -60,9 +62,27 @@ function Router() {
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 
+
 					<Route path="/forum" element={<Forum />} />	
 					<Route path="forum/:topicId" element={<ForumTopic />} />
-					<Route path="/profile" element={<Profile />} />
+
+					<Route
+						path={routes.FORUM.link}
+						element={
+							<PrivateRoute isAuth={!!user}>
+								<Forum />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={`${routes.FORUM.link}/:postId`}
+						element={
+							<PrivateRoute isAuth={!!user}>
+								<ForumTopic />
+							</PrivateRoute>
+						}
+					/>
+
 
 					<Route
 						path={routes.STUDY.link}

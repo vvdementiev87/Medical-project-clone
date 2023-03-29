@@ -37,6 +37,13 @@ $max-mobile-width: '768px';
   overflow: hidden;
   cursor: pointer;
   margin-bottom: 20px;
+  &:hover{
+    box-shadow: 1px 1px 20px rgba(126,131,166,0.9);
+  }
+  &:hover img{
+    transition: all .5s linear;
+    transform: scale(1.02);
+  }
 
   > img {
     border-radius: 10px;

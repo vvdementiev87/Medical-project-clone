@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredUserRequest;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -21,13 +22,29 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisteredUserRequest $request): JsonResponse
     {
+        $request->validated();
+        $request->merge(['password' => Hash::make(request('password'))]);
+        $account = Account::create(
+            $request->all()
+        );
+        if ($account) {
 
-        $user = User::create(array_merge($request->all(), ['password' => Hash::make($request->password)]));
+            $user = $account->userOne()->create($request->all());
 
-        event(new Registered($user));
+            event(new Registered($account));
+            Auth::login($account);
 
-        Auth::login($user);
+            $user['email'] = $account->email;
 
-        return response()->json(['user' => auth()->user()]);
+            return response()->json([
+                'user' => $user,
+                'accessToken' => $account->createToken(name: 'accessToken', expiresAt: now()->modify("+1 day"))->plainTextToken
+            ]);
+        }
+        return response()->json([
+            'error' => 'User and account were not created',
+        ], 401);
+
+
     }
 }

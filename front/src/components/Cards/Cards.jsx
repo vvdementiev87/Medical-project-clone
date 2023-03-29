@@ -13,7 +13,7 @@ const Cards = ({ data }) => {
 						className={`me-auto col-md-4  mb-5 ${styles.cardsItem}`}
 					>
 						<NavLink to={`/news/${card?.id}`} className={`mb-5 ${styles.cardsImageWrapper}`}>
-							<img src={card.imageUrl} alt="course" />
+							<img src={card.image_url} alt="image" />
 							<div className={styles.searchBtn}>
 								<img src={Search} alt="search" />
 							</div>
@@ -21,7 +21,7 @@ const Cards = ({ data }) => {
 
 						<div>
 							<h3>{card.title}</h3>
-							<p>{card.shortText}</p>
+							<p>{card.short_description}</p>
 							<p>{card.created_at}</p>
 						</div>
 					</div>

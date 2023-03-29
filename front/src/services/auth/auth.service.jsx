@@ -13,15 +13,16 @@ export const AuthService = {
 		sign_for_news,
 		position,
 		phone,
-		patronym,
+		surname,
 		other_info,
 		last_name,
 		first_name,
 		experience,
 		education,
-		company,
+		place_work,
 		category,
-		birth_date
+		birth_date,
+		has_agreed
 	) {
 		const response = await axiosClassic.post(getAuthUrl('/register'), {
 			password_confirmation,
@@ -31,15 +32,16 @@ export const AuthService = {
 			sign_for_news,
 			position,
 			phone,
-			patronym,
+			surname,
 			other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			company,
+			place_work,
 			category,
 			birth_date,
+			has_agreed,
 		});
 		console.log(response);
 		if (response?.data.accessToken) {
@@ -53,7 +55,9 @@ export const AuthService = {
 			email,
 			password,
 		});
+
 		if (response?.data.accessToken) {
+			console.log(response.data);
 			saveToStorage(response?.data);
 		}
 		return response;

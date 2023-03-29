@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
+use App\Models\User as UserModel;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Comments as CommentsModel;
 use Illuminate\Support\Facades\Validator;
@@ -32,14 +34,26 @@ class CommentsController extends Controller
      * @param CreateRequest
      * @return bool
      */
-    public function store(CreateRequest $request): bool
+    public function store(CreateRequest $request): JsonResponse
     {
         $comment = CommentsModel::create($request->validated());
         if ($comment) {
             $comment->post()->attach($request->validated()['post_id']);
-            return true;
-        } 
-        return false;
+            $post_id=$request->validated()['post_id'];
+            $users = new UserModel();
+            $user = $users->find($request->input('author_id'));
+            return  response()->json(['id' => $comment->id,
+                'author' => $user->first_name . ' ' . $user->last_name,
+                'author_id' => $user->id,
+                'avatar' => $user->avatar,
+                'post_id'=>$post_id,
+                'description' => $comment->description,
+                'created_at' => $comment->created_at->toDateTimeString(),
+                'updated_at' => $comment->updated_at->toDateTimeString()
+        ]);}
+        return response()->json([
+        'error' => 'Comment not added',
+    ], 401);
     }
 
     /**
@@ -63,28 +77,38 @@ class CommentsController extends Controller
      *  @param EditRequest
      *  @return bool
      */
-    public function update(EditRequest $request): bool
-    {   
+    public function update(EditRequest $request): JsonResponse
+    {
         $update_data = $request->validated();
         $comment = CommentsModel::find($update_data['comment_id']);
         $comment->fill(['description' => $update_data['description']]);
+        $post_id=$request->input('post_id');
         if ($comment->save()) {
-            return true;
+            return response()->json([
+                'id' => $comment->id,
+                'post_id'=>$post_id,
+                'description' => $comment->description]);
+
         }
-        return false;  
+        return response()->json([
+            'error' => 'Comment not updated',
+        ], 401);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param  int  $id
-     * @return string
-     */
-    public function destroy(int $id): string
+    *
+    */
+    public function destroy(int $id): JsonResponse
     {
-        $posts = new CommentsModel();
-        if ($posts->where('id', '=', $id)->delete()) {
-            return 'deleted';
-        } 
-        return 'false';
+        $comment = new CommentsModel();
+        if ($comment->where('id', '=', $id)->delete()) {
+            return response()->json([
+                'comment_id'=>$id,
+            ]);
+        }
+        return response()->json([
+            'error' => 'Post not deleted',
+            'comment_id'=>$id,
+        ], 401);
     }
 }

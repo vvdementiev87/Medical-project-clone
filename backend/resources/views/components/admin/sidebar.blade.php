@@ -8,19 +8,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file" class="align-text-bottom"></span>
+                <a class="nav-link @if (request()->routeIs('admin.posts.*')) active @endif" href="{{ route('admin.posts.index') }}">
+                    <span data-feather="file-text" class="align-text-bottom"></span>
                     Posts
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file" class="align-text-bottom"></span>
+                <a class="nav-link @if (request()->routeIs('admin.comments.*')) active @endif" href="{{ route('admin.comments.index') }}">
+                    <span data-feather="file-text" class="align-text-bottom"></span>
                     Comments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link @if (request()->routeIs('admin.news.*')) active @endif" href="{{ route('admin.news.index') }}">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     News
                 </a>
