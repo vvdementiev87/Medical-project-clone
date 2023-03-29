@@ -14,17 +14,16 @@ class CommentQueryBuilder extends QueryBuilder
         return Comments::query()->get();
     }
 
-    public static function getCommentsByPostId($id): array
+    public static function getCommentsByPostId(int $id): array
     {
-        $dataResult = [];
+        $result = [];
 
         $users = new User();
-        $model = new Comments();
-
+        $comments = Comments::where('post_id', $id)->get();
 
         foreach ($comments as $comment) {
             $comment_user = $users->find($comment->author_id);
-            $commentsCollection[$comment->id] = [
+            $result[] = [
                 'id' => $comment->id,
                 'author' => $comment_user->last_name. ' ' .$comment_user->first_name . ' ' . $comment_user->surname,
                 'author_id' => $comment_user->id,
@@ -34,5 +33,7 @@ class CommentQueryBuilder extends QueryBuilder
                 'updated_at' => $comment->updated_at->toDateTimeString()
             ];
         }
+
+        return $result;
     }
 }

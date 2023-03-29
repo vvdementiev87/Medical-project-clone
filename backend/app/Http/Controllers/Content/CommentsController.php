@@ -11,70 +11,82 @@ use App\Http\Requests\Comments\EditRequest;
 
 class CommentsController extends Controller
 {
-    public function index($post_id = 20)
+    /**
+     * @param $post_id
+     * @return JsonResponse
+     */
+    public function index($post_id): JsonResponse
     {
         $result = CommentQueryBuilder::getCommentsByPostId($post_id);
+
+        if (!$result) {
+            return response()->json([
+                'message' => 'Error loading comments',
+            ], 400);
+        }
+
         return response()->json($result);
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param CreateRequest
-     * @return bool
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
      */
     public function store(CreateRequest $request): JsonResponse
     {
         $comment = Comments::create($request->validated());
+
         if ($comment) {
-            $comment->post()->attach($request->validated()['post_id']);
-            return true;
+            return response()->json($comment, 201);
         }
-        return false;
+
+        return response()->json([
+            'message' => 'Error added comment',
+        ], 400);
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *  @param EditRequest
-     *  @return bool
+     *
+     * @param EditRequest $request
+     * @return JsonResponse
      */
     public function update(EditRequest $request): JsonResponse
     {
         $update_data = $request->validated();
+
         $comment = Comments::find($update_data['comment_id']);
         $comment->fill(['description' => $update_data['description']]);
+
         if ($comment->save()) {
-            return true;
+            return response()->json([
+                'id' => $comment->id,
+                'title' => $comment->title,
+                'description' => $comment->description,
+            ], 202);
         }
-        return false;
+        return response()->json([
+            'message' => 'Error loading, comment is not updated',
+        ], 400);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param  int  $id
-     * @return string
+     *
+     * @param int $id
+     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
-        $posts = new CommentsModel();
-        if ($posts->where('id', '=', $id)->delete()) {
-            return 'deleted';
+        $comments = (new Comments())->where('id', '=', $id)->delete();
+
+        if ($comments) {
+            return response()->json([
+                'id' => $id,
+            ], 202);
         }
-        return 'false';
+
+        return response()->json([
+            'message' => 'Error, comment was not deleted',
+        ], 404);
     }
 }

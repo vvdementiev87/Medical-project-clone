@@ -36,6 +36,7 @@ class PostQueryBuilder extends QueryBuilder
             ];
 
             // Находим определённого пользователя для каждого комментария, и добавляем в результирующий массив
+            //todo костыльный вариант, нужно будет потом переработать
             foreach ($users->get() as $user) {
                 if (in_array($post->author_id, $users->pluck('id')->toArray())) {
                     $resultData[$post->id]['author'] = [
@@ -46,7 +47,7 @@ class PostQueryBuilder extends QueryBuilder
                     break;
                 } else {
                     $resultData[$post->id]['author'] = [
-                        'id' => null, //продумать на этот счёт
+                        'id' => null, //todo продумать на этот счёт
                         'user_name' => 'Пользователь удалён',
                     ];
                 }
@@ -64,12 +65,11 @@ class PostQueryBuilder extends QueryBuilder
         $posts = new Posts();
         $users = new User();
 
-        $commentsCollection = [];
-
         $post = $posts->find($id);
         $user = $users->find($post->author_id);
-        $comments = $post->comments;
 
+        // Выбираем все комментарии по id поста
+        $comments = CommentQueryBuilder::getCommentsByPostId($id);
 
         return [
             'id' => $id,
@@ -78,10 +78,10 @@ class PostQueryBuilder extends QueryBuilder
             'created_at' => $post->created_at->toDateTimeString(),
             'author' => [
                 'id' => $post->author_id,
-                'user_name' => $post->last_name. ' ' .$post->first_name . ' ' . $post->surname,
+                'user_name' => $user->last_name. ' ' .$user->first_name . ' ' . $user->surname,
                 'avatar' => $user->avatar
             ],
-            'comments' => $commentsCollection
+            'comments' => $comments
         ];
     }
 }

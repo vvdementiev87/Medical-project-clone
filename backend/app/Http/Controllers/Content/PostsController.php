@@ -19,10 +19,9 @@ class PostsController extends Controller
     {
         $posts = PostQueryBuilder::getAllPosts();
 
-        dd($posts);
         if (!$posts) {
             return response()->json([
-                'message' => 'что-то там',
+                'message' => 'Error loading posts',
             ], 400);
         }
 
@@ -31,7 +30,7 @@ class PostsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     *
      * @param CreateRequest $request
      * @return JsonResponse
      */
@@ -49,7 +48,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Display the specified resource.
      * @param int $id
      * @return JsonResponse
      */
@@ -67,7 +65,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      * @param EditRequest $request
      * @return JsonResponse
      */
@@ -92,14 +89,14 @@ class PostsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      * @param int $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
-        $posts = new Posts();
-        if ($posts->where('id', '=', $id)->delete()) {
+        $posts = (new Posts())->where('id', '=', $id)->delete();
+
+        if ($posts) {
             return response()->json([
                 'id' => $id,
             ], 202);
@@ -109,5 +106,4 @@ class PostsController extends Controller
             'message' => 'Error, post was not deleted',
         ], 404);
     }
-
 }
