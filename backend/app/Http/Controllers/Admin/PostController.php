@@ -48,10 +48,11 @@ class PostController extends Controller
         if($post){
             return redirect()->route('admin.posts.index')->with('success', 'Post added');
         }
+        return \back()->with('error', 'Post can be added');
     }
 
     /**
-     * @param Posts $post
+     * @param Posts            $post
      * @param UserQueryBuilder $queryBuilder
      * @return View
      */
@@ -65,7 +66,7 @@ class PostController extends Controller
 
     /**
      * @param  EditRequest  $request
-     * @param  Posts $post
+     * @param  Posts        $post
      * @return RedirectResponse
      */
     public function update(EditRequest $request, Posts $post): RedirectResponse
@@ -76,7 +77,7 @@ class PostController extends Controller
             return redirect()->route('admin.posts.index')->with('success', 'Post update');
         }
 
-        return \back()->with('error', 'Something wrong... Try again later');
+        return \back()->with('error', 'Post can not be updated');
     }
 
     /**

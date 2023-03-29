@@ -14,13 +14,14 @@ class Comments extends Model
     protected $table = 'comments';
 
     protected $fillable = [
+        'post_id',
         'author_id',
         'description',
     ];
 
-    public function post(): BelongsToMany
+    public function post(): BelongsTo
     {
-        return $this->belongsToMany(Posts::class, 'comments_has_post', 'comment_id', 'post_id');
+        return $this->belongsTo(Posts::class);
     }
 
     public function user(): BelongsTo

@@ -40,8 +40,6 @@
                     <td>{{ $news->short_description }}</td>
                     <td>{{ $news->description }}</td>
                     <td>{{ $news->image_url }}</td>
-                    <td>{{ $news->started_at }}</td>
-                    <td>{{ $news->ending_at }}</td>
                     <td>{{ $news->created_at }}</td>
                     <td>{{ $news->updated_at }}</td>
                     <td>

@@ -43,6 +43,7 @@ class NewsController extends Controller
         if($news){
             return redirect()->route('admin.news.index')->with('success', 'News added');
         }
+        return \back()->with('error', 'News can be added');
     }
 
     /**
@@ -57,7 +58,7 @@ class NewsController extends Controller
 
     /**
      * @param EditRequest $request
-     * @param News $news
+     * @param News        $news
      * @return ResirectResponse
      */
     public function update(EditRequest $request, News $news): RedirectResponse
@@ -67,8 +68,7 @@ class NewsController extends Controller
         if($news->save()){
             return redirect()->route('admin.news.index')->with('success', 'News update');
         }
-
-        return \back()->with('error', 'Something wrong... Try again later');
+        return \back()->with('error', 'News can not be updated');
     }
 
     /**

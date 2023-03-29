@@ -37,7 +37,7 @@ class CommentController extends Controller
 
     /**
      * @param EditRequest $request
-     * @param Comments $comment
+     * @param Comments    $comment
      * @return RedirectResponse
      */
     public function update(EditRequest $request, Comments $comment): RedirectResponse
@@ -47,8 +47,7 @@ class CommentController extends Controller
         if($comment->save()){
             return redirect()->route('admin.comments.index')->with('success', 'Commment update');
         }
-
-        return \back()->with('error', 'Something wrong... Try again later');
+        return \back()->with('error', 'Comment can not be updated');
     }
 
     /**

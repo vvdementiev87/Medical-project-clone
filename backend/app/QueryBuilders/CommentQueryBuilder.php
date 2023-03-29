@@ -20,7 +20,6 @@ class CommentQueryBuilder extends QueryBuilder
      * @param int $quantity
      * @return LengthAwarePaginator
      */
-
     public function getCommentWithPagination(int $quantity = 11): LengthAwarePaginator
     {
         return $this->model->paginate($quantity);
@@ -29,7 +28,6 @@ class CommentQueryBuilder extends QueryBuilder
     /**
      * @return Collection
      */
-
     function getCollection(): Collection
     {
         return $this->model->get();

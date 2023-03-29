@@ -34,14 +34,6 @@
                 <label for="image_url">Url картинки</label>
                 <input type="url" id="image_url" name="image_url" value="{{ $news->image_url }}" class="form-control @error('image_url') is-invalid @enderror">
             </div>
-            <div class="form-group">
-                <label for="started_at">Дата публикации</label>
-                <input type="date" id="started_at" name="started_at" value="{{ $news->started_at }}" class="form-control @error('started_at') is-invalid @enderror">
-            </div>
-            <div class="form-group">
-                <label for="ending_at">Дата снятия с публикации</label>
-                <input type="date" id="ending_at" name="ending_at" value="{{ $news->ending_at }}" class="form-control @error('ending_at') is-invalid @enderror">
-            </div>
             <br>
             <button type="submit" class="btn btn-sm btn-outline-secondary">Изменить</button>
         </form>
