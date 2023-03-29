@@ -7,6 +7,7 @@ use App\Http\Controllers\Content\ArticlesController;
 use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
+use App\Http\Controllers\Content\GalleryThemeController;
 
 /*
 |--------------------------------------------------------------------------

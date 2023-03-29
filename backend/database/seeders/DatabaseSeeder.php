@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CommentsSeeder::class,
             CommentsHasPost::class,
             NewsSeeder::class,
+            ThemeSeeder::class,
         ]);
     }
 }
