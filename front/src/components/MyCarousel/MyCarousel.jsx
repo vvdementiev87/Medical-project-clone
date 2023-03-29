@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import {NavLink} from "react-router-dom";
 
-const MyCarousel = ({data,height}) => {
+const MyCarousel = ({data}) => {
     const [index, setIndex] = useState(0);
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -12,9 +12,9 @@ const MyCarousel = ({data,height}) => {
         <Carousel activeIndex={index} onSelect={handleSelect}>
             {data.map((slide, i) => {
                 return (
-                    <Carousel.Item key={i} style={{height:height}}>
+                    <Carousel.Item key={i}>
                         <img
-                            className="d-block w-100"
+                            className="d-block w-100 h-100"
                             src={slide.image}
                             alt="slider image"
                         />

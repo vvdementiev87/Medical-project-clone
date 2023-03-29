@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_has_users', function (Blueprint $table) {
+        Schema::create('access_group_has_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->references('id')->on('access_group')->cascadeOnDelete();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();

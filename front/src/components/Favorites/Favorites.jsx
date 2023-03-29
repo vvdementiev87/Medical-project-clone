@@ -40,10 +40,9 @@ const statements = [
 const Favorites = () => {
 	return (
 		<div className={styles.sidebar}>
-			<h3>{'Избранное'}</h3>
-			{statements.map((s, i) => (
+			{statements?statements.map((s, i) => (
 				<FavoritesItem key={i} statement={s} />
-			))}
+			)):<p>Вы еще ничего не добавили в избранное</p>}
 		</div>
 	);
 };

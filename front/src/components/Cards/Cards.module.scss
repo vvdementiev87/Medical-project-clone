@@ -2,24 +2,24 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 88px;
+  //margin-bottom: 88px;
 }
 
 .cardsItem {
   width: 100%;
   max-width: 400px;
-  height: 480px;
+  //min-height: 480px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin: 0 auto;
 }
 
 .cardsImageWrapper {
+  width: 100%;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  height: 55%;
+  height: 300px;
 
   img {
     width: 100%;
