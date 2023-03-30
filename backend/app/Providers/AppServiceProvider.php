@@ -8,7 +8,7 @@ use App\QueryBuilders\QueryBuilder;
 use Illuminate\Support\ServiceProvider;
 use App\QueryBuilders\GalleryThemeQueryBuilder;
 use App\QueryBuilders\GalleryQueryBuilder;
-
+use App\QueryBuilders\EventsQueryBuilder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QueryBuilder::class, CommentQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, GalleryThemeQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, GalleryQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, EventsQueryBuilder::class);
     }
 
     /**
