@@ -24,12 +24,22 @@ class EventsQueryBuilder extends QueryBuilder
         return $this->model->get();
     }
 
+    function get(): array
+    {
+        $result = [
+            'future' => $this->getFutureEvents(),
+            'past' => $this->getPastEvents()
+        ];
+
+        return $result;
+    }
+
     /**
      * @return Collection
      */
     function getFutureEvents(): Collection
     {
-        return $this->model->whereDate('date_start', '>', Carbon::now())->get();
+        return $this->model->whereDate('date_start', '>', Carbon::now())->latest('date_start')->get();
     }
 
     /**
@@ -37,7 +47,8 @@ class EventsQueryBuilder extends QueryBuilder
      */
     function getPastEvents(): Collection
     {
-        return $this->model->whereDate('date_end', '<', Carbon::now())->get();
+        $events = new Events();
+        return $events->whereDate('date_end', '<', Carbon::now())->get();
     }
 
     /**

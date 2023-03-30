@@ -3,78 +3,49 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Videos as VideosModel;
-
+use App\Models\Videos;
+use Illuminate\Http\JsonResponse;
 
 class VideosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @return JsonResponse
      */
-    public function index(): string
+    public function index(): JsonResponse
     {
-        $videos = new VideosModel();
-        $result = [];
-        foreach ($videos->get() as $item) {
-            $result[$item->id] = [
-                'id'=>$item->id,
-                'videoYoutubeId' => $item->video_youtube_id,
-                'author' => $item->author,
-                'title' => $item->title,
-                'description' => $item->description,
-                'imageUrl' => $item->image_url,
-                'textHTML' => $item->text_html
-            ];
+        $resultData = Videos::getAll();
+
+        if (!$resultData) {
+            return response()->json([
+                'message' => 'Error loading, videos are not found',
+            ],
+                404
+            );
         }
-        return json_encode($result);
+
+        return response()->json(
+            $resultData,
+        );
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param int $id
+     * @return JsonResponse
      */
-    public function create()
+    public function showVideo(int $id): JsonResponse
     {
-        //
-    }
+        $result = Videos::getVideoById($id);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if (!$result) {
+            return response()->json([
+                'message' => 'Error loading, video is not found',
+            ],
+                404
+            );
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json(
+            $result,
+        );
     }
 }

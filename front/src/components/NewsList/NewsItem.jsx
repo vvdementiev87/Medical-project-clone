@@ -10,9 +10,10 @@ const NewsItem = ({ news }) => {
 				navigate(`/news/${news.id}`);
 			}}
 		>
-			<img src={news.image_url} alt={news.id} />
-			<h4>{news.title}</h4>
-			<p>{news.shortText}</p>
+
+			<img src={news?.image_url} alt={news?.id} />
+			<h4>{news?.title}</h4>
+			<p>{news?.short_description}</p>
 		</div>
 	);
 };

@@ -1,0 +1,11 @@
+.programLink{
+  font-size: 15px;
+  text-decoration: underline;
+  color: rgba(126,131,166,0.8);
+  transition: font-size 0.3s linear;
+  opacity: 1.0;
+  &:hover{
+    transition: all 0.3s linear;
+    opacity: 0.7;
+  }
+}

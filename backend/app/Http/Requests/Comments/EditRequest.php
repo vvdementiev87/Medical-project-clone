@@ -23,7 +23,6 @@ class EditRequest extends FormRequest
     {
         return [
             'description' => ['required', 'string'],
-            'comment_id' => ['required', 'exists:comments,id', 'integer'],
         ];
     }
 }

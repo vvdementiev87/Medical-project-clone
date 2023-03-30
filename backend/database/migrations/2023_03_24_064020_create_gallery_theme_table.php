@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments_has_post', function (Blueprint $table) {
+        Schema::create('gallery_theme', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
-            $table->foreignId('comment_id')->references('id')->on('comments')->cascadeOnDelete();
+            $table->string('title');
+            $table->string('description');
+            $table->string('url_preview');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments_has_post');
+        Schema::dropIfExists('gallery_theme');
     }
 };
