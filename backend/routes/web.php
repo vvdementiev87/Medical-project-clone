@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('test');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
     Route::get('/', AdminController::class)->name('index');

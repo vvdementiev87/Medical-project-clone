@@ -18,7 +18,8 @@ class Events extends Model
         'image',
         'place',
         'date_start',
-        'date_end'
+        'date_end',
+        'is_active'
     ];
 
     protected $hidden = [

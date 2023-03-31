@@ -38,6 +38,10 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('events/{id}', [EventsController::class, 'show']);
 });
 
+Route::group(['prefix' => 'events', 'as' => '',], static function () {
+    Route::post('registration', [EventsController::class, 'registration']);
+});
+
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('posts', [PostsController::class, 'index']);
     Route::get('/posts/{id}', [PostsController::class, 'showPost']);
