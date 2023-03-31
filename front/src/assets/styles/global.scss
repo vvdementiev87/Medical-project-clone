@@ -140,6 +140,7 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   }
 
 }
+
 @media (min-width: 287px) and (max-width: 600px) {
   .ais-Hits-list {
     margin: 30px auto 0 !important;
@@ -150,6 +151,7 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   }
 
 }
+
 @media screen and (max-width: 286px) {
   body, li {
     word-wrap: break-word !important;
@@ -168,11 +170,11 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   a.dropdown-item {
     font-size: 13px !important;
   }
-  
+
 }
 
-.ql-editor{
-  min-height:120px;
+.ql-editor {
+  min-height: 120px;
 }
 
 .carousel-item {
@@ -207,14 +209,17 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   min-width: 0;
   padding: 0 10px;
 }
-.slick-track{
+
+.slick-track {
   display: flex;
   align-items: flex-start;
 }
+
 .slick-list {
   overflow: hidden;
 }
-.slick-prev,.slick-next {
+
+.slick-prev, .slick-next {
   position: absolute;
   top: 50%;
   margin: -15px 0 0 0;
@@ -224,9 +229,11 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   width: 30px;
   height: 30px;
 }
-.slick-prev{
+
+.slick-prev {
   left: 0;
 }
+
 .slick-next {
   right: 0;
 }
@@ -240,3 +247,46 @@ li.nav-item.active, li.nav-item:hover, li.nav-item:focus {
   color: $primary-text-color;
   opacity: 0.85;
 }
+
+.react-pdf__Document {
+  overflow-x: scroll;
+}
+
+.react-pdf__Page {
+  margin-top: 10px;
+
+}
+
+.react-pdf__Page__textContent {
+  height: 0;
+  display: none;
+
+}
+
+.react-pdf__Page__annotations.annotationLayer {
+  padding: 20px;
+  height: 0 !important;
+  width: 100% !important;
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  width: 100% !important;
+  max-width: 700px;
+  height: 100% !important;
+  border: 1px solid rgba(169,169,169,0.4);
+  box-shadow: 2px 2px 5px 1px #ccc;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 567px) {
+  .react-pdf__Page__canvas {
+    width: 500px !important;
+    max-width: 500px;
+  }
+}
+//.all-page-container {
+//  height: 100%;
+//  max-height: 500px;
+//  overflow: auto;
+//}
