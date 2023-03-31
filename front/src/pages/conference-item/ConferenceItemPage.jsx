@@ -40,9 +40,7 @@ const ConferenceItemPage = () => {
                 }
             }}
         );
-        // const actualConferencies=JSON.parse(localStorage.getItem('actualConferencies'));
-        // const oldConferencies=JSON.parse(localStorage.getItem('oldConferencies'));
-        // setConferenceItem(actualConferencies.find((conference) => String(conference?.id) === conferenceId)||oldConferencies.find((conference) => String(conference?.id) === conferenceId));
+
     }, [conferenceId]);
     // const conferenceItem = data.find((conference) => String(conference?.id) === conferenceId);
 
@@ -64,14 +62,14 @@ const ConferenceItemPage = () => {
                                 <time dateTime={conferenceItem?.date_start} className={styles.cardDate}>{conferenceItem?.date_start}</time>
                             <p className={styles.subTitle}>Дата окончания:</p>
                             <time dateTime={conferenceItem?.date_end} className={styles.cardDate}>{conferenceItem?.date_end}</time>
-                            {isActual? (
+                            {isActual && user? (
                                  <DownloadPdfLink url={conferenceItem?.program} text={`Скачать программу конференции`} />
                                  ) : ''
                             }
                         </div>
                     </div>
                     <p className={styles.cardDescription}>{conferenceItem?.description}</p>
-                    {isActual?(
+                    {isActual && user?(
                         <div>
                             <p>Заявки на участие принимаются до {conferenceItem?.date_start.toLocaleString()}</p>
 

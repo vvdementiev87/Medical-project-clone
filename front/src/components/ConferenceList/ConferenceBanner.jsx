@@ -7,7 +7,7 @@ import {ConferenciesService} from "../../services/conference.service";
 
 
 const ConferenceBanner = ({conference}) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return conference ? (<div>
         <div className="container">
