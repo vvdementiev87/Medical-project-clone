@@ -17,6 +17,12 @@ const RecommendationsItem = ({ statement }) => {
 					{statement.title}
 				</h4>
 			)}
+			{statement.type === 3 && (
+				<h4>
+					{'Новость: '}
+					{statement.title}
+				</h4>
+			)}
 			<p>{statement.description}</p>
 			<a href={statement.link}>{'Продолжить'}</a>
 		</div>

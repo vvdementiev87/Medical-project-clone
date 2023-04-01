@@ -30,7 +30,7 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('articles', [ArticlesController::class, 'index']);
     Route::get('articles/{id}', [ArticlesController::class, 'showArticle'])->middleware('traffic');;
     Route::get('news', [NewsController::class, 'index']);
-    Route::get('news/{id}', [NewsController::class, 'show'])->middleware('traffic');;
+    Route::get('news/{id}', [NewsController::class, 'showNews'])->middleware('traffic');;
     Route::get('gallery', [GalleryThemeController::class, 'index']);
     Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
 

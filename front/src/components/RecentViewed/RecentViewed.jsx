@@ -23,7 +23,9 @@ const RecentViewed = () => {
 								(recentViewed[key].type === 1 &&
 									`/videos/${recentViewed[key].type_id}`) ||
 								(recentViewed[key].type === 2 &&
-									`/articles/${recentViewed[key].type_id}`),
+									`/articles/${recentViewed[key].type_id}`) ||
+								(recentViewed[key].type === 3 &&
+									`/news/${recentViewed[key].type_id}`),
 						}}
 					/>
 				))}

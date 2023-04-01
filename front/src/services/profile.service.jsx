@@ -12,6 +12,7 @@ export const ProfileService = {
 	},
 	async getRecommendations() {
 		return axiosClassic.get(getRecommendationsUrl('')).then((res) => {
+			console.log(res.data);
 			return res.data;
 		});
 	},

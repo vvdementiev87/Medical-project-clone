@@ -23,7 +23,9 @@ const Recommendations = () => {
 								(recommendations[key].type === 1 &&
 									`/videos/${recommendations[key].type_id}`) ||
 								(recommendations[key].type === 2 &&
-									`/articles/${recommendations[key].type_id}`),
+									`/articles/${recommendations[key].type_id}`) ||
+								(recommendations[key].type === 3 &&
+									`/news/${recommendations[key].type_id}`),
 						}}
 					/>
 				))}
