@@ -23,7 +23,7 @@ import ConferenceItemPage from "../../pages/conference-item/ConferenceItemPage";
 import ConferenceGallery from "../../pages/conference-gallery/ConferenceGallery";
 import PhotoGallery from '../../pages/photo-gallery/PhotoGallery';
 import EventPhotos from '../../pages/event-photos/EventPhotos';
-import PdfViewer from "../PdfViewer/PdfViewer";
+import Statute from "../../pages/statute/Statute";
 
 
 const isAuth = true;
@@ -64,7 +64,7 @@ function Router() {
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 					<Route path="/forum" element={<Forum />} />	
 					<Route path="forum/:topicId" element={<ForumTopic />} />
-					<Route path="/statute" element={<PdfViewer />} />
+					<Route path="/statute" element={<Statute />} />
 
 					<Route
 						path={routes.FORUM.link}

@@ -8,23 +8,18 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DownloadPdfLink from "../DownloadPdfLink/DownloadPdfLink";
 import {useAuth} from "../../hooks/useAuth";
 
-  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
-
-// const url='Program.pdf';
-// let fileBase64=null;
 const left = <FontAwesomeIcon icon={faChevronLeft} />;
 const right = <FontAwesomeIcon icon={faChevronRight} />;
 
-const PdfViewer = () => {
+const PdfViewer = ({url}) => {
     const {user}=useAuth();
     const [file,setFile]=useState();
-    const [fileDownload,setFileDownload]=useState();
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-    base64.getBase64(setFileDownload,setFile).catch()
 
-
+    base64.getBase64(url,setFile).catch();
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -45,11 +40,11 @@ const PdfViewer = () => {
 
 
 
-    return  <div className={`container ${styles.back}`}>
+    return  <>
 
         <Document
             file={file}
-             options={{ workerSrc: "/pdf.worker.js" }}
+            // options={{ workerSrc: "/pdf.worker.js" }}
             onLoadSuccess={onDocumentLoadSuccess}
         >
             <Page pageNumber={pageNumber}/>
@@ -70,11 +65,11 @@ const PdfViewer = () => {
             </button>
         </div>
         {user? (
-            <DownloadPdfLink url={`statute2022.pdf`} text={`Скачать файл PDF`} style={styles.link}/>
+            <DownloadPdfLink url={url} text={`Скачать файл PDF`} style={styles.link}/>
         ) : ''
         }
 
-    </div>
+    </>
 };
 
 export  default PdfViewer;

@@ -1,20 +1,16 @@
-import {axiosClassic} from "../api/interceptors";
-import {getNewsUrl} from "../config/api.config";
 import axios from "axios";
 
 export const base64 = {
-    async getBase64(cb1,cb2) {
+    async getBase64(url,cb) {
         let document = "";
         let reader = new FileReader();
-        const fileData= await axios.get(`/testDocs/statute2022.pdf`, {
+        const fileData= await axios.get(`/testDocs/${url}`, {
             responseType: 'blob',
-        })
-        // console.log(fileData)
-        cb1(fileData);
+        });
         reader.readAsDataURL(fileData.data);
         reader.onload = function () {
             document = reader.result;
-            cb2(document)
+            cb(document)
             // console.log(document)
         };
         reader.onerror = function (error) {
