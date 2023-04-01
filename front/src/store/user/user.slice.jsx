@@ -7,6 +7,7 @@ import {
 	register,
 	getFavorites,
 	getRecentViewed,
+	update,
 } from './user.actions';
 
 const initialState = {
@@ -70,6 +71,17 @@ export const userSlice = createSlice({
 			.addCase(getRecentViewed.rejected, (state) => {
 				state.isLoading = false;
 				state.recentViewed = null;
+			})
+			.addCase(update.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(update.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.user = { ...state.user, ...payload.user };
+			})
+			.addCase(update.rejected, (state) => {
+				state.isLoading = false;
+				state.user = null;
 			});
 	},
 });

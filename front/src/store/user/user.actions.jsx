@@ -23,7 +23,7 @@ export const register = createAsyncThunk(
 			first_name,
 			experience,
 			education,
-			company,
+			place_work,
 			category,
 			birth_date,
 		},
@@ -44,7 +44,7 @@ export const register = createAsyncThunk(
 				first_name,
 				experience,
 				education,
-				company,
+				place_work,
 				category,
 				birth_date
 			);
@@ -109,11 +109,55 @@ export const getRecentViewed = createAsyncThunk(
 		try {
 			const response = await RecentViewedService.getRecentViewed();
 			toastr.success('RecentViewed', 'Get successfully');
-			console.log(response);
 			return response;
 		} catch (error) {
 			toastrError(error);
 			return thunkApi.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const update = createAsyncThunk(
+	'auth/user/update',
+	async (
+		{
+			address,
+			sign_for_news,
+			position,
+			phone,
+			surname,
+			other_info,
+			last_name,
+			first_name,
+			experience,
+			education,
+			place_work,
+			category,
+			birth_date,
+		},
+		thunkApi
+	) => {
+		try {
+			const response = await AuthService.update(
+				address,
+				sign_for_news,
+				position,
+				phone,
+				surname,
+				other_info,
+				last_name,
+				first_name,
+				experience,
+				education,
+				place_work,
+				category,
+				birth_date
+			);
+			toastr.success('User update', 'Completed successfully');
+			return response.data;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error);
 		}
 	}
 );

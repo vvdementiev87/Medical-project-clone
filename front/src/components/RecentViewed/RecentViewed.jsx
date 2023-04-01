@@ -45,7 +45,6 @@ const RecentViewed = () => {
 	useEffect(() => {
 		getRecentViewed();
 	}, []);
-	console.log(recentViewed);
 	return (
 		<div className={styles.sidebar}>
 			{Object.keys(recentViewed).length > 0 &&

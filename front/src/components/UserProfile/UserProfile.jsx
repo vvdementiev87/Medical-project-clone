@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { getCsrfToken } from '../../api/interceptors';
+import { useActions } from '../../hooks/useActions';
 import LoginButton from '../../ui/login-button/LoginButton';
 import Favorites from '../Favorites/Favorites';
 import RecentViewed from '../RecentViewed/RecentViewed';
@@ -8,17 +10,16 @@ import styles from './UserProfile.module.scss';
 
 const UserProfile = ({ user }) => {
 	const { register, handleSubmit, formState, reset } = useForm();
-	const [updatedUser, setUpdatedUser] = useState(user);
 	const [isDisabled, setIsDisabled] = useState(true);
+	const { update } = useActions();
 
 	const handleClick = () => {
 		setIsDisabled(!isDisabled);
 	};
-	const onSubmit = (data) => {
-		console.log(formState.errors);
+	const onSubmit = async (data) => {
+		await getCsrfToken();
 		console.log(data);
-		setUpdatedUser(data);
-		console.log(updatedUser);
+		update(data);
 		setIsDisabled(!isDisabled);
 		reset();
 	};
@@ -49,7 +50,7 @@ const UserProfile = ({ user }) => {
 								isDisabled={isDisabled}
 								formState={formState}
 								register={register}
-								user={updatedUser}
+								user={user}
 							/>
 						</form>
 					</div>

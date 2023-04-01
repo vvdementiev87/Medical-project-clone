@@ -96,7 +96,7 @@ $max-sm-mobile-width: '575px';
   justify-content: space-between;
   align-items: center;
   margin: -100px 0 0;
-  @include tablet {
+  @include tablet() {
     justify-content: center;
   }
 
