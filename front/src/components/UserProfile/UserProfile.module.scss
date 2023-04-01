@@ -73,9 +73,10 @@ $max-sm-mobile-width: '575px';
 .wrapper {
   width: 100%;
   border: none;
-  border-radius: 30px;
+  border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 	margin-bottom: 40px;
+  overflow: hidden;
 
 }
 
@@ -83,7 +84,7 @@ $max-sm-mobile-width: '575px';
 .back {
   width: 100%;
   min-height: 200px;
-  background: rgb(172, 181, 255);
+    background: rgb(172, 181, 255);
   background: linear-gradient(
                   75deg,
                   rgba(172, 181, 255, 1) 0%,

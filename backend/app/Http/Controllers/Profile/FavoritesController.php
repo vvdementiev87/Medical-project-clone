@@ -67,12 +67,7 @@ class FavoritesController extends Controller
     {
         $result = Favorites::getAll();
 
-        if ($result) {
-            return response()->json($result);
-        }
-        return response()->json([
-            'error' => 'Favorite not added',
-        ], 401);
+        return response()->json($result);
     }
 
     /**
@@ -92,7 +87,7 @@ class FavoritesController extends Controller
 
         }
         return response()->json([
-            'error' => 'Favorite not added',
+            'error' => 'Favorite not deleted',
         ], 401);
     }
 }

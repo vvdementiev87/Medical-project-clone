@@ -58,6 +58,8 @@ Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
     Route::post('favorites/check',[\App\Http\Controllers\Profile\FavoritesController::class, 'check']);
     Route::post('favorites/delete',[\App\Http\Controllers\Profile\FavoritesController::class, 'delete']);
     Route::get('viewed',[\App\Http\Controllers\Profile\RecentViewedController::class, 'show']);
+    Route::get('recommended',[\App\Http\Controllers\Profile\RecommendationsController::class, 'show']);
+
 });
 
 require __DIR__.'/auth.php';

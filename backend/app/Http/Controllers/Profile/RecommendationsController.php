@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Models\Articles;
-use App\Models\Profile\Favorites;
 use App\Models\Profile\Traffic;
-use App\Models\Videos;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class RecentViewedController extends Controller
+class RecommendationsController extends Controller
 {
     /**
      * @param Request $request
@@ -19,9 +16,12 @@ class RecentViewedController extends Controller
     public function show(Request $request): JsonResponse
     {
 
-        $result = Traffic::getAll();
-
-        return response()->json($result);
-
+        $result = Traffic::getPopular();
+        if ($result){
+            return response()->json($result);
+        }
+        return response()->json([
+            'error' => 'Recommendations not available',
+        ], 404);
     }
 }

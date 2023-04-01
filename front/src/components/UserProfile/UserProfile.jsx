@@ -5,6 +5,7 @@ import { useActions } from '../../hooks/useActions';
 import LoginButton from '../../ui/login-button/LoginButton';
 import Favorites from '../Favorites/Favorites';
 import RecentViewed from '../RecentViewed/RecentViewed';
+import Recommendations from '../Recommendations/Recommendations';
 import ProfileFields from './ProfileFields';
 import styles from './UserProfile.module.scss';
 
@@ -54,7 +55,10 @@ const UserProfile = ({ user }) => {
 							/>
 						</form>
 					</div>
-
+					<div className={`${styles.wrapper}`}>
+						<h3 className={styles.recentHeading}>{'Рекоммендации'}</h3>
+						<Recommendations />
+					</div>
 					<div className={`${styles.wrapper}`}>
 						<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
 						<RecentViewed />

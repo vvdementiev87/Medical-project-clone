@@ -7,6 +7,7 @@ import {
 	register,
 	getFavorites,
 	getRecentViewed,
+	getRecommendations,
 	update,
 } from './user.actions';
 
@@ -15,6 +16,7 @@ const initialState = {
 	user: getStoreLocalStorage('user'),
 	favorites: {},
 	recentViewed: {},
+	recommendations: {},
 };
 export const userSlice = createSlice({
 	name: 'user',
@@ -71,6 +73,17 @@ export const userSlice = createSlice({
 			.addCase(getRecentViewed.rejected, (state) => {
 				state.isLoading = false;
 				state.recentViewed = null;
+			})
+			.addCase(getRecommendations.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getRecommendations.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.recommendations = { ...state.recommendations, ...payload };
+			})
+			.addCase(getRecommendations.rejected, (state) => {
+				state.isLoading = false;
+				state.recommendations = null;
 			})
 			.addCase(update.pending, (state) => {
 				state.isLoading = true;

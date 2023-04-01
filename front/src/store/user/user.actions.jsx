@@ -3,7 +3,7 @@ import { toastr } from 'react-redux-toastr';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { FavoritesService } from '../../services/favorites.service';
-import { RecentViewedService } from '../../services/recentViewed.service';
+import { ProfileService } from '../../services/profile.service';
 import { toastrError } from '../../utils/toast-error';
 
 export const register = createAsyncThunk(
@@ -107,8 +107,22 @@ export const getRecentViewed = createAsyncThunk(
 	'user/recentViewed/get',
 	async (_, thunkApi) => {
 		try {
-			const response = await RecentViewedService.getRecentViewed();
+			const response = await ProfileService.getRecentViewed();
 			toastr.success('RecentViewed', 'Get successfully');
+			return response;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const getRecommendations = createAsyncThunk(
+	'user/recommendations/get',
+	async (_, thunkApi) => {
+		try {
+			const response = await ProfileService.getRecommendations();
+			toastr.success('Recommendations', 'Get successfully');
 			return response;
 		} catch (error) {
 			toastrError(error);
