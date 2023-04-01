@@ -8,7 +8,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
-
+use App\Http\Controllers\Content\EventsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,7 +30,12 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('articles', [ArticlesController::class, 'index']);
     Route::get('articles/{id}', [ArticlesController::class, 'showArticle']);
     Route::get('news', [NewsController::class, 'index']);
-    Route::get('news/{id}', [NewsController::class, 'showNews']);
+    Route::get('news/{id}', [NewsController::class, 'show']);
+    Route::get('gallery', [GalleryThemeController::class, 'index']);
+    Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
+
+    Route::get('events', [EventsController::class, 'index']);
+    Route::get('events/{id}', [EventsController::class, 'show']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
