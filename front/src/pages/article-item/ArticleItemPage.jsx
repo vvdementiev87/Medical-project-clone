@@ -15,19 +15,50 @@ const ArticleItemPage = () => {
 	const { user } = useAuth();
 
 	const [articleItem, setArticleItem] = useState(null);
-
+	const [error, setError] = useState(null);
 	useEffect(() => {
 		FavoritesService.checkFavorite({
 			type: 2,
 			user_id: user.id,
 			type_id: articleId,
 		}).then((res) => setIsFavorite(res));
-
-		ArticleService.getById(articleId).then((res) => setArticleItem(res));
+		try {
+			ArticleService.getById(articleId).then((res) => setArticleItem(res));
+		} catch (error) {
+			setError(error.message);
+		}
 	}, []);
 
+	const onClickDeleteFavorite = async () => {
+		await FavoritesService.deleteFavorite({
+			user_id: user.id,
+			type_id: articleItem.id,
+			type: 2,
+		});
+
+		await FavoritesService.checkFavorite({
+			type: 2,
+			user_id: user.id,
+			type_id: articleId,
+		}).then((res) => setIsFavorite(res));
+	};
+
+	const onClickAddFavorite = async () => {
+		await FavoritesService.addFavorite({
+			user_id: user.id,
+			type_id: articleItem.id,
+			type: 2,
+		});
+
+		await FavoritesService.checkFavorite({
+			type: 2,
+			user_id: user.id,
+			type_id: articleId,
+		}).then((res) => setIsFavorite(res));
+	};
+
 	return !articleItem ? (
-		<h1>Loading...</h1>
+		<h1>{error}</h1>
 	) : (
 		<div className={styles.profile}>
 			<div title={articleItem.title} className={styles.articles}>
@@ -35,21 +66,9 @@ const ArticleItemPage = () => {
 				<div className={styles.favorite}>
 					{isFavorite ? (
 						<button
-							title="Add to favorites"
+							title="Delete from favorites"
 							className={styles.btn}
-							onClick={async () => {
-								await FavoritesService.deleteFavorite({
-									user_id: user.id,
-									type_id: articleItem.id,
-									type: 2,
-								});
-
-								await FavoritesService.checkFavorite({
-									type: 2,
-									user_id: user.id,
-									type_id: articleId,
-								}).then((res) => setIsFavorite(res));
-							}}
+							onClick={onClickDeleteFavorite}
 						>
 							<MaterialIcon name={'MdFavorite'} />
 						</button>
@@ -57,19 +76,7 @@ const ArticleItemPage = () => {
 						<button
 							title="Add to favorites"
 							className={styles.btn}
-							onClick={async () => {
-								await FavoritesService.addFavorite({
-									user_id: user.id,
-									type_id: articleItem.id,
-									type: 2,
-								});
-
-								await FavoritesService.checkFavorite({
-									type: 2,
-									user_id: user.id,
-									type_id: articleId,
-								}).then((res) => setIsFavorite(res));
-							}}
+							onClick={onClickAddFavorite}
 						>
 							<MaterialIcon name={'MdFavoriteBorder'} />
 						</button>
@@ -77,11 +84,11 @@ const ArticleItemPage = () => {
 					<p>{'Автор: ' + articleItem.author}</p>
 				</div>
 
-				<img src={articleItem.imageUrl} alt={articleItem.id} />
+				<img src={articleItem.image_url} alt={articleItem.id} />
 
 				<div
 					className={styles.innerHTML}
-					dangerouslySetInnerHTML={{ __html: articleItem.textHTML }}
+					dangerouslySetInnerHTML={{ __html: articleItem.text_html }}
 				/>
 			</div>
 

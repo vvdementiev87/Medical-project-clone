@@ -17,6 +17,7 @@ export const ArticleService = {
 	},
 	async getById(id) {
 		return axiosClassic.get(getArticlesUrl(`/${id}`)).then((res) => {
+			console.log(res.data);
 			return res.data;
 		});
 	},

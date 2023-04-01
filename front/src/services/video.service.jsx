@@ -17,6 +17,7 @@ export const VideoService = {
 	},
 	async getById(id) {
 		return axiosClassic.get(getVideosUrl(`/${id}`)).then((res) => {
+			console.log(res.data);
 			return res.data;
 		});
 	},

@@ -24,6 +24,7 @@ const VideoItemPage = () => {
 	const { user } = useAuth();
 
 	const [videoItem, setVideoItem] = useState(null);
+	const [error, setError] = useState(null);
 
 	const [isFavorite, setIsFavorite] = useState(false);
 
@@ -33,11 +34,43 @@ const VideoItemPage = () => {
 			user_id: user.id,
 			type_id: videoId,
 		}).then((res) => setIsFavorite(res));
-		VideoService.getById(videoId).then((res) => setVideoItem(res));
+		try {
+			VideoService.getById(videoId).then((res) => setVideoItem(res));
+		} catch (error) {
+			setError(error.message);
+		}
 	}, []);
 
+	const onClickDeleteFavorite = async () => {
+		await FavoritesService.deleteFavorite({
+			user_id: user.id,
+			type_id: videoItem.id,
+			type: 1,
+		});
+
+		await FavoritesService.checkFavorite({
+			type: 1,
+			user_id: user.id,
+			type_id: videoId,
+		}).then((res) => setIsFavorite(res));
+	};
+
+	const onClickAddFavorite = async () => {
+		await FavoritesService.addFavorite({
+			user_id: user.id,
+			type_id: videoItem.id,
+			type: 1,
+		});
+
+		await FavoritesService.checkFavorite({
+			type: 1,
+			user_id: user.id,
+			type_id: videoId,
+		}).then((res) => setIsFavorite(res));
+	};
+
 	return !videoItem ? (
-		<h1>Loading...</h1>
+		<h1>{error}</h1>
 	) : (
 		<div className={styles.profile}>
 			<div title={videoItem.title} className={styles.video}>
@@ -47,19 +80,7 @@ const VideoItemPage = () => {
 						<button
 							title="Add to favorites"
 							className={styles.btn}
-							onClick={async () => {
-								await FavoritesService.deleteFavorite({
-									user_id: user.id,
-									type_id: videoItem.id,
-									type: 1,
-								});
-
-								await FavoritesService.checkFavorite({
-									type: 1,
-									user_id: user.id,
-									type_id: videoId,
-								}).then((res) => setIsFavorite(res));
-							}}
+							onClick={onClickDeleteFavorite}
 						>
 							<MaterialIcon name={'MdFavorite'} />
 						</button>
@@ -67,30 +88,18 @@ const VideoItemPage = () => {
 						<button
 							title="Add to favorites"
 							className={styles.btn}
-							onClick={async () => {
-								await FavoritesService.addFavorite({
-									user_id: user.id,
-									type_id: videoItem.id,
-									type: 1,
-								});
-
-								await FavoritesService.checkFavorite({
-									type: 1,
-									user_id: user.id,
-									type_id: videoId,
-								}).then((res) => setIsFavorite(res));
-							}}
+							onClick={onClickAddFavorite}
 						>
 							<MaterialIcon name={'MdFavoriteBorder'} />
 						</button>
 					)}
 					<p>{'Автор: ' + videoItem.author}</p>
 				</div>
-				<YouTube videoId={videoItem.videoYoutubeId} opts={opts} />
+				<YouTube videoId={videoItem.video_youtube_id} opts={opts} />
 
 				<div
 					className={styles.innerHTML}
-					dangerouslySetInnerHTML={{ __html: videoItem.textHTML }}
+					dangerouslySetInnerHTML={{ __html: videoItem.text_html }}
 				/>
 			</div>
 			<div className={styles.right}>

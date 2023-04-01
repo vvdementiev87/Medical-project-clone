@@ -1,8 +1,8 @@
 import React from 'react';
 import InputForm from '../../ui/input-form/InputForm';
+import { dateFormater } from '../../utils/date-formater';
 import styles from './UserProfile.module.scss';
 const ProfileFields = ({ isDisabled, formState, register, user }) => {
-	console.log(new Date(user.birth_date).toLocaleDateString());
 	return (
 		<>
 			<div className={styles.name}>
@@ -60,7 +60,7 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 					type={'date'}
 					className={styles.input}
 					isDisabled={isDisabled}
-					defaultValue={new Date(user.birth_date).toLocaleDateString()}
+					defaultValue={dateFormater(new Date(user.birth_date))}
 					{...register('birth_date', { required: true })}
 				/>
 			</div>

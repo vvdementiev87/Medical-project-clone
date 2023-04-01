@@ -25,7 +25,6 @@ export const FavoritesService = {
 		return axiosClassic
 			.post(getFavoritesUrl('/delete'), { type_id, type, user_id })
 			.then((res) => {
-				console.log(res.data);
 				return res.data?.favorite;
 			});
 	},

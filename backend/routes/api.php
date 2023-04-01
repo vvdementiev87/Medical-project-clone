@@ -26,11 +26,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
-    Route::get('videos/{id}', [VideosController::class, 'showVideo']);
+    Route::get('videos/{id}', [VideosController::class, 'showVideo'])->middleware('traffic');
     Route::get('articles', [ArticlesController::class, 'index']);
-    Route::get('articles/{id}', [ArticlesController::class, 'showArticle']);
+    Route::get('articles/{id}', [ArticlesController::class, 'showArticle'])->middleware('traffic');;
     Route::get('news', [NewsController::class, 'index']);
-    Route::get('news/{id}', [NewsController::class, 'show']);
+    Route::get('news/{id}', [NewsController::class, 'show'])->middleware('traffic');;
     Route::get('gallery', [GalleryThemeController::class, 'index']);
     Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
 
