@@ -2,6 +2,7 @@ import React from 'react';
 import InputForm from '../../ui/input-form/InputForm';
 import styles from './UserProfile.module.scss';
 const ProfileFields = ({ isDisabled, formState, register, user }) => {
+	console.log(new Date(user.birth_date).toLocaleDateString());
 	return (
 		<>
 			<div className={styles.name}>
@@ -17,8 +18,8 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 				<InputForm
 					className={styles.input}
 					isDisabled={isDisabled}
-					defaultValue={user.patronym}
-					{...register('patronym', { required: true })}
+					defaultValue={user.surname}
+					{...register('surname', { required: true })}
 				/>
 				<InputForm
 					className={styles.input}
@@ -41,9 +42,8 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 					placeholder={'Email: '}
 					className={styles.input}
 					type="email"
-					isDisabled={isDisabled}
+					isDisabled={true}
 					defaultValue={user.email}
-					{...register('email', { required: true })}
 				/>
 				<InputForm
 					placeholder={'Телефон: '}
@@ -60,7 +60,7 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 					type={'date'}
 					className={styles.input}
 					isDisabled={isDisabled}
-					defaultValue={user.birth_date}
+					defaultValue={new Date(user.birth_date).toLocaleDateString()}
 					{...register('birth_date', { required: true })}
 				/>
 			</div>
@@ -68,14 +68,14 @@ const ProfileFields = ({ isDisabled, formState, register, user }) => {
 				<InputForm
 					className={styles.input}
 					isDisabled={isDisabled}
-					defaultValue={user.company}
+					defaultValue={user.place_work}
 					placeholder={'Компания: '}
-					{...register('company', { required: true })}
+					{...register('place_work', { required: true })}
 				/>
 				<InputForm
 					className={styles.input}
 					isDisabled={isDisabled}
-					type={'date'}
+					type={'number'}
 					defaultValue={user.experience}
 					placeholder={'Опыт: '}
 					{...register('experience', { required: true })}

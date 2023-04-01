@@ -51,4 +51,13 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::post('/comments/edit', [CommentsController::class, 'update']);
 
 });
+
+Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
+    Route::post('favorites/add',[\App\Http\Controllers\Profile\FavoritesController::class, 'add']);
+    Route::post('favorites',[\App\Http\Controllers\Profile\FavoritesController::class, 'show']);
+    Route::post('favorites/check',[\App\Http\Controllers\Profile\FavoritesController::class, 'check']);
+    Route::post('favorites/delete',[\App\Http\Controllers\Profile\FavoritesController::class, 'delete']);
+    Route::get('viewed',[\App\Http\Controllers\Profile\RecentViewedController::class, 'show']);
+});
+
 require __DIR__.'/auth.php';

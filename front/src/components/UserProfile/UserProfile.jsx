@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { getCsrfToken } from '../../api/interceptors';
+import { useActions } from '../../hooks/useActions';
 import LoginButton from '../../ui/login-button/LoginButton';
 import Favorites from '../Favorites/Favorites';
 import RecentViewed from '../RecentViewed/RecentViewed';
@@ -8,62 +10,63 @@ import styles from './UserProfile.module.scss';
 
 const UserProfile = ({ user }) => {
 	const { register, handleSubmit, formState, reset } = useForm();
-	const [updatedUser, setUpdatedUser] = useState(user);
 	const [isDisabled, setIsDisabled] = useState(true);
+	const { update } = useActions();
 
 	const handleClick = () => {
 		setIsDisabled(!isDisabled);
 	};
-	const onSubmit = (data) => {
-		console.log(formState.errors);
+	const onSubmit = async (data) => {
+		await getCsrfToken();
 		console.log(data);
-		setUpdatedUser(data);
-		console.log(updatedUser);
+		update(data);
 		setIsDisabled(!isDisabled);
 		reset();
 	};
+
 	return (
 		<div className="container">
-		<div className={styles.main}>
-			<div className={styles.container}>
-				<div className={styles.wrapper}>
-					<div className={styles.back}></div>
+			<div className={styles.main}>
+				<div className={styles.container}>
+					<div className={styles.wrapper}>
+						<div className={styles.back}></div>
 
-					<form className={styles.data} onSubmit={handleSubmit(onSubmit)}>
-						<div className={styles.img}>
-							<img
-								className={styles.avatar}
-								src={user.avatar}
-								alt={user.first_name}
+						<form className={styles.data} onSubmit={handleSubmit(onSubmit)}>
+							<div className={styles.img}>
+								<img
+									className={styles.avatar}
+									src={user.avatar}
+									alt={user.first_name}
+								/>
+								<LoginButton
+									type={isDisabled ? null : 'submit'}
+									title={isDisabled ? 'Редактировать' : 'Сохранить'}
+									handleClick={
+										isDisabled ? handleClick : handleSubmit(onSubmit)
+									}
+								/>
+							</div>
+							<ProfileFields
+								isDisabled={isDisabled}
+								formState={formState}
+								register={register}
+								user={user}
 							/>
-							<LoginButton
-								type={isDisabled ? null : 'submit'}
-								title={isDisabled ? 'Редактировать' : 'Сохранить'}
-								handleClick={isDisabled ? handleClick : handleSubmit(onSubmit)}
-							/>
-						</div>
-						<ProfileFields
-							isDisabled={isDisabled}
-							formState={formState}
-							register={register}
-							user={updatedUser}
-						/>
-					</form>
+						</form>
+					</div>
+
+					<div className={`${styles.wrapper}`}>
+						<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
+						<RecentViewed />
+					</div>
 				</div>
 
-				<div className={`${styles.wrapper}`}>
-					<h3 className={styles.recentHeading}>{'Недавно просмотренное'}</h3>
-					<RecentViewed/>
+				<div className={styles.sidebar}>
+					<h3>{'Избранное'}</h3>
+					<Favorites />
 				</div>
 			</div>
-
-			<div className={styles.sidebar}>
-				<h3>{'Избранное'}</h3>
-				<Favorites/>
-			</div>
 		</div>
-		</div>
-
 	);
 };
 

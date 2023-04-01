@@ -41,7 +41,7 @@ $max-sm-mobile-width: '575px';
   margin-left: 10px;
   width: 100%;
   max-width: 350px;
-	padding: 0 10px 20px;
+	padding: 10px 0 20px;
 	border: none;
 	border-radius: 30px;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -60,6 +60,13 @@ $max-sm-mobile-width: '575px';
 		font-size: 20px;
 		line-height: 140%;
 		color: $primary-text-color;
+	}
+
+  >h3{
+		padding: 10px 5px;
+	}
+	p,h4,a{
+		padding: 10px 5px;
 	}
 }
 
@@ -89,7 +96,7 @@ $max-sm-mobile-width: '575px';
   justify-content: space-between;
   align-items: center;
   margin: -100px 0 0;
-  @include tablet {
+  @include tablet() {
     justify-content: center;
   }
 
