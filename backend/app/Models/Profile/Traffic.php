@@ -75,7 +75,7 @@ class Traffic extends Model
     }
     public static function getPopular(): array
     {
-        $viewed = \DB::table('traffic')->orderBy('count', 'desc')->take(5)->get();
+        $viewed = \DB::table('traffic')->selectRaw('url, SUM(count) as sumCount')->groupBy('url')->orderBy('sumCount', 'desc')->take(5)->get();
         $result = [];
         if ($viewed) {
             foreach ($viewed as $item) {
@@ -95,8 +95,6 @@ class Traffic extends Model
                         'textHTML' => $video->text_html];
 
                     $result[] = [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
                         'type' => 1,
                         'type_id' => $video->id,
                         'object' => $object
@@ -115,8 +113,6 @@ class Traffic extends Model
                     ];
 
                     $result[] = [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
                         'type' => 2,
                         'type_id' => $article->id,
                         'object' => $object

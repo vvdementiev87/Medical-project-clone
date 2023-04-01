@@ -17,11 +17,8 @@ class RecommendationsController extends Controller
     {
 
         $result = Traffic::getPopular();
-        if ($result){
-            return response()->json($result);
-        }
-        return response()->json([
-            'error' => 'Recommendations not available',
-        ], 404);
+
+        return response()->json($result);
+
     }
 }
