@@ -40,7 +40,9 @@ const EventPhotos = () => {
 			setError(error.message);
 		}
 	}, []);
-	return (
+	return !event ? (
+		<h1>{error}</h1>
+	) : (
 		<div className="container">
 			<h1 className="page-title">{event && event.title}</h1>
 			<p className={styles.description}>{event.description}</p>
