@@ -18,7 +18,7 @@ class GalleryThemeController extends Controller
     {
         $galleryCollection = $galleryThemeQueryBuilder->getCollection();
 
-        if (!empty($gallery_collection)) {
+        if ($galleryCollection) {
             return response()->json($galleryCollection);
         }
 
