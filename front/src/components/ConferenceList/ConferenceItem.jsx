@@ -9,9 +9,9 @@ const ConferenceItem = ({conference}) => {
             className={styles.item}
         >
 
-            <img src={conference.image_url} alt={conference.id}/>
-            <h4>{conference.title}</h4>
-            <p>{conference.short_description}</p>
+            <img src={conference.image} alt={conference.id}/>
+            <h4>{conference.name}</h4>
+            <p>{conference.short_text}</p>
             <button onClick={() => {
                 navigate(`/conferencies/${conference.id}`);
             }}><span>Подробнее</span></button>
