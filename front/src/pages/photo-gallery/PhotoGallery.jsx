@@ -30,18 +30,17 @@ const events = [
 	},
 ];
 
-const [gallery, setGallery] = useState(null);
-const [error, setError] = useState(null);
-
-useEffect(() => {
-	try {
-		GalleryService.getAll.then((res) => setGallery(res));
-	} catch (error) {
-		setError(error.message);
-	}
-}, []);
-
 const PhotoGallery = () => {
+	const [gallery, setGallery] = useState(null);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		try {
+			GalleryService.getAll.then((res) => setGallery(res));
+		} catch (error) {
+			setError(error.message);
+		}
+	}, []);
 	return !gallery ? (
 		<h1>{error}</h1>
 	) : (
