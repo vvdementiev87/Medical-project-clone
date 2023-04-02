@@ -16,8 +16,8 @@ class EventsController extends Controller
     public function index(EventsQueryBuilder $eventsQueryBuilder): string
     {
         $events = $eventsQueryBuilder->get();
-        
-        if (!empty($events)) {
+
+        if ($events) {
             return response()->json($events);
         }
         return response()->json([
@@ -35,7 +35,7 @@ class EventsController extends Controller
     {
         $event = $eventsQueryBuilder->getById($id);
 
-        if (!empty($event)) {
+        if ($event) {
             return response()->json($event);
         }
         return response()->json([

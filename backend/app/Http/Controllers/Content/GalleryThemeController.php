@@ -18,13 +18,13 @@ class GalleryThemeController extends Controller
     {
         $galleryCollection = $galleryThemeQueryBuilder->getCollection();
 
-        if ($galleryCollection) {
-            return response()->json($galleryCollection);
+        if (!$galleryCollection) {
+            return response()->json([
+                'message' => 'Error loading gallery themes',
+            ], 404);
         }
 
-        return response()->json([
-            'message' => 'Error loading gallery themes',
-        ], 404);
+        return response()->json($galleryCollection);
     }
 
     /**
