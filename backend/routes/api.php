@@ -34,8 +34,8 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('gallery', [GalleryThemeController::class, 'index']);
     Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
 
-    Route::get('events', [EventsController::class, 'index']);
-    Route::get('events/{id}', [EventsController::class, 'show']);
+    Route::get('conferencies', [EventsController::class, 'index']);
+    Route::get('conferencies/{id}', [EventsController::class, 'show']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {
