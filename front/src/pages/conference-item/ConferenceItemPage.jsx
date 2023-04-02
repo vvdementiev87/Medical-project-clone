@@ -24,23 +24,23 @@ const ConferenceItemPage = () => {
     useEffect(() => {
         axiosClassic.get(getConferenciesUrl(''), {
         }).then((res)=>{
-            const date=Date.now();
+             const date=Date.now();
             if(res.data){
                 setIsLoading(false);
             }
+            const confArray=[...res?.data['future'],...res?.data['past']];
 
-            for (let i in res?.data) {
-                if (String(res?.data[i]['id']) === conferenceId) {
-                    setConferenceItem(res?.data[i]);
-                    if(date<Date.parse(res?.data[i]['date_start'])) {
+
+            for (let i of confArray) {
+                if (String(i['id']) === conferenceId) {
+                    setConferenceItem(i);
+                    if(date<Date.parse(i['date_start'])) {
                         setIsActual(true);
                     }
                 }
             }}
         );
-        // const actualConferencies=JSON.parse(localStorage.getItem('actualConferencies'));
-        // const oldConferencies=JSON.parse(localStorage.getItem('oldConferencies'));
-        // setConferenceItem(actualConferencies.find((conference) => String(conference?.id) === conferenceId)||oldConferencies.find((conference) => String(conference?.id) === conferenceId));
+
     }, [conferenceId]);
     // const conferenceItem = data.find((conference) => String(conference?.id) === conferenceId);
 
@@ -52,10 +52,10 @@ const ConferenceItemPage = () => {
                 <div className={styles.profile}>
                     <div className={styles.card}>
                         <img
-                            src={conferenceItem?.image_url} alt={conferenceItem?.id}
+                            src={conferenceItem?.image} alt={conferenceItem?.id}
                             className={styles.cardImage}/>
                         <div className={styles.cardContent}>
-                            <span className={styles.cardTitle}>{conferenceItem?.title}</span>
+                            <span className={styles.cardTitle}>{conferenceItem?.name}</span>
                             <p className={styles.subTitle}>Место проведения:</p>
                             <span>{conferenceItem?.place}</span>
                             <p className={styles.subTitle}>Дата старта:</p>
