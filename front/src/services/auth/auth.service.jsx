@@ -81,4 +81,43 @@ export const AuthService = {
 
 		return response;
 	},
+
+	async update(
+		address,
+		sign_for_news,
+		position,
+		phone,
+		surname,
+		other_info,
+		last_name,
+		first_name,
+		experience,
+		education,
+		place_work,
+		category,
+		birth_date,
+		has_agreed
+	) {
+		const response = await axiosClassic.post(getAuthUrl('/user/update'), {
+			address,
+			sign_for_news,
+			position,
+			phone,
+			surname,
+			other_info,
+			last_name,
+			first_name,
+			experience,
+			education,
+			place_work,
+			category,
+			birth_date,
+			has_agreed,
+		});
+		console.log(response);
+		if (response?.data.accessToken) {
+			saveToStorage(response.data);
+		}
+		return response;
+	},
 };
