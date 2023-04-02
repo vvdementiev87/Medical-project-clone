@@ -8,7 +8,7 @@ import {ConferenciesService} from "../../services/conference.service";
 import {axiosClassic} from "../../api/interceptors";
 import {getConferenciesUrl} from "../../config/api.config";
 
-const PageSize = 6;
+const PageSize = 3;
 
 const ConferenceGallery = () => {
     // const {isLoading, data} = useQuery('Conferencies list', () => ConferenciesService.getAll());
@@ -25,32 +25,17 @@ const ConferenceGallery = () => {
     useEffect(() => {
          axiosClassic.get(getConferenciesUrl(''), {
             }).then((res)=>{
-                const conferenciesActual=[];
-                const conferenciesOld=[];
-                const date=Date.now();
                 if(res?.data){
+                    console.log(res?.data)
                     setIsLoading(false);
+                    const futureArray=res?.data['future'];
+                    setActualConferencies([...futureArray]);
+                    setOldConferencies(res?.data['past']);
+                    setBanner(futureArray[futureArray.length-1]);
                 }
-                for (let i in res?.data) {
-                    if(date<Date.parse(res?.data[i]['date_start'])) {
-                        conferenciesActual.push(res?.data[i]);
-                    }else{
-                        conferenciesOld.push(res?.data[i]);
-                    }
-                }
-                setActualConferencies(conferenciesActual);
-                setOldConferencies(conferenciesOld);
-                setBanner(conferenciesActual[conferenciesActual.length-1]);
-
-                // localStorage.setItem('actualConferencies', JSON.stringify(conferenciesActual));
-                // localStorage.setItem('oldConferencies', JSON.stringify(conferenciesOld));
 
             });
 
-        // const actual = JSON.parse(localStorage.getItem('actualConferencies'));
-        // setActualConferencies(JSON.parse(localStorage.getItem('actualConferencies')) || []);
-        // setBanner(actual[actual.length - 1]);
-        // setOldConferencies(JSON.parse(localStorage.getItem('oldConferencies')) || []);
     }, [actualConferencies,oldConferencies]);
 
 
