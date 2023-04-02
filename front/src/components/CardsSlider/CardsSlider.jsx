@@ -14,8 +14,40 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 const images = [
     One,Two,Three,Four,Five,Six
 ];
-const left = <FontAwesomeIcon icon={faChevronLeft} />;
-const right = <FontAwesomeIcon icon={faChevronRight} />;
+// const left = <FontAwesomeIcon icon={faChevronLeft} />;
+// const right = <FontAwesomeIcon icon={faChevronRight} />;
+
+
+const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+    <button
+        {...props}
+        className={
+            "slick-prev slick-arrow" +
+            (currentSlide === 0 ? " slick-disabled" : "")
+        }
+        aria-hidden="true"
+        aria-disabled={currentSlide === 0 ? true : false}
+        type="button"
+    >
+        Previous
+    </button>
+);
+const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+    <button
+        {...props}
+        className={
+            "slick-next slick-arrow" +
+            (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+        }
+        aria-hidden="true"
+        aria-disabled={currentSlide === slideCount - 1 ? true : false}
+        type="button"
+    >
+        Next
+    </button>
+);
+
+
 const CardsSlider = () => {
     const [imageIndex, setImageIndex] = useState(0);
     const settings = {
@@ -31,8 +63,8 @@ const CardsSlider = () => {
         centerPadding: 0,
         autoplay: true,
         cssEase: 'linear',
-        nextArrow: right,
-        prevArrow: left,
+        nextArrow: <SlickArrowLeft />,
+        prevArrow: <SlickArrowRight />,
         autoplaySpeed:2500,
         pauseOnHover:true,
         responsive: [
@@ -49,10 +81,10 @@ const CardsSlider = () => {
         // beforeChange: (current, next) => setImageIndex(next)
     };
     return (
-        <div className={styles.slider}>
+        <div>
             <Slider {...settings}>
                 {images.map((img, idx) => (
-                      <div className={idx === imageIndex ? `${styles.slide} ${styles.activeSlide}`: `${styles.slide}`}>
+                      <div key={idx} className={`${styles.slide}`}>
                         <img src={img} alt={img} />
                       </div>
                 ))}
