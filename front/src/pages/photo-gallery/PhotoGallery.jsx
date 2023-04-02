@@ -49,7 +49,7 @@ const PhotoGallery = () => {
 			<div className={styles.gallery}>
 				{gallery.map((event) => (
 					<div key={event.theme_id} className={styles.event}>
-						<Link to={`/photos/${event.theme_id}`}>
+						<Link to={`/photos/${event.id}`}>
 							<div>
 								<img src={event.url_preview} alt={event.title} />
 								<h2 className={styles.eventTitle}>{event.title}</h2>
