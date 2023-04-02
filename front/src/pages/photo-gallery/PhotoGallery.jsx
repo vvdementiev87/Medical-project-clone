@@ -36,7 +36,7 @@ const PhotoGallery = () => {
 
 	useEffect(() => {
 		try {
-			GalleryService.getAll.then((res) => setGallery(res));
+			GalleryService.getAll().then((res) => setGallery(res));
 		} catch (error) {
 			setError(error.message);
 		}
