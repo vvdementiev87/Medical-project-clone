@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth', 'as' => '',], static function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])->
-        name('register');
+    name('register');
 
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->name('login');
+
+    Route::post('/user/update', [RegisteredUserController::class, 'update'])->
+    name('user.update');
 
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware(['guest', 'auth:sanctum'])

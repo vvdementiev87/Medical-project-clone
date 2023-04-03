@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\QueryBuilders\EventsQueryBuilder;
 
 class EventsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param  EventsQueryBuilder $eventsQueryBuilder
-     * @return string
+     * @param EventsQueryBuilder $eventsQueryBuilder
+     * @return JsonResponse
      */
-    public function index(EventsQueryBuilder $eventsQueryBuilder): string
+    public function index(EventsQueryBuilder $eventsQueryBuilder): JsonResponse
     {
         $events = $eventsQueryBuilder->get();
-        
-        if (!empty($events)) {
+
+        if ($events) {
             return response()->json($events);
         }
         return response()->json([
@@ -27,15 +27,15 @@ class EventsController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  EventsQueryBuilder $eventsQueryBuilder
-     * @param  int                $id
-     * @return string
+     * @param EventsQueryBuilder $eventsQueryBuilder
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(EventsQueryBuilder $eventsQueryBuilder, int $id): string
+    public function show(EventsQueryBuilder $eventsQueryBuilder, int $id): JsonResponse
     {
         $event = $eventsQueryBuilder->getById($id);
 
-        if (!empty($event)) {
+        if ($event) {
             return response()->json($event);
         }
         return response()->json([

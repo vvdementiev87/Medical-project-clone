@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './RecentViewed.module.scss';
+import styles from './Recommendations.module.scss';
 
-const RecentViewedItem = ({ statement }) => {
+const RecommendationsItem = ({ statement }) => {
 	return (
 		<div className={styles.item}>
 			<img src={statement.imageUrl} alt={statement.title} />
@@ -29,4 +29,4 @@ const RecentViewedItem = ({ statement }) => {
 	);
 };
 
-export default RecentViewedItem;
+export default RecommendationsItem;
