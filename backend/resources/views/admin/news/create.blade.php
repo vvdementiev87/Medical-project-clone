@@ -4,7 +4,7 @@
         <h1 class="h2">Добавить новость</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ route('admin.news.index') }}" class="btn btn-sm btn-outline-secondary">Назад</a>
+                <a href="{{ url("https://bosomed.ru/middleware/admin/news")  }}" class="btn btn-sm btn-outline-secondary">Назад</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -37,4 +37,4 @@
             <button type="submit" class="btn btn-sm btn-outline-secondary">Добавить+</button>
         </form>
     </div>
-@endsection    
+@endsection

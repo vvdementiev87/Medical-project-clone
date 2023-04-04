@@ -4,7 +4,7 @@
         <h1 class="h2">Список новостей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ route('admin.news.create') }}" class="btn btn-sm btn-outline-secondary">Добавить новость</a>
+                <a href="{{ url("https://bosomed.ru/middleware/admin/news/create") }}" class="btn btn-sm btn-outline-secondary">Добавить новость</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -13,8 +13,8 @@
 @if (session('success'))
     <div id="top-alert" class="alert alert-primary" role="alert">
         {{ session('success') }}
-    </div>     
-@endif  
+    </div>
+@endif
 
     <div>
         <table class="table table-striped table-sm">
@@ -43,7 +43,7 @@
                     <td>{{ $news->created_at }}</td>
                     <td>{{ $news->updated_at }}</td>
                     <td>
-                        <a href="{{ route('admin.news.edit', ['news' => $news]) }}">измениить</a>
+                        <a href="{{ url("https://bosomed.ru/middleware/admin/news/".$news->id ."/edit") }}">измениить</a>
                         <a href="javascript:;" class="delete" rel="{{ $news->id }}">удалить</a>
                     </td>
                 </tr>
@@ -52,7 +52,7 @@
                     <td colspan="7">Нет записей</td>
                 </tr>
             @endforelse
-    
+
             </tbody>
         </table>
     </div>

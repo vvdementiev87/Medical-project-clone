@@ -30,6 +30,7 @@ class PostQueryBuilder extends QueryBuilder
             $resultData[$post->id] = [
                 'id' => $post->id,
                 'title' => $post->title,
+                'description' => $post->description,
                 'created_at' => $post->created_at->toDateTimeString(),
                 'last_comment' => $post->comments->map(fn($com) => $com->updated_at->toDateTimeString())->first(),
                 'comments_count' => $post->comments->count()

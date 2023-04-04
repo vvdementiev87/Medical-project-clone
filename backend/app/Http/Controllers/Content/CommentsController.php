@@ -55,7 +55,7 @@ class CommentsController extends Controller
     {
         $update_data = $request->validated();
 
-        $comment = Comments::find($update_data['comment_id']);
+        $comment = Comments::find($update_data['id']);
         $comment->fill(['description' => $update_data['description']]);
 
         if ($comment->save()) {

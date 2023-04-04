@@ -56,6 +56,7 @@ function LoginForm({ saveData }) {
 					className="login_field_width"
 					id="password"
 					name="password"
+					type="password"
 					labelText="Пароль"
 					error={errors.password}
 					{...register('password', {

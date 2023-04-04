@@ -22,8 +22,6 @@ class News extends Model
             'title',
             'short_description',
             'image_url',
-            'started_at',
-            'ending_at',
         ])->get();
     }
 
