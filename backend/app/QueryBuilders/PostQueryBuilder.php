@@ -4,10 +4,19 @@ namespace App\QueryBuilders;
 
 use App\Models\Posts;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PostQueryBuilder extends QueryBuilder
 {
+    public Builder $model;
+
+    public function __construct()
+    {
+        $this->model = Posts::query();
+    }
+
     /**
      * @return Collection
      */
@@ -84,5 +93,14 @@ class PostQueryBuilder extends QueryBuilder
             ],
             'comments' => $comments
         ];
+    }
+
+    /**
+     * @param int $quantity
+     * @return LengthAwarePaginator
+     */
+    public function getPostsWithPagination(int $quantity = 11): LengthAwarePaginator
+    {
+        return $this->model->paginate($quantity);
     }
 }

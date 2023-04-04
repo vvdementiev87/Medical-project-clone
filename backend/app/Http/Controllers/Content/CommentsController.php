@@ -61,7 +61,6 @@ class CommentsController extends Controller
         if ($comment->save()) {
             return response()->json([
                 'id' => $comment->id,
-                'title' => $comment->title,
                 'description' => $comment->description,
             ], 202);
         }

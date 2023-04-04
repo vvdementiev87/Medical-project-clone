@@ -3,7 +3,7 @@ import axios from 'axios'
 import fileDownload from 'js-file-download'
 import styles from "./DownloadPdfLink.module.scss";
 
-const DownloadPdfLink = ({url, text}) => {
+const DownloadPdfLink = ({url, text,style}) => {
 
     const handleDownload = () => {
         axios.get(`/testDocs/${url}`, {
@@ -18,7 +18,7 @@ const DownloadPdfLink = ({url, text}) => {
     return (
         <button onClick={() => {
             handleDownload()
-        }} className={styles.programLink}>
+        }} className={style?style:styles.programLink}>
             {text}
         </button>
     );

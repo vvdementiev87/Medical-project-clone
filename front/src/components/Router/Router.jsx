@@ -23,6 +23,7 @@ import ConferenceItemPage from '../../pages/conference-item/ConferenceItemPage';
 import ConferenceGallery from '../../pages/conference-gallery/ConferenceGallery';
 import PhotoGallery from '../../pages/photo-gallery/PhotoGallery';
 import EventPhotos from '../../pages/event-photos/EventPhotos';
+import Statute from "../../pages/statute/Statute";
 
 const isAuth = true;
 
@@ -63,6 +64,7 @@ function Router() {
 					/>
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
+					<Route path="/statute" element={<Statute />} />
 
 					<Route
 						path={routes.FORUM.link}
