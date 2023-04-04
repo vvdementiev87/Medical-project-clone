@@ -22,8 +22,10 @@ export const getPostByIdWithComments = createAsyncThunk(
 	async ({ postId }, thunkApi) => {
 		try {
 			const response = await ForumService.getPostByIdWithComments(postId);
+
 			toastr.success('Comments', 'Recieved successfully');
-			return response;
+			console.log({ id: Number(postId), comments: response });
+			return { id: Number(postId), comments: response };
 		} catch (error) {
 			toastrError(error);
 			return thunkApi.rejectWithValue(error);

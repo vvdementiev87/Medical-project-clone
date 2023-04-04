@@ -20,8 +20,8 @@ class EventsSeeder extends Seeder
                 'short_text' => \fake()->sentence(10),
                 'image' => \fake()->imageUrl(360, 360, 'animals'),
                 'place' => \fake()->word(),
-                'date_start' => \fake()->date(). ' ' .\fake()->time(),
-                'date_end' => \fake()->date(). ' ' .\fake()->time(),
+                'date_start' => now()->addDays(10),
+                'date_end' => now()->addDays(11),
                 'created_at' => \now(),
                 'updated_at' => \now(),
             ];

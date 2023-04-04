@@ -36,7 +36,7 @@ const ConferenceGallery = () => {
 
             });
 
-    }, [actualConferencies,oldConferencies]);
+    }, []);
 
 
     const currentTableData = useMemo(() => {

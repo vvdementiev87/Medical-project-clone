@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
             ArticlesSeeder::class,
             PostsSeeder::class,
             CommentsSeeder::class,
-            CommentsHasPost::class,
             NewsSeeder::class,
             ThemeSeeder::class,
+            EventsSeeder::class
         ]);
     }
 }
