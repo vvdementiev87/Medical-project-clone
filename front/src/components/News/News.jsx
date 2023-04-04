@@ -34,7 +34,7 @@ const News = () => {
 
 
                 <div className="row">
-                    {lastNews?   <Cards data={lastNews}/>:
+                    {lastNews?   <Cards data={lastNews} events="news"/>:
                     <h4>Loading...</h4>}
                 </div>
 

@@ -30,7 +30,7 @@ const ConfAndSeminars = () => {
 
 
                 <div className="row">
-                    {lastConferencies?   <Cards data={lastConferencies}/>:
+                    {lastConferencies?   <Cards data={lastConferencies} events="conferencies"/>:
                         <h4>Loading...</h4>}
                 </div>
 
