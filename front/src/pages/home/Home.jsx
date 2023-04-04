@@ -3,6 +3,7 @@ import TopSection from "../../components/TopSection/TopSection";
 import Courses from "../../components/Courses/Courses";
 import News from "../../components/News/News";
 import Sources from "../../components/Sources/Sources";
+import ConfAndSeminars from "../../components/ConfAndSeminars/ConfAndSeminars";
 
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
             <TopSection/>
             <News/>
             <Courses/>
+            <ConfAndSeminars/>
             <Sources/>
         </div>
     );

@@ -12,13 +12,13 @@ const element2 = <FontAwesomeIcon icon={faBook} />;
 const element3 = <FontAwesomeIcon icon={faVideo} />;
 
 const data = [
-	{
-		image: element1,
-		title: 'Нормативно-правовые документы',
-		description: 'Приказы, постановления, инструкции, клинические протоколы',
-		link: 'Подробнее...',
-		url: routes.HOME.link,
-	},
+	// {
+	// 	image: element1,
+	// 	title: 'Нормативно-правовые документы',
+	// 	description: 'Приказы, постановления, инструкции, клинические протоколы',
+	// 	link: 'Подробнее...',
+	// 	url: routes.HOME.link,
+	// },
 	{
 		image: element2,
 		title: 'Литература',
