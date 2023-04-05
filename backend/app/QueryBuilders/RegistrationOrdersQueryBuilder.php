@@ -24,21 +24,44 @@ class RegistrationOrdersQueryBuilder extends QueryBuilder
         return $this->model->get();
     }
 
-    function save($validated): bool
+    /**
+     * @param array $order_data
+     * @return bool
+     */
+    function save(array $order_data): bool
     {
         $registration = new RegistrationOrders();
-        if ($registration::create($validated)) {
+        if ($registration::create($order_data)) {
             return true;
         }
         return false;
     }
-
-    function checkAccountInEvent($validated)
+    /**
+     * @param array $order_data
+     * @return Collection
+     */
+    function checkAccountInEvent(array $order_data)
     {
         return $this->model
-            ->where('event_id', $validated['event_id'])
-            ->where('account_id', $validated['account_id'])
+            ->where('event_id', $order_data['event_id'])
+            ->where('account_id', $order_data['account_id'])
             ->get();
+    }
+
+    /**
+     * @param array $order_data
+     * @return bool
+     */
+    function delete(array $order_data): bool
+    {
+        if ($this->model
+            ->where('event_id', $order_data['event_id'])
+            ->where('account_id', $order_data['account_id'])
+            ->delete()
+        ) {
+            return true;
+        }
+        return false;
     }
 
 }

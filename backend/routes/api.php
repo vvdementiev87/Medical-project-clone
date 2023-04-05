@@ -8,7 +8,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
-use App\Http\Controllers\Content\EventsController;
+use App\Http\Controllers\Content\ConferencesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,12 +34,13 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('gallery', [GalleryThemeController::class, 'index']);
     Route::get('gallery/{id}', [GalleryThemeController::class, 'show']);
 
-    Route::get('events', [EventsController::class, 'index']);
-    Route::get('events/{id}', [EventsController::class, 'show']);
+    Route::get('conferences', [ConferencesController::class, 'index']);
+    Route::get('conferences/{id}', [ConferencesController::class, 'show']);
 });
 
-Route::group(['prefix' => 'events', 'as' => '',], static function () {
-    Route::post('registration', [EventsController::class, 'registration']);
+Route::group(['prefix' => 'conferences', 'as' => '',], static function () {
+    Route::post('registration', [ConferencesController::class, 'registration']);
+    Route::post('deregistration', [ConferencesController::class, 'deregistration']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {

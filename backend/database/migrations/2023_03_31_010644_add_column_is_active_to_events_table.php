@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->boolean('is_active')->default(false);
+            $table->string('program')->default(null);
+            $table->bigInteger('all_places');
+            $table->bigInteger('already_exist')->default(0);
         });
     }
 
