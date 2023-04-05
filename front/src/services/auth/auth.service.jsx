@@ -120,4 +120,19 @@ export const AuthService = {
 		}
 		return response;
 	},
+	async resetPassword({ email, password, password_confirmation, token }) {
+		console.log(email);
+		const response = await axiosClassic.post(getAuthUrl('/reset-password'), {
+			email,
+			password,
+			password_confirmation,
+			token,
+		});
+		return response;
+	},
+	async getResetToken() {
+		const response = await axiosClassic.get(getAuthUrl('/reset-password'));
+		Cookies.set('resetPasswordToken', response.data?.resetPasswordToken);
+		return response.data;
+	},
 };
