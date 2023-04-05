@@ -17,9 +17,17 @@ const queryClient = new QueryClient({
 	},
 });
 
+const Mode = ({ children }) => {
+	return process.env.REACT_APP_MODE === 'development' ? (
+		<React.StrictMode>{children}</React.StrictMode>
+	) : (
+		<>{children}</>
+	);
+};
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
+	<Mode>
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<ReduxToastr
@@ -37,5 +45,5 @@ root.render(
 				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>
 		</Provider>
-	</React.StrictMode>
+	</Mode>
 );
