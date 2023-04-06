@@ -1,6 +1,7 @@
 $max-tablet-width: '991px';
 $max-mobile-width: '767px';
-$max-small-width: '249px';
+$max-mobile-sm-width: '545px';
+$max-small-screen-width: '249px';
 
 @mixin tablet {
   @media(max-width: $max-tablet-width) {
@@ -14,15 +15,23 @@ $max-small-width: '249px';
   }
 }
 
-@mixin small_screen {
-  @media(max-width: $max-small-width) {
+@mixin mobile-sm-screen {
+  @media(max-width: $max-mobile-sm-width) {
     @content;
   }
 }
+
+@mixin small_screen {
+  @media(max-width: $max-small-screen-width) {
+    @content;
+  }
+}
+
 .sources {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 88px;
 }
 
@@ -38,14 +47,20 @@ $max-small-width: '249px';
 }
 
 .sourcesItem {
-  width: 100%;
   padding: 20px;
   box-shadow: inset 0 0 20px rgba(126,131,166,0.5);
   border-radius: 20px;
-  max-width: 400px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+  flex-basis: 45%;
+  min-width: auto;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  @include mobile-sm-screen(){
+    flex-basis: 100%;
+  }
 }
 
 .sourcesIcon {
@@ -57,12 +72,8 @@ $max-small-width: '249px';
   margin-bottom: 30px;
   width: 100%;
 }
-.sourcesLink{
-  align-self: flex-end;
-}
-
-.sourcesText{
-
+.link{
+color:rgba(153,51,0,1);
 }
 
 
