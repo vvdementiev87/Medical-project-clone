@@ -1,0 +1,64 @@
+$max-tablet-width: '991px';
+$max-mobile-width: '768px';
+
+@mixin tablet {
+  @media(max-width: $max-tablet-width) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media(max-width: $max-mobile-width) {
+    @content;
+  }
+}
+
+
+.pdfButtons {
+  width: 100%;
+  max-width: 120px;
+  margin: 10px auto;
+  display: flex;
+  //flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateX(-50%, 50%);
+
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: #3f51b5;
+    padding: 4px;
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px 1px #ccc;
+
+  }
+}
+
+.link {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  transform: translateX(-50%, 50%);
+  font-size: 15px;
+  text-decoration: underline;
+  color: rgba(126, 131, 166, 0.8);
+  transition: font-size 0.3s linear;
+  opacity: 1.0;
+
+  &:hover {
+    transition: all 0.3s linear;
+    opacity: 0.7;
+  }
+}
+
+//.back {
+//  background: linear-gradient(to right, rgba(255, 228, 230, 0.2), rgba(204, 251, 241, 0.4));
+//}
