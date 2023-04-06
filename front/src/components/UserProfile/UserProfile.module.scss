@@ -22,7 +22,17 @@ $max-sm-mobile-width: '575px';
   }
 }
 
-
+.item {
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid rgba($primary-text-color, 0.3);
+  border-radius: 5px;
+  display: flex;
+  &_sent{
+    background-color: rgba(121, 255, 215, 0.7);   
+  }
+  }
 
 
 
@@ -37,11 +47,6 @@ $max-sm-mobile-width: '575px';
 	padding: 10px 10px 20px 0; 
 	border-right: 2px solid rgba(0, 0, 0, 0.25);
   
-
-  @include tablet() {
-    margin: 100px auto 30px;
-    max-width: 100%;
-  }
 
 	> h3 {
 		margin-bottom: 10px;
@@ -60,8 +65,42 @@ $max-sm-mobile-width: '575px';
 	p,h4,a{
 		padding: 10px 5px;
 	}
-}
 
+  @include tablet() {
+    margin-left: 20px;
+    max-width: 100%;
+    gap:0px;
+    border:none;
+    h3 {
+      margin-bottom: 5px;
+  }}
+}
+.buttonBottom{
+  margin:10px auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  >button{
+    padding:10px 20px;
+    margin: 0;
+    border:none !important; 
+    border-radius: 10px;
+    >svg{
+      width: 24px;
+      height: 24px;
+      fill:rgba(#333333, 1);
+    }
+    &:first-child{
+      background-color: rgba(#b40303,0.7);
+    }
+    &:last-child{
+      background-color: rgba(#439414,0.7);
+    }
+  }
+  
+}
 .sidebarItem{
   display: flex;
   justify-content: left;
@@ -82,24 +121,72 @@ $max-sm-mobile-width: '575px';
 .wrapper {
   margin:20px 0;
   width: 100%;
+  min-height: 90vh; 
   border: none;
 	margin-bottom: 40px;
   overflow: hidden;
 }
 
+.message{
+    background-color: $primary-color;
+    padding: 8px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+  
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #ffffff;
+  
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    >svg{
+      width: 24px;
+      height: 24px;
+      fill:rgba(172, 181, 255, 1);
+    }
+  
+}
 
 .back {
   width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+  gap:20px;
   border-radius: 20px;
-  min-height: 250px;
-    background: rgb(0, 255, 179);
+  min-height: 230px;
+  background: rgb(0, 255, 179);
   background: linear-gradient(
                   75deg,
                   rgba(121, 255, 215, 0.5) 0%,
                   rgba(117, 117, 117, 0.5) 100%
   );
+  >button{
+    color: #333333;
+    border-radius: 10px;
+    >svg{
+      width: 24px;
+      height: 24px;
+      fill: rgba(68, 68, 167, 0.7);
+    }
+  }
+  
 }
 
+.textHTML{
+  min-height: 90vh; 
+  background-color: transparent;
+  @include tablet() {
+    min-height: 100%; 
+  }
+  
+}
 
 .img {
   display: flex;
@@ -115,7 +202,6 @@ $max-sm-mobile-width: '575px';
     max-width: 200px;
     border-radius: 50%;
     border: 5px solid #ffffff;
-    margin-left: 50px;
     cursor: pointer;
     @include tablet() {
       margin: 0 auto;
@@ -124,8 +210,8 @@ $max-sm-mobile-width: '575px';
 }
 
 .data {
-  padding: 0 0 60px 20px;
   position: relative;
+  
   @include tablet() {
     margin: 0 auto;
     padding: 0 0 60px 0;
@@ -136,21 +222,20 @@ $max-sm-mobile-width: '575px';
     border-radius: 20px;
     background-color: rgba(172, 181, 255, 1);
     border: 5px solid #ffffff;
-    margin-right: 50px;
-    @include tablet() {
-      position: absolute;
-      bottom: 0;
-      left: 10px;
-      z-index: 20;
-    }
+    
   }
 }
 
 .name {
-  padding-bottom: 10px;
-  padding-left: 20px;
+  margin: 0 auto;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-wrap: wrap;
 
   input {
+    text-align: center;
+    padding: 5px;
     box-sizing: border-box;
     font-family: 'Rubik';
     font-style: normal;
@@ -163,6 +248,7 @@ $max-sm-mobile-width: '575px';
       width: 100%;
     }
   }
+  
 }
 
 .input {
@@ -172,6 +258,56 @@ $max-sm-mobile-width: '575px';
   padding: 3px;
   cursor: pointer;
   border: none;
+}
+.phone {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-wrap: wrap;
+  svg{
+    padding: 5px;
+    border: none;
+    border-radius: 50%;
+    background-color:       rgba(68, 68, 167, 0.7);
+        fill:#ffffff;
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+  }
+  @include tablet() {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    margin-top: 20px;
+  }
+
+
+  label {
+	  //padding-left: 20px;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+    color: rgba($primary-text-color, 0.4);
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  input {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 110%;
+    height: fit-content;
+    color: rgba($primary-text-color, 0.25);
+    width: 100%;
+    @include tablet() {
+      width: 100%;
+    }
+  }
 }
 
 .address {
@@ -218,7 +354,6 @@ $max-sm-mobile-width: '575px';
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 100%;
 
   label {
     font-family: 'Rubik';
@@ -260,15 +395,19 @@ $max-sm-mobile-width: '575px';
 .favorites {
   margin:20px 0;
   width: 100%;
-  max-height: 1050px;
+  min-height: 90vh; 
 	display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: 10px;
   @include tablet() {
+    min-height: 100%;
 	  width: 100%;
-	  flex-direction: row;
-	  overflow-y: hidden;
-	  overflow-x: auto;
+	  grid-template-columns: repeat(2,1fr);
+  }
+  @include mobile() {
+    min-height: 100%;
+	  width: 100%;
+	  grid-template-columns: repeat(1,1fr);
   }
 	p {
 
@@ -285,17 +424,23 @@ $max-sm-mobile-width: '575px';
 
 }
 .selectedItem{
+  padding: 0 5px;
+  background-color: rgba(68, 68, 167, 0.7);
+  border: none;
+  border-radius: 5px;
   svg{
-    fill:rgb(172, 181, 255);
+    fill:#ffffff;
   }
   p{
-    color: rgb(172, 181, 255);
+    color: #ffffff;
   }
 }
-
+.notifications{
+  min-height: 90vh; 
+}
 .formContainer{
   margin: 40px auto 40px;
-  height: 100vh; 
+  min-height: 90vh; 
   width: 100% ;
   display: flex;
   flex-direction: column;
@@ -308,6 +453,10 @@ $max-sm-mobile-width: '575px';
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgba(59, 59, 59, 0.5);;
+  }
+
+  @include tablet() {
+    min-height: 100%;
   }
 }
 

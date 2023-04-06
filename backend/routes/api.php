@@ -53,13 +53,14 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
 });
 
 Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
-    Route::post('favorites/add',[\App\Http\Controllers\Profile\FavoritesController::class, 'add']);
-    Route::post('favorites',[\App\Http\Controllers\Profile\FavoritesController::class, 'show']);
-    Route::post('favorites/check',[\App\Http\Controllers\Profile\FavoritesController::class, 'check']);
-    Route::post('favorites/delete',[\App\Http\Controllers\Profile\FavoritesController::class, 'delete']);
-    Route::get('viewed',[\App\Http\Controllers\Profile\RecentViewedController::class, 'show']);
-    Route::get('recommended',[\App\Http\Controllers\Profile\RecommendationsController::class, 'show']);
-
+    Route::post('/favorites/add',[\App\Http\Controllers\Profile\FavoritesController::class, 'add']);
+    Route::post('/favorites',[\App\Http\Controllers\Profile\FavoritesController::class, 'show']);
+    Route::post('/favorites/check',[\App\Http\Controllers\Profile\FavoritesController::class, 'check']);
+    Route::post('/favorites/delete',[\App\Http\Controllers\Profile\FavoritesController::class, 'delete']);
+    Route::get('/viewed',[\App\Http\Controllers\Profile\RecentViewedController::class, 'show']);
+    Route::get('/recommended',[\App\Http\Controllers\Profile\RecommendationsController::class, 'show']);
+    Route::get('/notifications',[\App\Http\Controllers\Profile\NotificationController::class, 'show']);
+    Route::get('/notifications/mark',[\App\Http\Controllers\Profile\NotificationController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';

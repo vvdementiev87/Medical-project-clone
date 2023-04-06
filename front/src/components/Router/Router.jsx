@@ -23,7 +23,7 @@ import ConferenceItemPage from '../../pages/conference-item/ConferenceItemPage';
 import ConferenceGallery from '../../pages/conference-gallery/ConferenceGallery';
 import PhotoGallery from '../../pages/photo-gallery/PhotoGallery';
 import EventPhotos from '../../pages/event-photos/EventPhotos';
-import Statute from "../../pages/statute/Statute";
+import Statute from '../../pages/statute/Statute';
 
 const isAuth = true;
 
@@ -33,7 +33,7 @@ function Router() {
 	return (
 		<>
 			<Header isAuth={!!user} />
-			<div style={{ minHeight: '100vh' }}>
+			<div className={styles.router}>
 				<Routes>
 					<Route exec path={routes.HOME.link} element={<Home />} />
 					<Route

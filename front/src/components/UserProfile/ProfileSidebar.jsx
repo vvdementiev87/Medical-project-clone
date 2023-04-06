@@ -33,7 +33,7 @@ const ProfileSidebar = ({ handleOnclick, selectedComponent }) => {
 				onClick={() => handleOnclick(3)}
 			>
 				<MaterialIcon name={'MdMessage'} />
-				<p>Сообщения</p>
+				<p>Уведомления</p>
 			</div>
 			<div
 				className={cn(styles.sidebarItem, {

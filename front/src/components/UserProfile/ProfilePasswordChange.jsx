@@ -61,7 +61,7 @@ const ProfilePasswordChange = () => {
 							id="password"
 							name="password"
 							type="password"
-							labelText="Пароль"
+							labelText="Новый пароль"
 							error={errors.password}
 							{...register('password', {
 								required: { value: true, message: 'Заполните поле пароль' },
@@ -77,7 +77,7 @@ const ProfilePasswordChange = () => {
 							name="password_confirmation"
 							type="password"
 							labelText="Подтвердите пароль"
-							error={errors.password}
+							error={errors.password_confirmation}
 							{...register('password_confirmation', {
 								required: { value: true, message: 'Заполните поле пароль' },
 								minLength: {
@@ -86,7 +86,9 @@ const ProfilePasswordChange = () => {
 								},
 							})}
 						/>
-						<input className={styles.resetBtn} type="submit" value="Войти" />
+						<button className={styles.resetBtn} type="submit">
+							Войти
+						</button>
 					</div>
 				</form>
 			</div>
@@ -95,15 +97,16 @@ const ProfilePasswordChange = () => {
 		)
 	) : (
 		<div className={styles.formContainer}>
-			<h3>Форма смены пароля</h3>
-			<input
+			<h3>Подтвердите смену пароля</h3>
+			<button
 				className={styles.resetBtn}
-				value="Сменить пароль"
 				onClick={async () => {
 					await AuthService.getResetToken();
 					setIsVisible(!isVisible);
 				}}
-			/>
+			>
+				Сменить пароль
+			</button>
 		</div>
 	);
 };
