@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\QueryBuilders\ConferencesQueryBuilder;
 use App\Http\Requests\EventsOrders\CreateRequest;
 use App\QueryBuilders\RegistrationOrdersQueryBuilder;
-use App\QueryBuilders\EventsRegistrationQueryBuilder;
 
 class ConferencesController extends Controller
 {
@@ -52,8 +50,8 @@ class ConferencesController extends Controller
      * @param  ConferencesQueryBuilder        $conferencesQueryBuilder
      * @return string
      */
-    public function registration ( 
-        CreateRequest $request, 
+    public function registration (
+        CreateRequest $request,
         RegistrationOrdersQueryBuilder $ordersQueryBuilder,
         ConferencesQueryBuilder $conferencesQueryBuilder
     ): string
@@ -67,22 +65,22 @@ class ConferencesController extends Controller
                 'message' => 'user already exists',
             ], 404);
         }
-    
+
         $conference_collection = $conferencesQueryBuilder->getById($order_data['event_id']);
         $check_places = $conferencesQueryBuilder->checkAvailable($conference_collection);
 
         if ($check_places['result']) {
-            
+
             //сохраняем в таблицу с заявками
             if ($ordersQueryBuilder->save($order_data)) {
 
                 //обновляем количество зарегистрированных
                 $conferencesQueryBuilder->update($check_places['occupied']);
-                
+
                 // успешный ответ
                 return response()->json([
                     'message' => 'application submitted',
-                ]); 
+                ]);
             }
         }
 
@@ -98,8 +96,8 @@ class ConferencesController extends Controller
      * @param  ConferencesQueryBuilder        $conferencesQueryBuilder
      * @return string
      */
-    public function deregistration(
-        CreateRequest $request, 
+    public function unregister(
+        CreateRequest $request,
         RegistrationOrdersQueryBuilder $ordersQueryBuilder,
         ConferencesQueryBuilder $conferencesQueryBuilder
     ): string
@@ -109,7 +107,7 @@ class ConferencesController extends Controller
         //проверяем, существует ли пользователь на данном событии
         if (!$ordersQueryBuilder->checkAccountInEvent($order_data)->isEmpty()) {
             $conference_collection = $conferencesQueryBuilder->getById($order_data['event_id']);
-            
+
             $subtraction = $conferencesQueryBuilder->subtraction($conference_collection);
 
             if ($subtraction && $ordersQueryBuilder->delete($order_data)) {

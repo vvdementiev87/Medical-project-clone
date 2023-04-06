@@ -40,7 +40,7 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
 
 Route::group(['prefix' => 'conferences', 'as' => '',], static function () {
     Route::post('registration', [ConferencesController::class, 'registration']);
-    Route::post('deregistration', [ConferencesController::class, 'deregistration']);
+    Route::post('unregister', [ConferencesController::class, 'unregister']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {

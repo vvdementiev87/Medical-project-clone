@@ -26,12 +26,10 @@ class ConferencesQueryBuilder extends QueryBuilder
 
     function get(): array
     {
-        $result = [
+        return [
             'future' => $this->getFutureConferences(),
-            'past' => $this->getPastConferences()
+            'past' => $this->getPastConferences(),
         ];
-
-        return $result;
     }
 
     /**
@@ -41,7 +39,6 @@ class ConferencesQueryBuilder extends QueryBuilder
     {
         return $this->model
             ->whereDate('date_start', '>', Carbon::now())
-            ->where('is_active', true)
             ->latest('date_start')
             ->get();
     }
@@ -51,10 +48,8 @@ class ConferencesQueryBuilder extends QueryBuilder
      */
     function getPastConferences(): Collection
     {
-        $conferences = new Conferences();
-        return $conferences
+        return $this->model
             ->whereDate('date_end', '<', Carbon::now())
-            ->where('is_active', true)
             ->get();
     }
 
@@ -88,7 +83,7 @@ class ConferencesQueryBuilder extends QueryBuilder
                 'occupied' => $result['occupied']
             ];
         }
-        
+
         return [
             'result' => false,
         ];
@@ -114,14 +109,17 @@ class ConferencesQueryBuilder extends QueryBuilder
     function subtraction(Collection $conference): bool
     {
         $already_exist = 0;
+
         foreach ($conference as $item) {
             $already_exist = $item->already_exist;
         }
+
         $already_exist--;
+
         if ($this->model->update(['already_exist' => $already_exist])) {
             return true;
         }
+
         return false;
     }
-
 }
