@@ -14,3 +14,4 @@ export const getPostsUrl = (string) => `api/forum/posts${string}`;
 export const getRecommendationsUrl = (string) =>
 	`api/profile/recommended${string}`;
 export const getGalleryUrl = (string) => `api/content/gallery${string}`;
+export const getNormativesUrl = (string) => `api/content/normatives${string}`;
