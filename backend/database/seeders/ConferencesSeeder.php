@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class EventsSeeder extends Seeder
+class ConferencesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,12 +20,14 @@ class EventsSeeder extends Seeder
                 'short_text' => \fake()->sentence(10),
                 'image' => \fake()->imageUrl(360, 360, 'animals'),
                 'place' => \fake()->word(),
-                'date_start' => now()->addDays(10),
-                'date_end' => now()->addDays(11),
+                'date_start' => \fake()->date(). ' ' .\fake()->time(),
+                'date_end' => \fake()->date(). ' ' .\fake()->time(),
+                'is_active' => \fake()->numberBetween(0,1),
+                'all_places' => \fake()->numberBetween(10,20),
                 'created_at' => \now(),
                 'updated_at' => \now(),
             ];
         }
-        \DB::table('events')->insert($data);
+        \DB::table('conferences')->insert($data);
     }
 }

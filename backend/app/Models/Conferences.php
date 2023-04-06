@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Events extends Model
+class Conferences extends Model
 {
     use HasFactory;
 
-    protected $table = 'events';
+    protected $table = 'conferences';
 
     protected $fillable = [
         'title',
@@ -18,7 +18,11 @@ class Events extends Model
         'image',
         'place',
         'date_start',
-        'date_end'
+        'date_end',
+        'is_active',
+        'all_places',
+        'alredy_exist',
+        'program'
     ];
 
     protected $hidden = [
