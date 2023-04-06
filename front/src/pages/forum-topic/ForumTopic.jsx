@@ -16,6 +16,7 @@ function ForumTopic() {
 	const [isVisible, setIsVisible] = useState(false);
 	const { getPostByIdWithComments, editPost } = useActions();
 	const { postId } = useParams();
+	console.log(postId);
 	const { posts, isLoading } = useForum();
 	const { user } = useAuth();
 	const [isEdit, setIsEdit] = useState(false);
@@ -31,7 +32,7 @@ function ForumTopic() {
 		const firstPageIndex = (currentPage - 1) * PageSize;
 		const lastPageIndex = firstPageIndex + PageSize;
 		return (
-			posts[postId].comments &&
+			posts[postId]?.comments &&
 			Object.fromEntries(
 				Object.entries(posts[postId].comments).slice(
 					firstPageIndex,
@@ -39,7 +40,7 @@ function ForumTopic() {
 				)
 			)
 		);
-	}, [currentPage, posts[postId].comments]);
+	}, [currentPage, posts[postId]?.comments]);
 
 	const handleEdit = () => {
 		editPost({
