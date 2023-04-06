@@ -12,13 +12,6 @@ const element2 = <FontAwesomeIcon icon={faBook} />;
 const element3 = <FontAwesomeIcon icon={faVideo} />;
 
 const data = [
-	// {
-	// 	image: element1,
-	// 	title: 'Нормативно-правовые документы',
-	// 	description: 'Приказы, постановления, инструкции, клинические протоколы',
-	// 	link: 'Подробнее...',
-	// 	url: routes.HOME.link,
-	// },
 	{
 		image: element2,
 		title: 'Литература',
@@ -55,7 +48,7 @@ const Sources = () => {
 										<p className={styles.sourcesText}>
 											{item.description}
 										</p>
-										<NavLink to="/" className={styles.sourcesLink}>Подробнее...</NavLink>
+										<NavLink to="/" className={styles.link}>Подробнее...</NavLink>
 									</div>
 								)
 							})}

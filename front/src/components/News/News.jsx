@@ -42,7 +42,7 @@ const News = () => {
                     <div className="col">
                         <Link
                             to={routes.NEWS.link}
-                            className={`${styles.gradientButton} ${styles.allNews}`}
+                            className={`${styles.allEvents}`}
                         >
                             Все новости
                         </Link>

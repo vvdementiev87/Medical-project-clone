@@ -41,6 +41,7 @@
     "reactjs-pdf-reader": "^1.0.12",
     "sass": "^1.59.2",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

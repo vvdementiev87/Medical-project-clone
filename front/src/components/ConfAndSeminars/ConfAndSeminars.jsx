@@ -8,7 +8,7 @@ import {routes} from "../../routes/route";
 import {ConferenciesService} from "../../services/conference.service";
 
 const ConfAndSeminars = () => {
-    const {isLoading, data} = useQuery('Conferencies list', () => ConferenciesService.getAll());
+    const {isLoading, data} = useQuery('Conferencies list', () => ConferenciesService.getFutureEvents());
     const [lastConferencies, setLastConferencies] = useState([]);
     console.log(data)
     useEffect(() => {
@@ -38,7 +38,7 @@ const ConfAndSeminars = () => {
                     <div className="col">
                         <Link
                             to={routes.CONFERENCIES.link}
-                            className={`${styles.gradientButton} ${styles.allNews}`}
+                            className={`${styles.allEvents}`}
                         >
                             Смотреть все события
                         </Link>
