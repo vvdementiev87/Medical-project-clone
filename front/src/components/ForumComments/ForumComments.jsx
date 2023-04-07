@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from "./ForumComments.module.scss";
+import { loadAllComments } from '../../store/forum/forumAPI';
 
-function ForumComments({ comments, loadAllComments }) {
-    //тестовые значения  
-    const currentUserId = useSelector((state) => state.user.user?.id) || 1;
-    const token = useSelector((state) => state.user.user?.token) || null;
-    const URL = "127.0.0.1:80/api/";
-
+function ForumComments({ comments, url:URL, topicId }) {
+    const dispatch = useDispatch();
+    const currentUserId = useSelector((state) => state.user.user?.id);
+    const token = useSelector((state) => state.user.user?.token);
+    
     //редактирование комментария
     const [updComment, setUpdComment] = useState(null);
 
@@ -22,22 +22,21 @@ function ForumComments({ comments, loadAllComments }) {
     async function handleUpdateSubmit(event) {
         event.preventDefault();
         let data = {
-            'post_id': updComment.id,
+            'id': updComment.id,
             'description': updComment.description,
         };
 
         let response = await fetch(`${URL}forum/comments/edit`, {
-            // пока так, а вообще должен быть PUT
-            method: "POST",
+            method: "PUT",
             credentials: "include",
             headers: {
-                "Authoristation": token,
+                "Authorisation": "Bearer " + token,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
         if (response.ok) {
-            loadAllComments();
+            dispatch(loadAllComments(topicId));
         } else {
             console.log(response.status);
         }
@@ -47,16 +46,16 @@ function ForumComments({ comments, loadAllComments }) {
     // удаление комментария:
     async function handleDelete(event, id) {
         event.preventDefault();
-        let response = await fetch(`${URL}forum/posts/delete/${id}`, {
+        let response = await fetch(`${URL}forum/comments/delete/${id}`, {
             method: "DELETE",
             credentials: "include",
             headers: {
-                "Authorisation": token,
+                "Authorisation": "Bearer " + token,
                 "Content-Type": "application/json",
             },
         })
         if (response.ok) {
-            loadAllComments();
+            dispatch(loadAllComments(topicId));
         } else {
             console.log(response.status);
         }
