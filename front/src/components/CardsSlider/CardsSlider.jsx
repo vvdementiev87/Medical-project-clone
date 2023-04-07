@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
 import Slider from 'react-slick';
-import One from '../../assets/images/course1.jpg';
-import Two from '../../assets/images/course2.jpg';
-import Three from '../../assets/images/course3.jpg';
-import Four from '../../assets/images/course4.jpg';
-import Five from '../../assets/images/course5.jpg';
-import Six from '../../assets/images/course6.jpg';
 import styles from './CardsSlider.module.scss';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from "react-router-dom";
 
-const images = [
-    One,Two,Three,Four,Five,Six
-];
-// const left = <FontAwesomeIcon icon={faChevronLeft} />;
-// const right = <FontAwesomeIcon icon={faChevronRight} />;
+
 
 
 const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
@@ -48,7 +36,8 @@ const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
 );
 
 
-const CardsSlider = () => {
+const CardsSlider = ({cards,link}) => {
+    const navigate = useNavigate();
     const [imageIndex, setImageIndex] = useState(0);
     const settings = {
         useTransform:true,
@@ -83,9 +72,14 @@ const CardsSlider = () => {
     return (
         <div>
             <Slider {...settings}>
-                {images.map((img, idx) => (
-                      <div key={idx} className={`${styles.slide}`}>
-                        <img src={img} alt={img} />
+                {cards.map((card, idx) => (
+                      <div key={idx} className={`${styles.slide}`} onClick={() => {
+                          navigate(`/${link}/${card.id}`);
+                      }}>
+                          <div className={styles.imgWrapper}>
+                              <img src={card.preview} alt={'center'} />
+                          </div>
+                        <h5>{card.title}</h5>
                       </div>
                 ))}
             </Slider>

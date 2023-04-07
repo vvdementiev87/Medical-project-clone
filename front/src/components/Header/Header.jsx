@@ -124,15 +124,11 @@ const Header = ({ isAuth }) => {
 								</div>
 								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
-											Центры
+										<Link to="/centers" className="dropdown-item" onClick={hideMenu}>
+											Симуляционные центры
 										</Link>
 									</li>
-									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
-											Курсы
-										</Link>
-									</li>
+
 									<li>
 										<Link
 											to={routes.STUDY.link}
