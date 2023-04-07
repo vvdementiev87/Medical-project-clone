@@ -34,6 +34,7 @@ class CommentQueryBuilder extends QueryBuilder
             $comment_user = $users->find($comment->author_id);
             $result[] = [
                 'id' => $comment->id,
+                'post_id' => $id,
                 'author' => $comment_user->last_name. ' ' .$comment_user->first_name . ' ' . $comment_user->surname,
                 'author_id' => $comment_user->id,
                 'avatar' => $comment_user->avatar,

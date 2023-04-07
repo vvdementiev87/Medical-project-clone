@@ -23,7 +23,9 @@ import ConferenceItemPage from '../../pages/conference-item/ConferenceItemPage';
 import ConferenceGallery from '../../pages/conference-gallery/ConferenceGallery';
 import PhotoGallery from '../../pages/photo-gallery/PhotoGallery';
 import EventPhotos from '../../pages/event-photos/EventPhotos';
-import Statute from '../../pages/statute/Statute';
+import Statute from "../../pages/statute/Statute";
+import CentersGallery from "../../pages/centers-gallery/CentersGallery";
+import CenterItemPage from "../../pages/center-item-page/CenterItemPage";
 
 const isAuth = true;
 
@@ -65,6 +67,8 @@ function Router() {
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
 					<Route path="/statute" element={<Statute />} />
+					<Route path="/centers" element={<CentersGallery/>} />
+					<Route path="/centers/:centerId" element={<CenterItemPage/>} />
 
 					<Route
 						path={routes.FORUM.link}

@@ -1,7 +1,19 @@
 .slide {
   transform: scale(0.8);
   transition: transform 1000ms;
-  width: 500px;
+  width: 100%;
+  max-width: 550px;
+  cursor: pointer;
+  img{
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
 }
-
+.imgWrapper{
+  height: 400px;
+  margin-bottom: 20px;
+  background: #aaaaaa;
+}
 
