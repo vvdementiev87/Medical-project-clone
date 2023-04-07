@@ -60,7 +60,6 @@ class PostsController extends Controller
                 'message' => 'Error loading, post is not found',
             ], 404);
         }
-
         return response()->json($result);
     }
 
