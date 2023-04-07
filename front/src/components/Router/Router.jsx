@@ -26,6 +26,9 @@ import EventPhotos from '../../pages/event-photos/EventPhotos';
 import Statute from "../../pages/statute/Statute";
 import Normatives from "../../pages/normatives/Normatives";
 import NormativeItem from "../../pages/normative-item/NormativeItem";
+import CentersGallery from "../../pages/centers-gallery/CentersGallery";
+import CenterItemPage from "../../pages/center-item-page/CenterItemPage";
+
 
 const isAuth = true;
 
@@ -69,6 +72,8 @@ function Router() {
 					<Route path="/statute" element={<Statute />} />
 					<Route path="/normatives" element={<Normatives />} />
 					<Route path="/normatives/:id" element={<NormativeItem />} />
+					<Route path="/centers" element={<CentersGallery/>} />
+					<Route path="/centers/:centerId" element={<CenterItemPage/>} />
 
 					<Route
 						path={routes.FORUM.link}

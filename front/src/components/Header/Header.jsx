@@ -124,8 +124,8 @@ const Header = ({ isAuth }) => {
 								</div>
 								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
-											Центры
+										<Link to="/centers" className="dropdown-item" onClick={hideMenu}>
+											Симуляционные центры
 										</Link>
 									</li>
 

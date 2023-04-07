@@ -37,11 +37,9 @@ const Footer = () => {
 					<h5>Обучение</h5>
 					<ul className={styles.footerList}>
 						<li>
-							<Link to="/">Центры</Link>
+							<Link to="/centers">Центры</Link>
 						</li>
-						<li>
-							<Link to="/">Курсы</Link>
-						</li>
+
 						<li>
 							<Link to="/"> Учебные материалы</Link>
 						</li>
