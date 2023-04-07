@@ -18,22 +18,4 @@ class Notification extends Model
         'message',
         'status',
     ];
-
-    public static function getAll()
-    {
-        $id = auth()->id();
-        $result = \DB::table('notifications')->where('user_id', $id
-        )->orderBy('created_at', 'desc')->get();
-        return $result;
-    }
-    public static function setAllAsRead()
-    {
-        $id = auth()->id();
-        \DB::table('notifications')->where('user_id', $id)->where('status','=','sent')
-        ->update(['status'=>'read']);
-        $result = \DB::table('notifications')->where('user_id', $id
-        )->orderBy('created_at', 'desc')->get();
-
-        return $result;
-    }
 }

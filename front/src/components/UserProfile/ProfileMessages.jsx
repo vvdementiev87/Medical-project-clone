@@ -13,6 +13,7 @@ const ProfileMessages = () => {
 				setNotifications();
 		};
 	}, []);
+	console.log(notifications);
 	return (
 		<div className={styles.notifications}>
 			{Object.keys(notifications).length > 0 &&
@@ -24,6 +25,8 @@ const ProfileMessages = () => {
 						key={key}
 					>
 						<p>{notifications[key].message}</p>
+
+						<span>{notifications[key]?.created_at}</span>
 					</div>
 				))}
 		</div>
