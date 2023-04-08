@@ -2,17 +2,17 @@
 
 namespace App\QueryBuilders;
 
-use App\Models\GalleryTheme;
+use App\Models\CommunityCenterPhotos;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class GalleryThemeQueryBuilder extends QueryBuilder
+class CommunityCenterPhotosQueryBuilder extends QueryBuilder
 {
     public Builder $model;
 
     function __construct()
     {
-        $this->model = GalleryTheme::query();
+        $this->model = CommunityCenterPhotos::query();
     }
 
     /**
@@ -25,10 +25,10 @@ class GalleryThemeQueryBuilder extends QueryBuilder
 
     /**
      * @param int $id
-     * @return GalleryTheme
+     * @return Collection
      */
-    function getById(int $id): GalleryTheme
+    function getByCommunityCenterId(int $id): Collection
     {
-        return $this->model->find($id);
+        return $this->model->where('community_center_id', $id)->get();
     }
 }
