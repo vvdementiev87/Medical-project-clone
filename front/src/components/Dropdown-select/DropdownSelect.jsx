@@ -1,8 +1,8 @@
 import React, {forwardRef, useEffect, useState} from 'react';
-import Select from "react-select";
-import styles from './MultipleSelect.module.scss';
+import styles from './DropdownSelect.module.scss';
 import PopupInput from "../PopupInput/PopupInput";
 import {InputField} from "../basic/InputField/InputField";
+import Select from "react-dropdown-select";
 
 
 const optionList = [
@@ -43,7 +43,7 @@ const customStyles = {
         }
     })
 };
-export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
+export const DropdownSelect = forwardRef(({labelText,error, ...props}, ref) => {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isShowInput, setIsShowInput] = useState(false);
@@ -62,10 +62,10 @@ export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
         //     setErrorSelect(true)
         // }
         if (data[data.length - 1].value === 'Другое') {
-             setIsShowInput(true);
+            setIsShowInput(true);
         } else {
             setSelectedOptions(data);
-             setIsShowInput(false);
+            setIsShowInput(false);
         }
     }
 
@@ -84,17 +84,30 @@ export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
     return (
         <label className={styles.dropdown}>
             {labelText}
+            {/*<Select*/}
+            {/*    options={optionList}*/}
+            {/*    placeholder="..."*/}
+            {/*    isMulti*/}
+            {/*    isClearable*/}
+            {/*    isSearchable*/}
+            {/*    onChange={handleSelect}*/}
+            {/*    name="interests"*/}
+            {/*    styles={customStyles}*/}
+
+            {/*/>*/}
+
             <Select
                 options={optionList}
-                placeholder="..."
-                isMulti
-                isClearable
-                isSearchable
-                onChange={handleSelect}
-                name="interests"
-                styles={customStyles}
+                labelField="label"
+                valueField="value"
+                onChange={(values) => setSelectedOptions(values)}
+                values={selectedOptions}
+                multi={true}
+                separator={true}
+                required={true}
 
             />
+
             {/*{error && <div className={styles.error}>{error.message}</div>}*/}
             {/*{error && (*/}
             {/*    <span*/}
@@ -118,7 +131,7 @@ export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
     );
 });
 
-export default MultipleSelect;
+export default DropdownSelect;
 
 
 {/*{...props}*/}

@@ -5,6 +5,7 @@ import {useActions} from '../../hooks/useActions';
 import {InputField} from '../basic/InputField/InputField';
 import MultipleSelect from "../multiple-select/MultipleSelect";
 import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
+import DropdownSelect from "../Dropdown-select/DropdownSelect";
 
 function RegistrationForm() {
     const {
@@ -19,7 +20,7 @@ function RegistrationForm() {
 
 
     const onSubmit = async (data) => {
-        await getCsrfToken();
+        // await getCsrfToken();
         console.log(data);
         const {
             // password_confirmation,
@@ -71,10 +72,11 @@ function RegistrationForm() {
                 interests,
                 is_member
             });
-        } catch (error) {
-            setResponseError(error.response.data.errors);
         }
-        //reset();
+        catch (error) {
+             setResponseError(error.response.data.errors);
+        }
+        // reset();
     };
 
     return (
@@ -264,14 +266,22 @@ function RegistrationForm() {
                     {...register('academic_rank')}
                 />
 
-                <MultipleSelect
-                    id="interests"
-                    name="interests"
-                    labelText="Область профессиональных интересов"
-                    error={errors['interests']}
+                {/*<MultipleSelect*/}
+                {/*    id="interests"*/}
+                {/*    name="interests"*/}
+                {/*    labelText="Область профессиональных интересов"*/}
+                {/*    error={errors.interests}*/}
+                {/*    {...register('interests', {*/}
+                {/*        required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
+                {/*    })}/>*/}
+
+                <DropdownSelect
+                    name='interests'
+                    error={errors.interests}
                     {...register('interests', {
                         required: {value: true, message: 'Укажите ваши проф. интересы'},
                     })}/>
+
 
                 <InputField
                     className="reg_field_width"
