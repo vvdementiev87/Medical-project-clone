@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers\Content;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\QueryBuilders\CategoriesQueryBuilder;
+use App\QueryBuilders\CommunityCenterQueryBuilder;
+use App\QueryBuilders\CommunityCenterPhotosQueryBuilder;
+
+class CommunityCenterController extends Controller
+{
+    /**
+     * @param CategoriesQueryBuilder $categoriesQueryBuilder
+     * @return string
+     */
+    public function index(CategoriesQueryBuilder $categoriesQueryBuilder): string
+    {
+        $categories_collection = $categoriesQueryBuilder->getCollection();
+
+        if ($categories_collection) {
+            return response()->json($categories_collection);
+        }
+        return response()->json([
+            'message' => 'Error loading categories',
+        ], 404);
+    }
+
+    /**
+     * @param int $id
+     * @param CommunityCenterQueryBuilder $communityCenterQueryBuilder
+     * @return string
+     */
+    public function showByCategory(int $id, CommunityCenterQueryBuilder $communityCenterQueryBuilder): string
+    {
+        $community_center_collection = $communityCenterQueryBuilder->getCollectionByCategoryId($id);
+
+        if ($community_center_collection) {
+            return response()->json($community_center_collection);
+        }
+        return response()->json([
+            'message' => 'Error loading community centers',
+        ], 404);
+    }
+
+    /**
+     * @param int $id
+     * @param CommunityCenterQueryBuilder $communityCenterQueryBuilder
+     * @param CommunityCenterPhotosQueryBuilder $communityCenterPhotosQueryBuilder
+     * @return string
+     */
+    public function show(
+        int $id,
+        CommunityCenterQueryBuilder $communityCenterQueryBuilder,
+        CommunityCenterPhotosQueryBuilder $communityCenterPhotosQueryBuilder
+    ): string
+    {
+        $photos = $communityCenterPhotosQueryBuilder->getByCommunityCenterId($id);
+        $community_center = $communityCenterQueryBuilder->getById($id);
+
+        if ($community_center) {
+            $community_center['photos'] = $photos;
+            return response()->json($community_center);
+        }
+        return response()->json([
+            'message' => 'Error loading community center',
+        ], 404);
+    }
+}

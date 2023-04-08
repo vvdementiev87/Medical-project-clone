@@ -12,6 +12,8 @@ use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
 use App\Http\Controllers\Content\ConferencesController;
+use App\Http\Controllers\Content\CommunityCenterController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,6 +59,12 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::post('/comments/add', [CommentsController::class, 'store']);
     Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::post('/comments/edit', [CommentsController::class, 'update']);
+});
+
+Route::group(['prefix' => 'community', 'as' => '',], static function () {
+    Route::get('center', [CommunityCenterController::class, 'index']);
+    Route::get('center/{id}', [CommunityCenterController::class, 'show']);
+    Route::get('center/category/{id}', [CommunityCenterController::class, 'showByCategory']);
 
 });
 
