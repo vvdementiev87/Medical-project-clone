@@ -38,7 +38,7 @@ function Router() {
 	return (
 		<>
 			<Header isAuth={!!user} />
-			<div style={{ minHeight: '100vh' }}>
+			<div className={styles.router}>
 				<Routes>
 					<Route exec path={routes.HOME.link} element={<Home />} />
 					<Route

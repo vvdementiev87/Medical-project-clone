@@ -77,9 +77,9 @@ const CardsSlider = ({cards,link}) => {
                           navigate(`/${link}/${card.id}`);
                       }}>
                           <div className={styles.imgWrapper}>
-                              <img src={card.preview} alt={'center'} />
+                              <img src={card.preview_photo} alt={'center'} />
                           </div>
-                        <h5>{card.title}</h5>
+                        <h5>{card.name}</h5>
                       </div>
                 ))}
             </Slider>
