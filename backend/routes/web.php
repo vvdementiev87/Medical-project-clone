@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Content\CommentsController;
+use App\Http\Controllers\Content\PostsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AccessGroupController;
 use App\Http\Controllers\Admin\AdminController;
@@ -25,6 +27,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
     Route::resource('posts', AdminPostController::class);
     Route::resource('comments', AdminCommentController::class);
     Route::resource('news', AdminNewsController::class);
+});
+
+Route::group(['prefix' => 'forum', 'as' => '',], static function () {
+    Route::get('posts', [PostsController::class, 'index']);
+    Route::get('/posts/{id}', [PostsController::class, 'showPost']);
+    Route::post('/posts/add', [PostsController::class, 'store']);
+    Route::get('/posts/delete/{id}', [PostsController::class, 'destroy']);
+    Route::post('/posts/edit', [PostsController::class, 'update']);
+
+    Route::get('/{post_id}/comments', [CommentsController::class, 'index']);
+    Route::post('/comments/add', [CommentsController::class, 'store']);
+    Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
+    Route::post('/comments/edit', [CommentsController::class, 'update']);
+
 });
 
 require __DIR__.'/auth.php';

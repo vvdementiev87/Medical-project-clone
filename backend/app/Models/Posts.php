@@ -26,7 +26,6 @@ class Posts extends Model
     {
         return $this->hasMany(Comments::class, 'post_id', 'id')
             ->orderBy('comments.created_at', 'desc');
-        return $this->hasMany(Comments::class);
     }
 
     /**
