@@ -53,7 +53,7 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('/posts/delete/{id}', [PostsController::class, 'destroy']);
     Route::post('/posts/edit', [PostsController::class, 'update']);
 
-    Route::get('/comments/{post_id}', [CommentsController::class, 'index']);
+    Route::get('/{post_id}/comments', [CommentsController::class, 'index']);
     Route::post('/comments/add', [CommentsController::class, 'store']);
     Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::post('/comments/edit', [CommentsController::class, 'update']);

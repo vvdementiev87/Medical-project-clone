@@ -4,13 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -78,6 +76,16 @@ class User extends Authenticatable
 
     }
 
-
-
+    /**
+     * @return BelongsToMany
+     */
+    public function accessGroup(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            AccessGroup::class,
+            'access_group_has_users',
+            'user_id',
+            'group_id',
+        );
+    }
 }
