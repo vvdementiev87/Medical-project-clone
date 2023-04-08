@@ -16,15 +16,20 @@ Route::group(['prefix' => 'auth', 'as' => '',], static function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->name('login');
 
-    Route::post('/user/update', [RegisteredUserController::class, 'update'])->
-    name('user.update');
+    Route::post('/user/update', [RegisteredUserController::class, 'update'])
+        ->middleware(['auth', 'auth:sanctum'])->
+        name('user.update');
 
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware(['guest', 'auth:sanctum'])
         ->name('password.email');
 
+    Route::get('/reset-password', [NewPasswordController::class, 'index'])
+        ->middleware(['auth', 'auth:sanctum'])
+        ->name('password.index');
+
     Route::post('/reset-password', [NewPasswordController::class, 'store'])
-        ->middleware(['guest', 'auth:sanctum'])
+        ->middleware(['auth', 'auth:sanctum'])
         ->name('password.store');
 
     Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)

@@ -7,7 +7,7 @@ import { useActions } from '../../hooks/useActions';
 import { useState } from 'react';
 import { hashedPassword } from '../../config/password.config';
 
-function LoginForm({ saveData }) {
+function LoginForm() {
 	const {
 		register,
 		handleSubmit,

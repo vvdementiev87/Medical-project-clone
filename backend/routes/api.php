@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
+use \App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Content\ConferencesController;
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +62,14 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
 });
 
 Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
-    Route::post('favorites/add',[FavoritesController::class, 'add']);
-    Route::post('favorites',[FavoritesController::class, 'show']);
-    Route::post('favorites/check',[FavoritesController::class, 'check']);
-    Route::post('favorites/delete',[FavoritesController::class, 'delete']);
-    Route::get('viewed',[RecentViewedController::class, 'show']);
-    Route::get('recommended',[RecommendationsController::class, 'show']);
-
+    Route::post('/favorites/add',[FavoritesController::class, 'add']);
+    Route::post('/favorites',[FavoritesController::class, 'show']);
+    Route::post('/favorites/check',[FavoritesController::class, 'check']);
+    Route::post('/favorites/delete',[FavoritesController::class, 'delete']);
+    Route::get('/viewed',[RecentViewedController::class, 'show']);
+    Route::get('/recommended',[RecommendationsController::class, 'show']);
+    Route::get('/notifications',[NotificationController::class, 'show']);
+    Route::get('/notifications/mark',[NotificationController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';
