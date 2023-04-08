@@ -62,10 +62,9 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
 });
 
 Route::group(['prefix' => 'community', 'as' => '',], static function () {
-    Route::get('center', [CommunityCenterController::class, 'index']);
+    Route::get('centers', [CommunityCenterController::class, 'index']);
+    Route::get('centers/categories', [CommunityCenterController::class, 'getCategories']);
     Route::get('center/{id}', [CommunityCenterController::class, 'show']);
-    Route::get('center/category/{id}', [CommunityCenterController::class, 'showByCategory']);
-
 });
 
 Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){

@@ -11,35 +11,47 @@ use App\QueryBuilders\CommunityCenterPhotosQueryBuilder;
 class CommunityCenterController extends Controller
 {
     /**
+     * @param CommunityCenterQueryBuilder $communityCenterQueryBuilder
      * @param CategoriesQueryBuilder $categoriesQueryBuilder
      * @return string
      */
-    public function index(CategoriesQueryBuilder $categoriesQueryBuilder): string
+    public function index(
+        CommunityCenterQueryBuilder $communityCenterQueryBuilder,
+        CategoriesQueryBuilder $categoriesQueryBuilder
+    ): string
     {
-        $categories_collection = $categoriesQueryBuilder->getCollection();
-
-        if ($categories_collection) {
-            return response()->json($categories_collection);
-        }
-        return response()->json([
-            'message' => 'Error loading categories',
-        ], 404);
-    }
-
-    /**
-     * @param int $id
-     * @param CommunityCenterQueryBuilder $communityCenterQueryBuilder
-     * @return string
-     */
-    public function showByCategory(int $id, CommunityCenterQueryBuilder $communityCenterQueryBuilder): string
-    {
-        $community_center_collection = $communityCenterQueryBuilder->getCollectionByCategoryId($id);
+        $community_center_collection = $communityCenterQueryBuilder->getCollection();
 
         if ($community_center_collection) {
             return response()->json($community_center_collection);
         }
         return response()->json([
             'message' => 'Error loading community centers',
+        ], 404);
+    }
+
+    /**
+     * @param CategoriesQueryBuilder $categoriesQueryBuilder
+     * @param CommunityCenterQueryBuilder $communityCenterQueryBuilder
+     * @return string
+     */
+    public function getCategories(
+        CategoriesQueryBuilder $categoriesQueryBuilder,
+        CommunityCenterQueryBuilder $communityCenterQueryBuilder
+    ): string
+    {
+        $categories_collection = $categoriesQueryBuilder->getCollection();
+        $community_center_collection = $communityCenterQueryBuilder->getCollection();
+        $result = [
+            'categories' => $categories_collection,
+            'community_centers' => $community_center_collection
+        ];
+
+        if ($categories_collection && $community_center_collection) {
+            return response()->json($result);
+        }
+        return response()->json([
+            'message' => 'Error loading categories',
         ], 404);
     }
 
