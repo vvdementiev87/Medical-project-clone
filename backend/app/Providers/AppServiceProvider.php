@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\QueryBuilders\CategoriesQueryBuilder;
 use App\QueryBuilders\CommentQueryBuilder;
+use App\QueryBuilders\CommunityCenterPhotosQueryBuilder;
+use App\QueryBuilders\CommunityCenterQueryBuilder;
 use App\QueryBuilders\PostQueryBuilder;
 use App\QueryBuilders\QueryBuilder;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QueryBuilder::class, GalleryQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, ConferencesQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, RegistrationOrdersQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, CategoriesQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, CommunityCenterQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, CommunityCenterPhotosQueryBuilder::class);
     }
 
     /**

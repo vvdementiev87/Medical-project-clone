@@ -8,7 +8,7 @@ const CenterListItem = ({center}) => {
         <div
             className={styles.item}
         >
-            <h4 className={styles.centerTitle}>{center.title}</h4>
+            <h4 className={styles.centerTitle}>{center.name}</h4>
             <NavLink to={`/centers/${center.id}`} className={styles.link} >Подробнее...</NavLink>
         </div>
     );

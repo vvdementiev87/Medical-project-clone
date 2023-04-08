@@ -9,6 +9,8 @@ import {
 	getRecentViewed,
 	getRecommendations,
 	update,
+	getNotifications,
+	setNotifications,
 } from './user.actions';
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
 	favorites: {},
 	recentViewed: {},
 	recommendations: {},
+	notifications: {},
 };
 export const userSlice = createSlice({
 	name: 'user',
@@ -85,12 +88,34 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.recommendations = null;
 			})
+			.addCase(getNotifications.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getNotifications.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.notifications = { ...state.notifications, ...payload };
+			})
+			.addCase(getNotifications.rejected, (state) => {
+				state.isLoading = false;
+				state.notifications = null;
+			})
+			.addCase(setNotifications.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(setNotifications.fulfilled, (state, { payload }) => {
+				state.isLoading = false;
+				state.notifications = { ...state.notifications, ...payload };
+			})
+			.addCase(setNotifications.rejected, (state) => {
+				state.isLoading = false;
+				state.notifications = null;
+			})
 			.addCase(update.pending, (state) => {
 				state.isLoading = true;
 			})
 			.addCase(update.fulfilled, (state, { payload }) => {
 				state.isLoading = false;
-				state.user = { ...state.user, ...payload.user };
+				state.user = { ...payload.user };
 			})
 			.addCase(update.rejected, (state) => {
 				state.isLoading = false;

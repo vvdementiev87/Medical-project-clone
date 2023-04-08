@@ -17,12 +17,18 @@ class CommentQueryBuilder extends QueryBuilder
         $this->model = Comments::query();
     }
 
-
+    /**
+     * @return Collection
+     */
     function getCollection(): Collection
     {
         return Comments::query()->get();
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public static function getCommentsByPostId(int $id): array
     {
         $result = [];

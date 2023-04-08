@@ -3,7 +3,8 @@ import 'photoswipe/dist/photoswipe.css';
 import styles from '../photo-gallery/PhotoGallery.module.scss';
 import { Gallery, Item } from 'react-photoswipe-gallery';
 import { useEffect, useState } from 'react';
-import { GalleryService } from '../../services/gallery.service';
+import {GalleryService} from "../../services/gallery.service";
+
 
 const events = [
 	{

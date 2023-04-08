@@ -38,23 +38,27 @@ const ButtonGroup = styled.div`
   align-items:center;
   margin-bottom: 20px;
 `;
-const categories = {
-    UNIVERSITIES: 'Высшее медицинское образование',
-    COLLEGES: 'Среднее специальное медицинское образование',
-    POST_DIPLOMA: 'Постдипломное медицинское образование',
-};
-const types = [categories.UNIVERSITIES, categories.COLLEGES, categories.POST_DIPLOMA];
+// const categories = {
+//     UNIVERSITIES: 'Высшее медицинское образование',
+//     COLLEGES: 'Среднее специальное медицинское образование',
+//     POST_DIPLOMA: 'Постдипломное медицинское образование',
+// };
+// const types = [categories.UNIVERSITIES, categories.COLLEGES, categories.POST_DIPLOMA];
 
 
 const CentersGallery = () => {
     const [active, setActive] = useState(null);
     const [centers, setCenters] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [filteredCenters, setFilteredCenters] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         try {
-            CentersService.getAll().then((res) => setCenters(res));
+            CentersService.getCentersAndCategories().then((res) =>{
+                setCenters(res['centers']);
+                setCategories(res['categories']);
+            });
             setFilteredCenters([...centers]);
         } catch (error) {
             setError(error.message);
@@ -62,28 +66,28 @@ const CentersGallery = () => {
         }
     }, []);
 
-    const filterCenters = (type) => {
-        const filteredCenters = centers.filter(item => item.category === type);
+    const filterCenters = (category) => {
+        const filteredCenters = centers.filter(item => item?.category_id === category.id);
         setFilteredCenters([...filteredCenters]);
     };
 
     return centers.length < 1 ? (
             <Loader/>
         ) :
-        (
+      (
             <div className="container">
                 <h1 className={styles.heading}>{'Симуляционные центры'}</h1>
                 <ButtonGroup>
-                    {types.map(type => (
+                    {categories.map(category => (
                         <Tab
-                            key={type}
-                            active={active === type}
+                            key={category?.id}
+                            active={active?.id === category?.id}
                             onClick={() => {
-                                filterCenters(type);
-                                setActive(type);
+                                filterCenters(category);
+                                setActive(category);
                             }}
                         >
-                            {type}
+                            {category.name}
                         </Tab>
                     ))}
                 </ButtonGroup>
