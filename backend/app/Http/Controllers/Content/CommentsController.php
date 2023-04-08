@@ -25,6 +25,7 @@ class CommentsController extends Controller
             ], 400);
         }
 
+        dd(response()->json($result));
         return response()->json($result);
     }
 

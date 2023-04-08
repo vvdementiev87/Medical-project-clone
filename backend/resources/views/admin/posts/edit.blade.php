@@ -4,7 +4,7 @@
         <h1 class="h2">Редактирование поста</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/posts") }}" class="btn btn-sm btn-outline-secondary">Назад</a>
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-sm btn-outline-secondary">Назад</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -15,7 +15,7 @@
                 <x-alert type="danger" :message="$error"></x-alert>
             @endforeach
         @endif
-        <form method="post" action="{{ url(App\Classes\Helpers::getHost(true) . "/admin/posts/" . $post->id) }}">
+        <form method="post" action="{{ route('admin.posts.update', ['post' => $post]) }}">
             @csrf
             @method('put')
             <div class="form-group">
@@ -31,4 +31,4 @@
         </form>
     </div>
 
-@endsection
+@endsection    

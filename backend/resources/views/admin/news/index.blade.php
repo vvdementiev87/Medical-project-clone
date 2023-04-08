@@ -4,7 +4,7 @@
         <h1 class="h2">Список новостей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news/create") }}" class="btn btn-sm btn-outline-secondary">Добавить новость</a>
+                <a href="{{ url("https://bosomed.ru/middleware/admin/news/create") }}" class="btn btn-sm btn-outline-secondary">Добавить новость</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -25,6 +25,8 @@
                 <th scope="col">Краткое описание</th>
                 <th scope="col">Текст новости</th>
                 <th scope="col">Url картинки</th>
+                <th scope="col">Дата публикации</th>
+                <th scope="col">Дата снятия с публикации</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Дата обновления</th>
                 <th scope="col">Действия</th>
@@ -41,8 +43,8 @@
                     <td>{{ $news->created_at }}</td>
                     <td>{{ $news->updated_at }}</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url("https://bosomed.ru/middleware/admin/news/".$news->id ."/edit") }}">измениить</a>
-                        <a href="javascript:;" class="delete btn btn-sm btn-outline-secondary" rel="{{ $news->id }}">удалить</a>
+                        <a href="{{ url("https://bosomed.ru/middleware/admin/news/".$news->id ."/edit") }}">измениить</a>
+                        <a href="javascript:;" class="delete" rel="{{ $news->id }}">удалить</a>
                     </td>
                 </tr>
             @empty

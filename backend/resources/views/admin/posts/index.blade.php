@@ -4,7 +4,7 @@
         <h1 class="h2">Список постов</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . '/admin/posts/create') }}" class="btn btn-sm btn-outline-secondary">Добавить пост</a>
+                <a href="{{ route('admin.posts.create') }}" class="btn btn-sm btn-outline-secondary">Добавить пост</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -13,7 +13,7 @@
 @if (session('success'))
     <div id="top-alert" class="alert alert-primary" role="alert">
         {{ session('success') }}
-    </div>
+    </div>     
 @endif
 
     <div>
@@ -41,8 +41,8 @@
                     <td>{{ $post->created_at }}</td>
                     <td>{{ $post->updated_at }}</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/posts/" . $post->id . "/edit") }}">измениить</a>
-                        <a href="javascript:;" class="delete btn btn-sm btn-outline-secondary" rel="{{ $post->id }}">удалить</a>
+                        <a href="{{ route('admin.posts.edit', ['post' => $post]) }}">измениить</a>
+                        <a href="javascript:;" class="delete" rel="{{ $post->id }}">удалить</a>
                     </td>
                 </tr>
             @empty
@@ -50,7 +50,7 @@
                     <td colspan="7">Нет записей</td>
                 </tr>
             @endforelse
-
+    
             </tbody>
         </table>
     </div>

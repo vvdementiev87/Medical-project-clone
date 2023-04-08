@@ -12,7 +12,7 @@ class AccessGroup extends Model
     use HasFactory;
 
     protected $table = 'access_group';
-//    public $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -23,7 +23,12 @@ class AccessGroup extends Model
      */
     public function Users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,);
+        return $this->belongsToMany(
+            User::class,
+            'access_group_has_users',
+            'group_id',
+            'user_id',
+        );
     }
 
     /**

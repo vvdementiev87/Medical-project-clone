@@ -8,15 +8,16 @@
 @if (session('success'))
     <div id="top-alert" class="alert alert-primary" role="alert">
         {{ session('success') }}
-    </div>
-@endif
+    </div>     
+@endif    
     <div>
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th scope="col">#ID</th>
-                <th scope="col">ID автора</th>
-                <th scope="col">Пост ID</th>
+                <th scope="col">Имя автора</th>
+                <th scope="col">Фамилия автора</th>
+                <th scope="col">Пост_ID</th>
                 <th scope="col">Текст комментария</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Дата обновления</th>
@@ -27,14 +28,15 @@
             @forelse ($commentList as $comment)
                 <tr>
                     <td>{{ $comment->id }}</td>
-                    <td>{{ $comment->author_id }}</td>
-                    <td>{{ $comment->post_id }}</td>
+                    <td>{{ $comment->user->last_name }}</td>
+                    <td>{{ $comment->user->first_name }}</td>
+                    <td>{{ $comment->post->map(fn($item) => $item->id)->implode(",") }}</td>
                     <td>{{ $comment->description }}</td>
                     <td>{{ $comment->created_at }}</td>
                     <td>{{ $comment->updated_at }}</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/comments/" . $comment->id . "/edit") }}">изменить</a>
-                        <a href="javascript:;" class="delete btn btn-sm btn-outline-secondary" rel="{{ $comment->id }}">удалить</a>
+                        <a href="{{ route('admin.comments.edit', ['comment' => $comment]) }}">изменить</a>
+                        <a href="javascript:;" class="delete" rel="{{ $comment->id }}">удалить</a>
                     </td>
                 </tr>
             @empty
@@ -42,11 +44,11 @@
                     <td colspan="7">Нет записей</td>
                 </tr>
             @endforelse
-
+    
             </tbody>
         </table>
-    </div>
-@endsection
+    </div>   
+@endsection 
 
 @push("js")
     <script type="text/javascript">
@@ -74,7 +76,7 @@
             return result.ok;
         }
     </script>
-@endpush
+@endpush 
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
