@@ -9,7 +9,6 @@ use App\QueryBuilders\ApplicationsForRegistrationQueryBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
-
 class RegistrationAdminController extends Controller
 {
     /**
@@ -43,5 +42,4 @@ class RegistrationAdminController extends Controller
             'applicationList' => $queryBuilder->getApplicationWithPagination()
         ]);
     }
-
 }

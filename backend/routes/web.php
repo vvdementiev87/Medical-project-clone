@@ -39,8 +39,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
 
     Route::get('accept_the_application/{application}',  [ApplicationForRegistrationController::class, 'acceptTheApplication'])
         ->name('accept_the_application');
-    Route::get('destroy_the_application/{application}', [ApplicationForRegistrationController::class, 'destroyTheApplication'])
-        ->name('destroy_the_application');
+    Route::get('reject_the_application/{application}', [ApplicationForRegistrationController::class, 'rejectTheApplication'])
+        ->name('reject_the_application');
 
 });
 

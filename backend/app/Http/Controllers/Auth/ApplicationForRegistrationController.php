@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Auth\RegisteredUserRequest;
-use App\Models\ApplicationsForRegistration;
 use App\Models\User;
 use App\QueryBuilders\ApplicationsForRegistrationQueryBuilder;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-
-use App\Http\Requests\Users\CreateRequest;
-use Illuminate\Support\Facades\DB;
 
 class ApplicationForRegistrationController
 {
@@ -33,19 +27,25 @@ class ApplicationForRegistrationController
         return \back()->with('error', 'User can be added');
     }
 
-    public function rejectTheApplication()
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function rejectTheApplication($id): RedirectResponse
     {
+        $this->destroyTheApplication($id);
 
+        return redirect()->route('admin.all_applications')->with('success', 'User is not approved');
     }
 
-    public function destroyTheApplication($id)
+    /**
+     * @param $id
+     * @return void
+     */
+    public function destroyTheApplication($id): void
     {
         $application = new ApplicationsForRegistrationQueryBuilder();
         $application->destroyApplicationId($id);
-
-        return redirect()->route('admin.all_applications')->with('success', 'User delete');
-
-
     }
 }
 

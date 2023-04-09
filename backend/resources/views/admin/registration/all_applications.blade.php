@@ -31,8 +31,7 @@
                 <td>
                     <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.application', [$application->id]) }}">Посмотреть полную информацию</a>
                     <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.accept_the_application', $application->id) }}">Принять заявку на регистрацию</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="">Отклонить заявку на регистрацию</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.destroy_the_application', $application->id) }}">Удалить заявку</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.reject_the_application', $application->id) }}">Отклонить заявку на регистрацию</a>
                 </td>
             </tr>
         @empty

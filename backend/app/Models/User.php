@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     /**
      * @param $data
-     * @return  int
+     * @return  void
      */
 
     public function add_data_account_and_user($data): void
