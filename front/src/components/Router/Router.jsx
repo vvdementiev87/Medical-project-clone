@@ -28,6 +28,7 @@ import Normatives from "../../pages/normatives/Normatives";
 import NormativeItem from "../../pages/normative-item/NormativeItem";
 import CentersGallery from "../../pages/centers-gallery/CentersGallery";
 import CenterItemPage from "../../pages/center-item-page/CenterItemPage";
+import Contacts from '../../pages/contacts/Contacts';
 
 
 const isAuth = true;
@@ -119,6 +120,10 @@ function Router() {
 						}
 					/>
 					<Route path={`${routes.PHOTOS.link}/:id`} element={<EventPhotos />} />
+					<Route
+						path={routes.CONTACTS.link}
+						element={<Contacts />}
+					/>
 					<Route
 						path="*"
 						element={<h2 className={styles.h2}>Страница не найдена</h2>}

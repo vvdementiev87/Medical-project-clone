@@ -163,7 +163,7 @@ const Header = ({ isAuth }) => {
 
 							<li className="nav-item">
 								<Link
-									to={routes.HOME.link}
+									to={routes.CONTACTS.link}
 									className="menu_link"
 									aria-current="page"
 									onClick={hideMenu}
