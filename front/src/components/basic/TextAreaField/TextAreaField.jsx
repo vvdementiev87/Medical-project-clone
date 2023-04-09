@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import styles from './TextAreaField.module.scss';
 
-export const TextAreaField = forwardRef(({ labelText, error, ...props }, ref) => {
+export const TextAreaField = forwardRef(({ labelText, custom_required, error, ...props }, ref) => {
     return (
         <label>
-            {labelText}
+            {labelText} {custom_required?<span className="custom_required">*</span>:''}
             <textarea
                 {...props}
                 ref={ref}

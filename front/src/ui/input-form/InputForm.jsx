@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import styles from './InputForm.module.scss';
 const InputForm = forwardRef(
 	(
-		{ isDisabled, error, placeholder = null, type = 'text', style, ...rest },
+		{ isDisabled, error, placeholder = null, type = 'text', style,...rest },
 		ref
 	) => {
 		return (

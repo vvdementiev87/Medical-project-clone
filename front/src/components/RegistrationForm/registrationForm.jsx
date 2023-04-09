@@ -1,11 +1,40 @@
 import React, {useRef, useState} from 'react';
-import {useForm} from 'react-hook-form';
 import {getCsrfToken} from '../../api/interceptors';
 import {useActions} from '../../hooks/useActions';
 import {InputField} from '../basic/InputField/InputField';
 import MultipleSelect from "../multiple-select/MultipleSelect";
 import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
 import DropdownSelect from "../Dropdown-select/DropdownSelect";
+import Select from 'react-select';
+import { Controller, useForm } from "react-hook-form";
+
+const optionList = [
+    {value: "Организация и менеджмент симуляционного центра", label: "Организация и менеджмент симуляционного центра"},
+    {value: "Кардиология", label: "Кардиология"},
+    {value: "Междисциплинарный тренинг", label: "Междисциплинарный тренинг"},
+    {value: "Стандартизированный пациент", label: "Стандартизированный пациент"},
+    {value: "Коммуникативные навыки", label: "Коммуникативные навыки"},
+    {value: "Виртуальные и дистанционные технологии", label: "Виртуальные и дистанционные технологии"},
+    {value: "Фирмы, изделия, производства", label: "Фирмы, изделия, производства"},
+    {value: "Организация здравоохранения", label: "Организация здравоохранения"},
+    {value: "Диагностика инструментальная", label: "Диагностика инструментальная"},
+    {value: "Акушерство и гинекология", label: "Акушерство и гинекология"},
+    {value: "Анестезиология и реаниматология", label: "Анестезиология и реаниматология"},
+    {value: "Неотложная помощь", label: "Неотложная помощь"},
+    {value: "Офтальмология", label: "Офтальмология"},
+    {value: "Оториноларингология", label: "Оториноларингология"},
+    {value: "Неврология и нейрохирургия", label: "Неврология и нейрохирургия"},
+    {value: "Педиатрия и неонатология", label: "Педиатрия и неонатология"},
+    {value: "Сестринское дело, уход", label: "Сестринское дело, уход"},
+    {value: "Стоматология", label: "Стоматология"},
+    {value: "Терапия", label: "Терапия"},
+    {value: "Травматология и ортопедия", label: "Травматология и ортопедия"},
+    {value: "Челюстно-лицевая хирургия", label: "Челюстно-лицевая хирургия"},
+    {value: "Урология", label: "Урология"},
+    {value: "Хирургия", label: "Хирургия"},
+    {value: "Эндовидеохирургия", label: "Эндовидеохирургия"},
+    {value: "Другое", label: "Другое"}
+];
 
 function RegistrationForm() {
     const {
@@ -72,9 +101,8 @@ function RegistrationForm() {
                 interests,
                 is_member
             });
-        }
-        catch (error) {
-             setResponseError(error.response.data.errors);
+        } catch (error) {
+            setResponseError(error.response.data.errors);
         }
         // reset();
     };
@@ -86,6 +114,7 @@ function RegistrationForm() {
                     className="reg_field_width"
                     id="last_name"
                     name="last_name"
+                    custom_required={true}
                     placeholder="Петров"
                     labelText="Фамилия"
                     error={errors['last_name']}
@@ -99,6 +128,7 @@ function RegistrationForm() {
                     name="first_name"
                     placeholder="Петр"
                     labelText="Имя"
+                    custom_required={true}
                     error={errors['first_name']}
                     {...register('first_name', {
                         required: {value: true, message: 'Укажите имя'},
@@ -122,6 +152,7 @@ function RegistrationForm() {
                     type="date"
                     labelText="Дата рождения"
                     error={errors['birth_date']}
+                    custom_required={true}
                     {...register('birth_date', {
                         required: {value: true, message: 'Укажите дату рождения'},
                     })}
@@ -135,6 +166,7 @@ function RegistrationForm() {
                     error={errors['phone']}
                     type="tel"
                     labelText="Телефон в международном формате"
+                    custom_required={true}
                     {...register('phone', {
                         required: {value: true, message: 'Укажите телефон'}
                     })}
@@ -148,6 +180,7 @@ function RegistrationForm() {
                     type="email"
                     labelText="Email"
                     error={errors.email}
+                    custom_required={true}
                     {...register('email', {
                         required: {value: true, message: 'Укажите email'},
                         pattern: {
@@ -165,6 +198,7 @@ function RegistrationForm() {
                     labelText="Aдрес, включая почтовый индекс"
                     placeholder="..."
                     error={errors['address']}
+                    custom_required={true}
                     aria-label="address"
                     {...register('address', {
                         required: {value: true, message: 'Укажите адрес'}
@@ -178,6 +212,7 @@ function RegistrationForm() {
                     aria-label="education"
                     labelText="Профессиональное образование: учебное заведение"
                     error={errors['education']}
+                    custom_required={true}
                     placeholder="..."
                     {...register('education', {
                         required: {value: true, message: 'Укажите учебное заведение'}
@@ -191,6 +226,7 @@ function RegistrationForm() {
                     placeholder="..."
                     labelText="Год окончания учебного заведения"
                     error={errors['education_end']}
+                    custom_required={true}
                     {...register('education_end', {
                         required: {value: true, message: 'Укажите год окончания учебного заведения'}
                     })}
@@ -203,6 +239,7 @@ function RegistrationForm() {
                     placeholder="..."
                     error={errors['specialization']}
                     labelText="Специальность"
+                    custom_required={true}
                     {...register('specialization', {
                         required: {value: true, message: 'Укажите специальность'}
                     })}
@@ -215,6 +252,7 @@ function RegistrationForm() {
                     placeholder="..."
                     type="number"
                     error={errors['experience']}
+                    custom_required={true}
                     labelText="Стаж работы в специальности"
                     {...register('experience', {
                         required: {value: true, message: 'Укажите ваш стаж'}
@@ -227,6 +265,7 @@ function RegistrationForm() {
                     name="company"
                     placeholder="..."
                     error={errors['company']}
+                    custom_required={true}
                     labelText="Место работы"
                     {...register('company', {
                         required: {value: true, message: 'Укажите место работы'}
@@ -239,6 +278,7 @@ function RegistrationForm() {
                     name="position"
                     placeholder="..."
                     labelText="Должность"
+                    custom_required={true}
                     error={errors.position}
                     {...register('position', {
                         required: {value: true, message: 'Укажите должность'},
@@ -270,18 +310,46 @@ function RegistrationForm() {
                 {/*    id="interests"*/}
                 {/*    name="interests"*/}
                 {/*    labelText="Область профессиональных интересов"*/}
+                {/*    custom_required={true}*/}
                 {/*    error={errors.interests}*/}
                 {/*    {...register('interests', {*/}
                 {/*        required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
-                {/*    })}/>*/}
+                {/*    })}*/}
+                {/*/>*/}
 
-                <DropdownSelect
-                    name='interests'
-                    error={errors.interests}
-                    {...register('interests', {
-                        required: {value: true, message: 'Укажите ваши проф. интересы'},
-                    })}/>
 
+                <Controller
+                    control={control}
+                    rules={{ required: true }}
+                    id="interests"
+                    name="interests"
+                    render={({}) => (
+                        <MultipleSelect
+                            labelText="Область профессиональных интересов"
+                            custom_required={true}
+                        />
+                    )}
+                />
+
+                {errors.interests && <p>{'Укажите ваши проф. интересы'}</p>}
+
+                {/*<DropdownSelect*/}
+                {/*    name='interests'*/}
+                {/*    error={errors.interests}*/}
+                {/*    custom_required={true}*/}
+                {/*    isSearchable*/}
+                {/*    isMulti*/}
+                {/*    labelText="Область профессиональных интересов"*/}
+                {/*    placeHolder="..."*/}
+                {/*    {...register('interests', {*/}
+                {/*        required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
+                {/*    })}*/}
+
+                {/*/>*/}
+
+                {/*{...register('interests', {*/}
+                {/*    required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
+                {/*})}*/}
 
                 <InputField
                     className="reg_field_width"
@@ -307,7 +375,7 @@ function RegistrationForm() {
 
                 <label>
 					<span className="reg_checkbox_text">
-						Данной отметкой Вы подтверждаете, что изучили и принимаете{' '}
+						<span className="custom_required">*</span> Данной отметкой Вы подтверждаете, что изучили и принимаете{' '}
                         <a href="/signup">Правила сайта</a>
 					</span>
                     <input
@@ -332,38 +400,70 @@ function RegistrationForm() {
 export default RegistrationForm;
 
 
-{/*<InputField*/}
-{/*	className="reg_field_width"*/}
-{/*	id="password"*/}
-{/*	data-testid="password"*/}
-{/*	name="password"*/}
-{/*	type="password"*/}
-{/*	labelText="Пароль"*/}
-{/*	error={errors.password}*/}
-{/*	{...register('password', {*/}
-{/*		required: { value: true, message: 'Укажите пароль' },*/}
-{/*		minLength: {*/}
-{/*			value: 6,*/}
-{/*			message: 'Пароль должен быть не меньше 6 символов',*/}
-{/*		},*/}
-{/*	})}*/}
-{/*/>*/}
-{/*<InputField*/}
-{/*	className="reg_field_width"*/}
-{/*	id="password_confirmation"*/}
-{/*	data-testid="password_confirmation"*/}
-{/*	name="password_confirmation"*/}
-{/*	type="password_confirmation"*/}
-{/*	labelText="Подтвердите пароль"*/}
-{/*	error={errors.password}*/}
-{/*	{...register('password_confirmation', {*/}
-{/*		required: { value: true, message: 'Укажите пароль' },*/}
-{/*		minLength: {*/}
-{/*			value: 6,*/}
-{/*			message: 'Пароль должен быть не меньше 6 символов',*/}
-{/*		},*/}
-{/*	})}*/}
-{/*/>*/}
+{/*<InputField*/
+}
+{/*	className="reg_field_width"*/
+}
+{/*	id="password"*/
+}
+{/*	data-testid="password"*/
+}
+{/*	name="password"*/
+}
+{/*	type="password"*/
+}
+{/*	labelText="Пароль"*/
+}
+{/*	error={errors.password}*/
+}
+{/*	{...register('password', {*/
+}
+{/*		required: { value: true, message: 'Укажите пароль' },*/
+}
+{/*		minLength: {*/
+}
+{/*			value: 6,*/
+}
+{/*			message: 'Пароль должен быть не меньше 6 символов',*/
+}
+{/*		},*/
+}
+{/*	})}*/
+}
+{/*/>*/
+}
+{/*<InputField*/
+}
+{/*	className="reg_field_width"*/
+}
+{/*	id="password_confirmation"*/
+}
+{/*	data-testid="password_confirmation"*/
+}
+{/*	name="password_confirmation"*/
+}
+{/*	type="password_confirmation"*/
+}
+{/*	labelText="Подтвердите пароль"*/
+}
+{/*	error={errors.password}*/
+}
+{/*	{...register('password_confirmation', {*/
+}
+{/*		required: { value: true, message: 'Укажите пароль' },*/
+}
+{/*		minLength: {*/
+}
+{/*			value: 6,*/
+}
+{/*			message: 'Пароль должен быть не меньше 6 символов',*/
+}
+{/*		},*/
+}
+{/*	})}*/
+}
+{/*/>*/
+}
 
 //<InputField
 // 	className="reg_field_width"

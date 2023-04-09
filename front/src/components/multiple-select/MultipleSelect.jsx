@@ -43,7 +43,7 @@ const customStyles = {
         }
     })
 };
-export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
+export const MultipleSelect = forwardRef(({labelText,custom_required, error, ...props}, ref) => {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isShowInput, setIsShowInput] = useState(false);
@@ -83,7 +83,7 @@ export const MultipleSelect = forwardRef(({labelText,error, ...props}, ref) => {
 
     return (
         <label className={styles.dropdown}>
-            {labelText}
+            {labelText} {custom_required?<span className="custom_required">*</span>:''}
             <Select
                 options={optionList}
                 placeholder="..."
