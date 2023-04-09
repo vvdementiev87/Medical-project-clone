@@ -1,5 +1,5 @@
 .router{
-  min-height: 90vh;
+  min-height: calc(100vh - 355px);
 }
 
 .h2 {
@@ -8,5 +8,3 @@
   font-variant: small-caps;
   text-align: center;
 }
-
-

@@ -11,7 +11,8 @@ export const routes = {
     CONFERENCIES: {link: '/conferencies', name: 'Conferencies'},
     CENTERS: {link: '/centers', name: 'Centers'},
     PHOTOS: {link: '/photos', name: 'Photos'},
-    FORUM: {link: '/forum', name: 'Forum'}
+	  FORUM: {link: '/forum', name: 'Forum'},
+	  CONTACTS: {link: '/contacts', name: 'Contacts'},
 };
 
 export function PublicRoute({isAuth, to = routes.HOME.link, children}) {
