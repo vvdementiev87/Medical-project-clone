@@ -35,6 +35,6 @@ class Articles extends Model
      */
     public static function getArticleById(int $id): mixed
     {
-        return \DB::table('articles')->find($id)->get();
+        return \DB::table('articles')->find($id);
     }
 }

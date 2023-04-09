@@ -15,7 +15,7 @@ class CommentsSeeder extends Seeder
         $data = [];
         for($i = 0; $i < 10; $i++) {
             $data[] = [
-                'author_id' => \fake()->numberBetween(1, 10),
+                'author_id' => \fake()->numberBetween(1, 1),
                 'post_id' => \fake()->numberBetween(1, 10),
                 'description' => \fake()->sentence(10),
                 'created_at' => \now(),

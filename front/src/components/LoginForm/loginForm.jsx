@@ -7,7 +7,7 @@ import { useActions } from '../../hooks/useActions';
 import { useState } from 'react';
 import { hashedPassword } from '../../config/password.config';
 
-function LoginForm({ saveData }) {
+function LoginForm() {
 	const {
 		register,
 		handleSubmit,
@@ -19,7 +19,7 @@ function LoginForm({ saveData }) {
 
 	const onSubmit = async (data) => {
 		setResponseError(null);
-		await getCsrfToken();
+		await getCsrfToken().then((res) => console.log(res.headers));
 		const { email, password } = data;
 		try {
 			loginAction({ email, password: hashedPassword(password) });
@@ -56,6 +56,7 @@ function LoginForm({ saveData }) {
 					className="login_field_width"
 					id="password"
 					name="password"
+					type="password"
 					labelText="Пароль"
 					error={errors.password}
 					{...register('password', {

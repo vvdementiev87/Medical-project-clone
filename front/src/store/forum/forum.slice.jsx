@@ -8,7 +8,7 @@ import {
 	deletePost,
 	deleteComment,
 	editComment,
-	editPost
+	editPost,
 } from './forum.actions';
 
 const initialState = {
@@ -37,7 +37,10 @@ export const forumSlice = createSlice({
 			})
 			.addCase(getPostByIdWithComments.fulfilled, (state, { payload }) => {
 				state.isLoading = false;
-				state.posts = { ...state.posts, [payload.id]: { ...payload } };
+				state.posts = {
+					...state.posts,
+					[payload.id]: { ...state.posts[payload.id], ...payload },
+				};
 			})
 			.addCase(getPostByIdWithComments.rejected, (state) => {
 				state.isLoading = false;

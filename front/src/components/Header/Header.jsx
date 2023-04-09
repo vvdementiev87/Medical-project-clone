@@ -27,8 +27,8 @@ const Header = ({ isAuth }) => {
 
 	return (
 		<header className={styles.header} id="header">
-			<nav className="navbar navbar-expand-lg  h-100 navbar-custom">
-				<div className="container">
+			<nav className="navbar navbar-expand-lg h-100 navbar-custom">
+				<div className="container p-lg-0">
 					<Link to="/" className={`navbar-brand ${styles.logo}`}>
 						<img src={Bosom} alt="Bosom" />
 					</Link>
@@ -42,9 +42,9 @@ const Header = ({ isAuth }) => {
 						aria-label="Toggle navigation"
 						onClick={getBtnCross}
 					>
-						<span
-							className={!expanded ? 'navbar-toggler-icon' : 'btn-close'}
-						></span>
+						<span className={!expanded ? 'navbar-toggler-icon' : 'btn-close'}>
+
+						</span>
 					</button>
 					<div
 						className="collapse navbar-collapse d-lg-flex justify-content-lg-between"
@@ -73,7 +73,7 @@ const Header = ({ isAuth }) => {
 								</div>
 								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
+										<Link to="/statute" className="dropdown-item" onClick={hideMenu}>
 											Устав
 										</Link>
 									</li>
@@ -83,7 +83,7 @@ const Header = ({ isAuth }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
+										<Link to="/normatives" className="dropdown-item" onClick={hideMenu}>
 											Нормативные документы
 										</Link>
 									</li>
@@ -124,15 +124,11 @@ const Header = ({ isAuth }) => {
 								</div>
 								<ul className="dropdown-menu dropdown-menu-right">
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
-											Центры
+										<Link to="/centers" className="dropdown-item" onClick={hideMenu}>
+											Симуляционные центры
 										</Link>
 									</li>
-									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
-											Курсы
-										</Link>
-									</li>
+
 									<li>
 										<Link
 											to={routes.STUDY.link}
@@ -184,8 +180,8 @@ const Header = ({ isAuth }) => {
 								>
 									<svg
 										version="1.1"
-										width="28px"
-										height="28px"
+										width="30px"
+										height="30px"
 										viewBox="0 0 122.879 119.799"
 									>
 										<g>
@@ -197,7 +193,7 @@ const Header = ({ isAuth }) => {
 						</ul>
 
 						<div
-							className={`nav-item mb-2 ms-auto ${styles.headerAccountIcon}`}
+							className={`nav-item ms-auto ${styles.headerAccountIcon}`}
 						>
 							{isAuth ? (
 								<Link

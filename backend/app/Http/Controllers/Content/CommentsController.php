@@ -25,6 +25,7 @@ class CommentsController extends Controller
             ], 400);
         }
 
+        dd(response()->json($result));
         return response()->json($result);
     }
 
@@ -55,13 +56,12 @@ class CommentsController extends Controller
     {
         $update_data = $request->validated();
 
-        $comment = Comments::find($update_data['comment_id']);
+        $comment = Comments::find($update_data['id']);
         $comment->fill(['description' => $update_data['description']]);
 
         if ($comment->save()) {
             return response()->json([
                 'id' => $comment->id,
-                'title' => $comment->title,
                 'description' => $comment->description,
             ], 202);
         }

@@ -19,10 +19,15 @@ import { useAuth } from '../../hooks/useAuth';
 import ArticleVideoSwitchPage from '../../pages/article-video-switch/ArticleVideoSwitchPage';
 import ArticlesGallery from '../../pages/articles-gallery/ArticlesGallery';
 import ArticleItemPage from '../../pages/article-item/ArticleItemPage';
-import ConferenceItemPage from "../../pages/conference-item/ConferenceItemPage";
-import ConferenceGallery from "../../pages/conference-gallery/ConferenceGallery";
+import ConferenceItemPage from '../../pages/conference-item/ConferenceItemPage';
+import ConferenceGallery from '../../pages/conference-gallery/ConferenceGallery';
 import PhotoGallery from '../../pages/photo-gallery/PhotoGallery';
 import EventPhotos from '../../pages/event-photos/EventPhotos';
+import Statute from "../../pages/statute/Statute";
+import Normatives from "../../pages/normatives/Normatives";
+import NormativeItem from "../../pages/normative-item/NormativeItem";
+import CentersGallery from "../../pages/centers-gallery/CentersGallery";
+import CenterItemPage from "../../pages/center-item-page/CenterItemPage";
 
 
 const isAuth = true;
@@ -33,7 +38,7 @@ function Router() {
 	return (
 		<>
 			<Header isAuth={!!user} />
-			<div style={{ minHeight: '100vh' }}>
+			<div className={styles.router}>
 				<Routes>
 					<Route exec path={routes.HOME.link} element={<Home />} />
 					<Route
@@ -57,12 +62,18 @@ function Router() {
 					<Route path="/videos/:videoId" element={<VideoItemPage />} />
 					<Route exact path="/news" element={<NewsGallery />} />
 					<Route path="/news/:newsId" element={<NewsItemPage />} />
-					<Route exact path="/conferencies" element={<ConferenceGallery/>} />
-					<Route path="/conferencies/:conferenceId" element={<ConferenceItemPage />} />
+					<Route exact path="/conferencies" element={<ConferenceGallery />} />
+					<Route
+						path="/conferencies/:conferenceId"
+						element={<ConferenceItemPage />}
+					/>
 					<Route exact path="/articles" element={<ArticlesGallery />} />
 					<Route path="/articles/:articleId" element={<ArticleItemPage />} />
-					<Route path="/forum" element={<Forum />} />	
-					<Route path="forum/:topicId" element={<ForumTopic />} />
+					<Route path="/statute" element={<Statute />} />
+					<Route path="/normatives" element={<Normatives />} />
+					<Route path="/normatives/:id" element={<NormativeItem />} />
+					<Route path="/centers" element={<CentersGallery/>} />
+					<Route path="/centers/:centerId" element={<CenterItemPage/>} />
 
 					<Route
 						path={routes.FORUM.link}
@@ -80,7 +91,6 @@ function Router() {
 							</PrivateRoute>
 						}
 					/>
-
 
 					<Route
 						path={routes.STUDY.link}
@@ -104,7 +114,7 @@ function Router() {
 						path={routes.PHOTOS.link}
 						element={
 							// <PrivateRoute isAuth={!!user}>
-								<PhotoGallery />
+							<PhotoGallery />
 							// </PrivateRoute>
 						}
 					/>

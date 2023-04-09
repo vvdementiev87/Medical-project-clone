@@ -2,31 +2,31 @@
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('admin.index')) active @endif" aria-current="page"  href="{{ route('admin.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.index')) active @endif" aria-current="page"  href="{{ url('https://bosomed.ru/middleware/admin') }}">
                     <span data-feather="home" class="align-text-bottom"></span>
                     Administration
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('admin.posts.*')) active @endif" href="{{ route('admin.posts.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.posts.*')) active @endif" href="{{ url('https://bosomed.ru/middleware/admin/posts') }}">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     Posts
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('admin.comments.*')) active @endif" href="{{ route('admin.comments.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.comments.*')) active @endif" href="{{ url('https://bosomed.ru/middleware/admin/comments') }}">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     Comments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('admin.news.*')) active @endif" href="{{ route('admin.news.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.news.*')) active @endif" href="{{ url('https://bosomed.ru/middleware/admin/news') }}">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     News
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="nav-link @if (request()->routeIs('admin.users.*')) active @endif" href="{{ route('admin.users.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.users.*')) active @endif" href="{{ url('https://bosomed.ru/middleware/admin/users') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Users
                 </a>
@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="nav-link @if (request()->routeIs('admin.accessGroup.*')) active @endif" href="{{ route('admin.accessGroup.index') }}">
+                <a class="nav-link @if (request()->routeIs('admin.accessGroup.*')) active @endif" href="{{ url('https://bosomed.ru/middleware/admin/accessGroup') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Access group
                 </a>

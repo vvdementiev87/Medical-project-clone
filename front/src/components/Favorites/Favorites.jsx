@@ -1,48 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FavoritesItem from './FavoritesItem';
 import styles from './Favorites.module.scss';
-
-const statements = [
-	{
-		title:
-			'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-		description:
-			'24 января 2023 года в Орландо (США) было продлено соглашение о сотрудничестве между Российским обществом симуляционного обучения (РОСОМЕД) и Обществом симуляции в здравоохранении (SSH). Соглашение по...',
-		image: '/imagesTest/statement.jpeg',
-		link: 'https://rosomed.ru/news/prodleno-sotrudnichestvo-s-obschestvom-simulyatsii-v-zdravoohranenii-ssh',
-	},
-	{
-		title:
-			'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-		description:
-			'24 января 2023 года в Орландо (США) было продлено соглашение о сотрудничестве между Российским обществом симуляционного обучения (РОСОМЕД) и Обществом симуляции в здравоохранении (SSH). Соглашение по...',
-		image: '/imagesTest/statement.jpeg',
-		link: 'https://rosomed.ru/news/prodleno-sotrudnichestvo-s-obschestvom-simulyatsii-v-zdravoohranenii-ssh',
-	},
-	{
-		title:
-			'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-		description:
-			'24 января 2023 года в Орландо (США) было продлено соглашение о сотрудничестве между Российским обществом симуляционного обучения (РОСОМЕД) и Обществом симуляции в здравоохранении (SSH). Соглашение по...',
-		image: '/imagesTest/statement.jpeg',
-		link: 'https://rosomed.ru/news/prodleno-sotrudnichestvo-s-obschestvom-simulyatsii-v-zdravoohranenii-ssh',
-	},
-	{
-		title:
-			'Продлено сотрудничество с Обществом симуляции в здравоохранении (SSH).',
-		description:
-			'24 января 2023 года в Орландо (США) было продлено соглашение о сотрудничестве между Российским обществом симуляционного обучения (РОСОМЕД) и Обществом симуляции в здравоохранении (SSH). Соглашение по...',
-		image: '/imagesTest/statement.jpeg',
-		link: 'https://rosomed.ru/news/prodleno-sotrudnichestvo-s-obschestvom-simulyatsii-v-zdravoohranenii-ssh',
-	},
-];
+import { useAuth } from '../../hooks/useAuth';
+import { FavoritesService } from '../../services/favorites.service';
+import { useActions } from '../../hooks/useActions';
 
 const Favorites = () => {
+	const { user, favorites } = useAuth();
+	const { getFavorites } = useActions();
+
+	useEffect(() => {
+		getFavorites({ user_id: user.id });
+	}, []);
+
 	return (
 		<div className={styles.sidebar}>
-			{statements?statements.map((s, i) => (
-				<FavoritesItem key={i} statement={s} />
-			)):<p>Вы еще ничего не добавили в избранное</p>}
+			{Object.keys(favorites).length > 0 ? (
+				Object.keys(favorites).map((key) => {
+					return (
+						<FavoritesItem
+							key={key}
+							statement={{
+								...favorites[key].object,
+								type: favorites[key].type,
+								link:
+									(favorites[key].type === 1 &&
+										`/videos/${favorites[key].type_id}`) ||
+									(favorites[key].type === 2 &&
+										`/articles/${favorites[key].type_id}`),
+							}}
+						/>
+					);
+				})
+			) : (
+				<p>Вы еще ничего не добавили в избранное</p>
+			)}
 		</div>
 	);
 };

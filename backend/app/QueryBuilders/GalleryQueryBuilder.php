@@ -15,11 +15,18 @@ class GalleryQueryBuilder extends QueryBuilder
         $this->model = Gallery::query();
     }
 
+    /**
+     * @return Collection
+     */
     function getCollection(): Collection
     {
         return $this->model->get();
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     function getByThemeId(int $id): array
     {
         $images_collection = $this->model->where('theme_id', $id)->get();
