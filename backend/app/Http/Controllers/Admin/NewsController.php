@@ -8,19 +8,20 @@ use App\Http\Requests\News\EditRequest;
 use App\Models\News;
 use App\QueryBuilders\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
 class NewsController extends Controller
 {
     /**
-     * @param NewsQueryBuilder $queryBilder
+     * @param NewsQueryBuilder $queryBuilder
      * @return View
      */
-    public function index(NewsQueryBuilder $queryBilder): View
+    public function index(NewsQueryBuilder $queryBuilder): View
     {
         return \view('admin.news.index', [
-            'newsList' => $queryBilder->getNewsWithPagination()
+            'newsList' => $queryBuilder->getNewsWithPagination()
         ]);
     }
 
@@ -48,6 +49,7 @@ class NewsController extends Controller
 
     /**
      * @param News $news
+     * @return View
      */
     public function edit(News $news): View
     {
@@ -72,9 +74,10 @@ class NewsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param News $news
+     * @return JsonResponse
      */
-    public function destroy(News $news)
+    public function destroy(News $news): JsonResponse
     {
         try{
             $news->delete();

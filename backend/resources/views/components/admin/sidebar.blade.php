@@ -32,6 +32,12 @@
                 </a>
             </li>
             <li class="nav-item  ">
+                <a class="nav-link @if (request()->routeIs('admin.all_applications')) active @endif" href="{{ route('admin.all_applications') }}">
+                    <span data-feather="users" class="align-text-bottom"></span>
+                    Application for registration
+                </a>
+            </li>
+            <li class="nav-item  ">
                 <a class="nav-link @if (request()->routeIs('admin.accessGroup.*')) active @endif" href="{{ route('admin.accessGroup.index') }}">
                     <span data-feather="users" class="align-text-bottom"></span>
                     Access group

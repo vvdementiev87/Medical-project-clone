@@ -8,6 +8,8 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
+use App\Http\Controllers\Admin\RegistrationAdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,8 @@ use App\Http\Controllers\Content\GalleryThemeController;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/registration', [RegistrationAdminController::class, 'store']);
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
