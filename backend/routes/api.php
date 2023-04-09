@@ -14,7 +14,7 @@ use App\Http\Controllers\Content\GalleryThemeController;
 use \App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Content\ConferencesController;
 use App\Http\Controllers\Content\CommunityCenterController;
-
+use App\Http\Controllers\Admin\RegistrationAdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
