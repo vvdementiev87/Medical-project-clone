@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -32,13 +33,18 @@ class User extends Authenticatable
         'birth_date',
         'phone',
         'address',
+        'education',
+        'education_end',
+        'specialization',
+        'experience',
         'company',
         'position',
-        'category',
-        'experience',
-        'education',
-        'other_info',
-        'has_agreed',
+        'degree',
+        'academic_rank',
+        'interests',
+        'is_member',
+        'other_organization',
+        'sign_for_news',
     ];
 
     /**
@@ -62,19 +68,29 @@ class User extends Authenticatable
 
     /**
      * @param $data
-     * @return  int
+     * @return  void
      */
 
     public function add_data_account_and_user($data): void
     {
+        foreach($data as $key => $value){
+            if ($key == 'email') {
+                $account[$key] = $value;
+            }elseif ($key != 'created_at' && $key != 'updated_at') {
+                $user[$key] = $value;
+            }
+        }
 
-        $user_registration_data = $data->except('email', 'password', 'password_confirmation', 'has_agree');
-        $id_user = DB::table('users')->insertGetId($user_registration_data);
+        $password = Str::random(5);
+        $accounts = array_merge($account, ['password' => Hash::make($password)]);
 
-        $user_account_data = (array_merge($data->only('email', 'password'),['password' => Hash::make($data->password)]));
-        $user_account_data['user_id'] = $id_user;
+        $id_account = DB::table('accounts')->insertGetId(array_merge($accounts));
 
-        DB::table('accounts')->insert($user_account_data);
+        $user_account_data['account_id'] = $id_account;
+
+        $user = array_merge($user, $user_account_data);
+
+        DB::table('users')->insert($user);
 
     }
 

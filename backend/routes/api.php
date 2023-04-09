@@ -14,7 +14,7 @@ use App\Http\Controllers\Content\GalleryThemeController;
 use \App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Content\ConferencesController;
 use App\Http\Controllers\Content\CommunityCenterController;
-
+use App\Http\Controllers\Admin\RegistrationAdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,6 +29,8 @@ use App\Http\Controllers\Content\CommunityCenterController;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/registration', [RegistrationAdminController::class, 'store']);
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
