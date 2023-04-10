@@ -35,7 +35,7 @@ class NewsController extends Controller
 
     /**
      * @param CreateRequest $request
-     * @return ResirectResponse
+     * @return RedirectResponse
      */
     public function store(CreateRequest $request): RedirectResponse
     {
@@ -61,7 +61,7 @@ class NewsController extends Controller
     /**
      * @param EditRequest $request
      * @param News        $news
-     * @return ResirectResponse
+     * @return RedirectResponse
      */
     public function update(EditRequest $request, News $news): RedirectResponse
     {
