@@ -6,7 +6,9 @@ import MultipleSelect from "../multiple-select/MultipleSelect";
 import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
 import DropdownSelect from "../Dropdown-select/DropdownSelect";
 import Select from 'react-select';
-import { Controller, useForm } from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
+import styles from "../../pages/registration/Registration.scss";
+import PopupInput from "../PopupInput/PopupInput";
 
 const optionList = [
     {value: "Организация и менеджмент симуляционного центра", label: "Организация и менеджмент симуляционного центра"},
@@ -36,6 +38,31 @@ const optionList = [
     {value: "Другое", label: "Другое"}
 ];
 
+const customStyles = {
+    control: (styles, state) => ({
+        ...styles,
+        boxShadow: state.isFocused ? "0 0 0 0.1rem rgba(120, 194, 173, 0.25)" : 0,
+        border: state.isFocused ? "2px solid #D0EAE2" : "2px solid rgba(68, 68, 167, 0.3)",
+        "&:hover": {
+            borderColor: state.isFocused ? "#D0EAE2" : "#CED4DA"
+        }
+    })
+};
+
+const customStylesError = {
+    control: (styles, state) => ({
+        ...styles,
+        borderColor: "red",
+        border: state.isFocused? "2px solid red":"2px solid red",
+        boxShadow: state.isFocused ? "0 0 0 red" : 0,
+        "&:hover": {
+            borderColor: "red"
+        }
+    })
+};
+
+
+
 function RegistrationForm() {
     const {
         register,
@@ -46,6 +73,10 @@ function RegistrationForm() {
     } = useForm({mode: 'all'});
     const {register: registerAction} = useActions();
     const [responseError, setResponseError] = useState(null);
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [isShowInput, setIsShowInput] = useState(false);
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+    const [filterStatus, setFilterStatus] = useState("");
 
 
     const onSubmit = async (data) => {
@@ -106,6 +137,38 @@ function RegistrationForm() {
         }
         // reset();
     };
+
+    function handleSelect(data) {
+        console.log(data)
+        // setSelectedOptions(data)
+        if (data[data.length - 1].value === 'Другое') {
+            console.log(data[data.length - 1].value)
+            setIsShowInput(true);
+        }
+        else {
+            setSelectedOptions(data);
+            setIsShowInput(false);
+        }
+    }
+
+    const onInputChange = (
+        inputValue,
+        { action, prevInputValue }
+    ) => {
+        console.log(action)
+        if (action === 'input-change') return inputValue;
+        if (action === 'menu-close') {
+            if (prevInputValue) {
+                setMenuIsOpen(true);
+            }
+            else {
+                setMenuIsOpen(undefined);
+            }
+        }
+
+        return prevInputValue;
+    };
+
 
     return (
         <form className="reg_form" data-testid="registration-form">
@@ -306,50 +369,47 @@ function RegistrationForm() {
                     {...register('academic_rank')}
                 />
 
-                {/*<MultipleSelect*/}
-                {/*    id="interests"*/}
-                {/*    name="interests"*/}
-                {/*    labelText="Область профессиональных интересов"*/}
-                {/*    custom_required={true}*/}
-                {/*    error={errors.interests}*/}
-                {/*    {...register('interests', {*/}
-                {/*        required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
-                {/*    })}*/}
-                {/*/>*/}
 
 
                 <Controller
-                    control={control}
-                    rules={{ required: true }}
                     id="interests"
                     name="interests"
-                    render={({}) => (
-                        <MultipleSelect
-                            labelText="Область профессиональных интересов"
-                            custom_required={true}
-                        />
+                    labelText="Область профессиональных интересов"
+                    custom_required={true}
+                    control={control}
+                    rules={{required: true}}
+                    render={({field}) => (
+                        <label>
+                            {"Область профессиональных интересов"}
+                            <span className="custom_required ms-1">*</span>
+                            <Select {...field} placeholder="..." isMulti isSearchable options={optionList} styles={!errors.interests||selectedOptions.length>0?customStyles:customStylesError} className="w-100 mt-2" value={selectedOptions}
+                                    onChange={(options) =>{
+                                        if(!options) {
+                                            setSelectedOptions([])
+                                        }else{
+                                            if (options[options.length-1]?.value === 'Другое') {
+                                                setIsShowInput(true);
+                                            }
+                                            else {
+                                                setSelectedOptions(options);
+                                                setIsShowInput(false);
+                                            }
+                                        }
+                                    }
+                            } />
+                            <PopupInput setSelectedOptions={setSelectedOptions} isShowInput={isShowInput}
+                                        setIsShowInput={setIsShowInput}/>
+                        </label>
                     )}
                 />
+                {errors.interests && selectedOptions.length<1&&(
+                    <span
+                        className={`input_field_text_error mt-negative-15`}
+                        data-testid="input-error"
+                        role="alert"
+                    >{"Укажите ваш профессиональный интерес"}</span>
+                )}
 
-                {errors.interests && <p>{'Укажите ваши проф. интересы'}</p>}
-
-                {/*<DropdownSelect*/}
-                {/*    name='interests'*/}
-                {/*    error={errors.interests}*/}
-                {/*    custom_required={true}*/}
-                {/*    isSearchable*/}
-                {/*    isMulti*/}
-                {/*    labelText="Область профессиональных интересов"*/}
-                {/*    placeHolder="..."*/}
-                {/*    {...register('interests', {*/}
-                {/*        required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
-                {/*    })}*/}
-
-                {/*/>*/}
-
-                {/*{...register('interests', {*/}
-                {/*    required: {value: true, message: 'Укажите ваши проф. интересы'},*/}
-                {/*})}*/}
 
                 <InputField
                     className="reg_field_width"

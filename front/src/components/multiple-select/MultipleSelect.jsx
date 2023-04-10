@@ -1,8 +1,7 @@
 import React, {forwardRef, useEffect, useState} from 'react';
-import Select from "react-select";
+import Select,{ InputActionMeta } from "react-select";
 import styles from './MultipleSelect.module.scss';
 import PopupInput from "../PopupInput/PopupInput";
-import {InputField} from "../basic/InputField/InputField";
 
 
 const optionList = [
@@ -30,9 +29,8 @@ const optionList = [
     {value: "Урология", label: "Урология"},
     {value: "Хирургия", label: "Хирургия"},
     {value: "Эндовидеохирургия", label: "Эндовидеохирургия"},
-    {value: "Другое", label: "Другое"}
+    {value: "Другое", label: "Другое",isDisabled: true}
 ];
-
 const customStyles = {
     control: (styles, state) => ({
         ...styles,
@@ -43,74 +41,40 @@ const customStyles = {
         }
     })
 };
-export const MultipleSelect = forwardRef(({labelText,custom_required, error, ...props}, ref) => {
+    export const MultipleSelect = forwardRef(({ onChange, onBlur, name,error, labelText,options,custom_required }, ref) => {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isShowInput, setIsShowInput] = useState(false);
-    const [errorSelect, setErrorSelect] = useState(false);
-    const [menuIsOpen, setMenuIsOpen] = useState(false);
 
     useEffect(() => {
 
     }, [])
 
     function handleSelect(data) {
-        console.log(data)
-        // if (selectedOptions.length < 1) {
-        //     setErrorSelect(true)
-        // } else {
-        //     setErrorSelect(true)
-        // }
+         console.log(data)
         if (data[data.length - 1].value === 'Другое') {
-             setIsShowInput(true);
+            setIsShowInput(true);
         } else {
-            setSelectedOptions(data);
+             setSelectedOptions(data);
              setIsShowInput(false);
         }
     }
 
-    const onInputChange = (
-        inputValue,
-        { action, prevInputValue }
-    ) => {
-        if (action === 'input-change') return inputValue;
-        if (action === 'menu-close') {
-            if (prevInputValue) setMenuIsOpen(true);
-            else setMenuIsOpen(undefined);
-        }
-        return prevInputValue;
-    };
 
     return (
         <label className={styles.dropdown}>
             {labelText} {custom_required?<span className="custom_required">*</span>:''}
             <Select
                 options={optionList}
+                value={selectedOptions}
                 placeholder="..."
                 isMulti
-                isClearable
                 isSearchable
                 onChange={handleSelect}
                 name="interests"
                 styles={customStyles}
 
             />
-            {/*{error && <div className={styles.error}>{error.message}</div>}*/}
-            {/*{error && (*/}
-            {/*    <span*/}
-            {/*        className={styles.input_field_text_error}*/}
-            {/*        data-testid="select-error"*/}
-            {/*        role="alert"*/}
-            {/*    >*/}
-            {/*		{'Укажите ваши проф. интересы'}*/}
-            {/*	</span>*/}
-            {/*)}*/}
-
-            {/*error={errors['last_name']}*/}
-            {/*{...register('last_name', {*/}
-            {/*    required: {value: true, message: 'Укажите фамилию'},*/}
-            {/*})}*/}
-
 
             <PopupInput setSelectedOptions={setSelectedOptions} isShowInput={isShowInput}
                         setIsShowInput={setIsShowInput}/>
@@ -119,18 +83,3 @@ export const MultipleSelect = forwardRef(({labelText,custom_required, error, ...
 });
 
 export default MultipleSelect;
-
-
-{/*{...props}*/}
-{/*ref={ref}*/}
-{/*aria-label={props.name}*/}
-// value={selectedOptions}
-// onChange={handleSelect}
-// isSearchable={true}
-// isClearable={false}
-// isMulti
-// // defaultValue={optionList[0]}
-// onInputChange={onInputChange}
-// name="interests"
-// menuIsOpen={menuIsOpen}
-// defaultValue={colourOptions[0]}
