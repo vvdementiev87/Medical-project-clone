@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comments\EditRequest;
 use App\Models\Comments;
+use Exception;
 use Illuminate\Contracts\View\View;
 use App\QueryBuilders\CommentQueryBuilder;
 use Illuminate\Http\JsonResponse;
@@ -47,6 +48,7 @@ class CommentController extends Controller
         if($comment->save()){
             return redirect()->route('admin.comments.index')->with('success', 'Commment update');
         }
+
         return \back()->with('error', 'Comment can not be updated');
     }
 
@@ -59,11 +61,11 @@ class CommentController extends Controller
         try{
             $comment->delete();
 
-            return \response()->json('ok');
-        } catch (\Exception $exception) {
+            return response()->json('ok');
+        } catch (Exception $exception) {
             Log::error($exception->getMessage(), [$exception]);
 
-            return \response()->json('error', 400);
+            return response()->json('error', 400);
         }
     }
 }
