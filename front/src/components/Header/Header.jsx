@@ -83,7 +83,7 @@ const Header = ({ isAuth }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
+										<Link to="/normatives" className="dropdown-item" onClick={hideMenu}>
 											Нормативные документы
 										</Link>
 									</li>
@@ -163,7 +163,7 @@ const Header = ({ isAuth }) => {
 
 							<li className="nav-item">
 								<Link
-									to={routes.HOME.link}
+									to={routes.CONTACTS.link}
 									className="menu_link"
 									aria-current="page"
 									onClick={hideMenu}

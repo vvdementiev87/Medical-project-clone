@@ -7,7 +7,6 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DownloadPdfLink from "../DownloadPdfLink/DownloadPdfLink";
 import {useAuth} from "../../hooks/useAuth";
-
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 const left = <FontAwesomeIcon icon={faChevronLeft} />;
