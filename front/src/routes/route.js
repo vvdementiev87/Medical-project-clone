@@ -6,13 +6,16 @@ export const routes = {
     LOGIN: {link: '/login', name: 'Login'},
     REGISTER: {link: '/register', name: 'Registration'},
     VIDEOS: {link: '/videos', name: 'Videos'},
+    ARTICLES: {link: '/articles', name: 'Articles'},
     NEWS: {link: '/news', name: 'News'},
     STUDY: {link: '/study', name: 'Study'},
     CONFERENCIES: {link: '/conferencies', name: 'Conferencies'},
     CENTERS: {link: '/centers', name: 'Centers'},
     PHOTOS: {link: '/photos', name: 'Photos'},
-	  FORUM: {link: '/forum', name: 'Forum'},
-	  CONTACTS: {link: '/contacts', name: 'Contacts'},
+    FORUM: {link: '/forum', name: 'Forum'},
+    CONTACTS: {link: '/contacts', name: 'Contacts'},
+    STRUCTURE: {link: '/structure', name: 'Structure'},
+    PARTNERS: {link: '/partners', name: 'Partners'}
 };
 
 export function PublicRoute({isAuth, to = routes.HOME.link, children}) {

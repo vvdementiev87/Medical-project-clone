@@ -17,7 +17,7 @@ const data = [
 		title: 'Литература',
 		description: 'Методические пособия, книги, презентации',
 		link: 'Подробнее...',
-		url: routes.HOME.link,
+		url: routes.ARTICLES.link,
 	},
 	{
 		image: element3,
@@ -48,7 +48,7 @@ const Sources = () => {
 										<p className={styles.sourcesText}>
 											{item.description}
 										</p>
-										<NavLink to="/" className={styles.link}>Подробнее...</NavLink>
+										<NavLink to={item.url} className={styles.link}>Подробнее...</NavLink>
 									</div>
 								)
 							})}
