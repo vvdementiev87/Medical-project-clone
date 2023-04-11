@@ -13,7 +13,7 @@ function Forum() {
 	const token = useSelector((state) => state.user.user?.token);
 	const loadPostsStatus = useSelector((state) => state.forum.status);
 	const titlesList = useSelector((state) => state.forum.titlesList);
-
+	console.log(titlesList);
 	useEffect(() => {
 		dispatch(loadAllPosts());
 	}, []);

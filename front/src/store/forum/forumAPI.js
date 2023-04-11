@@ -7,8 +7,15 @@ export const loadAllPosts = createAsyncThunk(
 	async (_, thunkApi) => {
 		try {
 			const response = await fetch(`${forumURL}forum/posts`);
+			console.log(response);
 			const result = await response.json();
-			return result;
+			console.log(result);
+			const posts = [];
+			for (let i in result) {
+				posts.push(result[i]);
+			}
+			console.log(posts);
+			return posts;
 		} catch (error) {
 			console.log(error);
 		}
@@ -17,10 +24,12 @@ export const loadAllPosts = createAsyncThunk(
 
 export const loadPostById = createAsyncThunk(
 	'forum/loadPostById',
-	async (id) => {
+	async ({ topicId }, thunkApi) => {
 		try {
-			const response = await fetch(`${forumURL}forum/posts/${id}`);
+			const response = await fetch(`${forumURL}forum/posts/${topicId}`);
+			console.log(response);
 			const result = await response.json();
+
 			return result;
 		} catch (error) {
 			console.log(error);
@@ -30,10 +39,13 @@ export const loadPostById = createAsyncThunk(
 
 export const loadAllComments = createAsyncThunk(
 	'forum/loadAllComments',
-	async (post_id) => {
+	async ({ topicId }, thunkApi) => {
+		console.log(topicId);
 		try {
-			const response = await fetch(`${forumURL}forum/posts/${post_id}`);
+			const response = await fetch(`${forumURL}forum/posts/${topicId}`);
+			console.log(response);
 			const result = await response.json();
+			console.log(result);
 			return result[0];
 		} catch (error) {
 			console.log(error);

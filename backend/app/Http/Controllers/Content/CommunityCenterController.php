@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\QueryBuilders\CategoriesQueryBuilder;
 use App\QueryBuilders\CommunityCenterQueryBuilder;
@@ -18,7 +19,7 @@ class CommunityCenterController extends Controller
     public function index(
         CommunityCenterQueryBuilder $communityCenterQueryBuilder,
         CategoriesQueryBuilder $categoriesQueryBuilder
-    ): string
+    ): JsonResponse
     {
         $community_center_collection = $communityCenterQueryBuilder->getCollection();
 
@@ -38,7 +39,7 @@ class CommunityCenterController extends Controller
     public function getCategories(
         CategoriesQueryBuilder $categoriesQueryBuilder,
         CommunityCenterQueryBuilder $communityCenterQueryBuilder
-    ): string
+    ): JsonResponse
     {
         $categories_collection = $categoriesQueryBuilder->getCollection();
         $community_center_collection = $communityCenterQueryBuilder->getCollection();
@@ -65,7 +66,7 @@ class CommunityCenterController extends Controller
         int $id,
         CommunityCenterQueryBuilder $communityCenterQueryBuilder,
         CommunityCenterPhotosQueryBuilder $communityCenterPhotosQueryBuilder
-    ): string
+    ): JsonResponse
     {
         $photos = $communityCenterPhotosQueryBuilder->getByCommunityCenterId($id);
         $community_center = $communityCenterQueryBuilder->getById($id);
