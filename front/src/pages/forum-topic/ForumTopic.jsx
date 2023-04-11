@@ -1,155 +1,104 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import ForumComments from '../../components/ForumComments/ForumComments';
-import Pagination from '../../ui/pagination/Pagination';
+import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import ForumComments from "../../components/ForumComments/ForumComments";
+import Pagination from "../../components/Pagination";
 import styles from './ForumTopic.module.scss';
-import ForumCommentForm from '../../components/ForumComments/ForumCommentForm';
-import { useActions } from '../../hooks/useActions';
-import { useForum } from '../../hooks/useForum';
-import { useAuth } from '../../hooks/useAuth';
-import MaterialIcon from '../../ui/MaterialIcon';
-import ReactQuill from 'react-quill';
+import { forumURL, loadAllComments, loadPostById } from "../../store/forum/forumAPI";
 
-const PageSize = 5;
 
 function ForumTopic() {
-	const [isVisible, setIsVisible] = useState(false);
-	const { getPostByIdWithComments, editPost } = useActions();
-	const { postId } = useParams();
-	console.log(postId);
-	const { posts, isLoading } = useForum();
-	const { user } = useAuth();
-	const [isEdit, setIsEdit] = useState(false);
-	const [description, setDescription] = useState(null);
-	const [title, setTitle] = useState(null);
+    const URL = forumURL;
+    const dispatch = useDispatch();
+    const { topicId } = useParams();
+    const topic = useSelector((state) => state.forum.currentPost);
+    const comments = useSelector((state) => state.forum.commentList);
+    
+    //для пагинации
+    const [currentPage, setCurrentPage] = useState(1);
+    const [commentsPerPage] = useState(10);
+    const [text, setText] = useState('');
 
-	useEffect(() => {
-		getPostByIdWithComments({ postId });
-	}, []);
+    const currentUser = useSelector((state) => state.user.user);
+    const currentUserId = useSelector((state) => state.user.user?.id) || 1;
+    const token = useSelector((state) => state.user.user?.token);
 
-	const [currentPage, setCurrentPage] = useState(1);
-	const currentTableData = useMemo(() => {
-		const firstPageIndex = (currentPage - 1) * PageSize;
-		const lastPageIndex = firstPageIndex + PageSize;
-		return (
-			posts[postId]?.comments &&
-			Object.fromEntries(
-				Object.entries(posts[postId].comments).slice(
-					firstPageIndex,
-					lastPageIndex
-				)
-			)
-		);
-	}, [currentPage, posts[postId]?.comments]);
+    useEffect(() => {
+        dispatch(loadAllComments(topicId));
+        dispatch(loadPostById());
+    }, [])
+    
 
-	const handleEdit = () => {
-		editPost({
-			post: {
-				description: description,
-				title: title,
-				post_id: postId,
-			},
-		});
-		setIsEdit(!isEdit);
-		setDescription(null);
-		setTitle(null);
-	};
+    function handleTextChange(event) {
+        setText(event.target.value);
+    }
 
-	return isLoading ? (
-		<h2 className={styles.title}>Loading</h2>
-	) : (
-		posts[postId]?.comments && (
-			<>
-				<h2 className={styles.title}>
-					{isEdit ? (
-						<input
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-						></input>
-					) : (
-						posts[postId].title
-					)}
-				</h2>
-				<div className={styles.container}>
-					<div className={styles.description}>
-						{isEdit ? (
-							<ReactQuill
-								theme="snow"
-								value={description}
-								onChange={setDescription}
-							/>
-						) : (
-							<div
-								className={styles.innerHTML}
-								dangerouslySetInnerHTML={{ __html: posts[postId].description }}
-							/>
-						)}
-						{posts[postId]?.author.id === user.id && (
-							<div className={styles.btn_section}>
-								{isEdit ? (
-									<>
-										<button
-											title="Save changes"
-											className={styles.btn}
-											onClick={() => {
-												handleEdit();
-											}}
-										>
-											<MaterialIcon name={'MdSave'} />
-										</button>
-										<button
-											title="Close without changing"
-											className={styles.btn}
-											onClick={(e) => {
-												setIsEdit(!isEdit);
-											}}
-										>
-											<MaterialIcon name={'MdClose'} />
-										</button>
-									</>
-								) : (
-									<button
-										title="Edit"
-										className={styles.btn}
-										onClick={() => {
-											setIsEdit(!isEdit);
-											setDescription(posts[postId].description);
-											setTitle(posts[postId].title);
-										}}
-									>
-										<MaterialIcon name={'MdEditDocument'} />
-									</button>
-								)}
-							</div>
-						)}
-					</div>
-					{currentTableData && (
-						<ForumComments comments={currentTableData} postId={postId} />
-					)}
-					<div className={styles.pagination}>
-						{user && (
-							<button
-								title="Save changes"
-								className={styles.reply}
-								onClick={() => {
-									setIsVisible(!isVisible);
-								}}
-							>
-								Ответить
-							</button>
-						)}
-						<Pagination
-							currentPage={currentPage}
-							totalCount={Object.entries(posts[postId].comments).length}
-							pageSize={PageSize}
-							onPageChange={(page) => setCurrentPage(page)}
-						/>
-					</div>
-					{isVisible && <ForumCommentForm postId={postId} />}
-				</div>
-			</>
-		)
-	);
+    async function handleSubmit(event) {
+        event.preventDefault();
+        let data = {
+            'post_id': topicId,
+            'author_id': currentUserId,
+            'description': text,
+        };
+        
+        // отправка запроса на бэк
+        let response = await fetch(`${URL}forum/comments/add`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Authorisation": "Bearer " + token,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+
+        if (response.ok) {
+            dispatch(loadAllComments(topicId));
+            setText('');
+        } else {
+            console.log(response.status);
+        }
+    }
+
+    const lastCommentIndex = currentPage * commentsPerPage;
+    const firstCommentIndex = lastCommentIndex - commentsPerPage;
+    const currentComment = comments.slice(firstCommentIndex, lastCommentIndex);
+
+    function paginate(pageNumber) {
+        setCurrentPage(pageNumber);
+    }
+
+    return (
+        <div className={styles.page__container}>
+            <h2 className={styles.topic__title}>{topic.title}</h2>
+            <div className={styles.forum__greeting}>{!currentUser ? 'Вы не вошли' : `Добро пожаловать, ${currentUser.first_name}`}</div>
+            <div className={styles.page__content_container}>
+                <div className={styles.topic__description}><p>{topic.description}</p></div>
+                <div className={styles.topic__container}>
+
+                    <ForumComments comments={currentComment} url={URL} topicId={topicId} />
+                
+                </div>
+
+                <Pagination
+                        commentsPerPage={commentsPerPage}
+                        totalComments={comments.length}
+                        paginate={paginate}
+                />
+                <form className={styles.forum__form_container}>
+                    <h4 className={styles.forum__topic_title}>Ваш комментарий:</h4>
+                    <label className={styles.forum__form_field}>
+                        <textarea type="text" placeholder='Текст' value={text} onChange={(e) => handleTextChange(e)} />
+                    </label>
+                    {currentUser?
+                        <button className={styles.forum__btn} onClick={(e) => handleSubmit(e)}>ОТПРАВИТЬ</button> :
+                        <Link to='/login'><button className={styles.forum__btn}>Готово</button></Link>
+                    }
+                </form>
+            </div> 
+        </div>
+    )
 }
 
 export default ForumTopic;

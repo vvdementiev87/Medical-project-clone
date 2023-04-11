@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './ForumForm.module.scss';
+import { loadAllPosts } from '../../store/forum/forumAPI';
 
-function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
-    const currentUser = useSelector((state) => state.user.user) || 1;
-    const currentUserId = useSelector((state) => state.user.user?.id) || 1;
+function ForumForm({ updPost, setUpdPost, url:URL}) {
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.user.user);
+    const currentUserId = useSelector((state) => state.user.user?.id);
     const token = useSelector((state) => state.user.user?.token);
-    // const [show, setShow] = useState(true);
-    //создание поста
+
     const [newPost, setNewPost] = useState({
         title: '',
         description: '',
@@ -22,7 +23,6 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
         }));
     };
 
-
     function handleUpdate(e) {
         const { name, value } = e.target;
         setUpdPost(prevState => ({
@@ -31,7 +31,8 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
         }));
     };
 
-    async function handleSubmit(event) {
+    //создание поста
+    async function handleSubmit(event) {        
         event.preventDefault();
         let data = {
             'author_id': currentUserId,
@@ -40,17 +41,15 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
         };
         let response = await fetch(`${URL}forum/posts/add`, {
             method: "POST",
-            // этой строкой вставляется csrf-токен
             credentials: "include",
             headers: {
-                // а этой - пользовательский токен. Бэк должен уточнить, в каком заголовке ожидается токен.
-                "Authoristation": token,
+                "Authoristation": "Bearer " + token,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
         if (response.ok) {
-            loadAllPosts();
+            dispatch(loadAllPosts());
         } else {
             console.log(response.status);
         }
@@ -60,27 +59,26 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
         });
     }
 
+    //редактирование поста
     async function handleUpdateSubmit(event) {
         event.preventDefault();
         let data = {
-            'post_id': updPost.id,
+            'id': updPost.id,
             'title': updPost.title,
             'description': updPost.description,
         };
-        console.log(data);
 
         let response = await fetch(`${URL}forum/posts/edit`, {
-            // пока так, а вообще должен быть PUT
-            method: "POST",
+            method: "PUT",
             credentials: "include",
             headers: {
-                "Authoristation": token,
+                "Authoristation": "Bearer " + token,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
         if (response.ok) {
-            loadAllPosts();
+            dispatch(loadAllPosts());
         } else {
             console.log(response.status);
         }
@@ -90,12 +88,12 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
     if (currentUser) {
         return ( 
         <form className={styles.forum__form_container}>
-            {!updPost ? <h3>Создать новый пост</h3> : <h3>Редактировать пост: </h3>}
+            {!updPost ? <h3 className={styles.forum__form_title}>Создать пост:</h3> : <h3 className={styles.forum__form_title}>Редактировать пост: </h3>}
             <label className={styles.forum__form_field}>
                 <input type="text" name='title' placeholder='Название' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.title : updPost?.title} />
             </label>
             <label className={styles.forum__form_field}>
-                <input type="text" name='description' placeholder='Описание' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.description : updPost?.description} />
+                <textarea className={styles.forum__form_description} type="text" name='description' placeholder='Описание' onChange={!updPost ? handleChange : handleUpdate} value={!updPost ? newPost.description : updPost?.description} />
             </label>
             <button className={styles.forum__btn} onClick={!updPost ? handleSubmit : handleUpdateSubmit}> {!updPost ? "СОЗДАТЬ" : "ГОТОВО"}</button>
         </form>
@@ -104,4 +102,4 @@ function ForumForm({ updPost, setUpdPost, loadAllPosts }) {
         return <Link to='/login'><button className={styles.forum__btn}>Войти</button></Link>
 }
 
-export default ForumForm
+export default ForumForm;
