@@ -1,13 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {forwardRef, useRef, useState} from 'react';
 import {getCsrfToken} from '../../api/interceptors';
 import {useActions} from '../../hooks/useActions';
 import {InputField} from '../basic/InputField/InputField';
-import MultipleSelect from "../multiple-select/MultipleSelect";
 import {TextAreaField} from "../basic/TextAreaField/TextAreaField";
-import DropdownSelect from "../Dropdown-select/DropdownSelect";
 import Select from 'react-select';
 import {Controller, useForm} from "react-hook-form";
-import styles from "../../pages/registration/Registration.scss";
 import PopupInput from "../PopupInput/PopupInput";
 
 const optionList = [
@@ -75,8 +72,9 @@ function RegistrationForm() {
     const [responseError, setResponseError] = useState(null);
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isShowInput, setIsShowInput] = useState(false);
-    const [menuIsOpen, setMenuIsOpen] = useState(false);
-    const [filterStatus, setFilterStatus] = useState("");
+    const [isMemberOrganization, setIsMemberOrganization] = useState(()=>false);
+    const [otherOrganizations, setOtherOrganizations] = useState('');
+    const [checked, setChecked] = useState(false);
 
 
     const onSubmit = async (data) => {
@@ -104,7 +102,7 @@ function RegistrationForm() {
             degree,
             academic_rank,
             interests,
-            is_member
+            is_other_organization
         } = data;
 
         try {
@@ -130,7 +128,7 @@ function RegistrationForm() {
                 degree,
                 academic_rank,
                 interests,
-                is_member
+                is_other_organization
             });
         } catch (error) {
             setResponseError(error.response.data.errors);
@@ -138,37 +136,9 @@ function RegistrationForm() {
         // reset();
     };
 
-    function handleSelect(data) {
-        console.log(data)
-        // setSelectedOptions(data)
-        if (data[data.length - 1].value === 'Другое') {
-            console.log(data[data.length - 1].value)
-            setIsShowInput(true);
-        }
-        else {
-            setSelectedOptions(data);
-            setIsShowInput(false);
-        }
+    function changeCheckbox() {
+        setChecked(!checked);
     }
-
-    const onInputChange = (
-        inputValue,
-        { action, prevInputValue }
-    ) => {
-        console.log(action)
-        if (action === 'input-change') return inputValue;
-        if (action === 'menu-close') {
-            if (prevInputValue) {
-                setMenuIsOpen(true);
-            }
-            else {
-                setMenuIsOpen(undefined);
-            }
-        }
-
-        return prevInputValue;
-    };
-
 
     return (
         <form className="reg_form" data-testid="registration-form">
@@ -411,14 +381,36 @@ function RegistrationForm() {
                 )}
 
 
-                <InputField
-                    className="reg_field_width"
-                    id="is_member"
-                    name="is_member"
-                    placeholder="..."
-                    labelText="Являетесь ли членом других общественных объединений, если да, то каких"
-                    {...register('is_member')}
-                />
+                <label>
+					<span className="reg_checkbox_text">
+						Являетесь ли членом других общественных объединений
+					</span>
+                    <input
+                        id="is_member"
+                        name="is_member"
+                        type="checkbox"
+                        aria-label="is_member"
+                        onClick={() => setChecked(prev=>!checked)}
+                        {...register('is_member')}
+                    />
+                </label>
+
+                {checked&&
+                 <InputField
+                     className="reg_field_width"
+                     id="is_other_organization"
+                     name="is_other_organization"
+                     aria-label="is_other_organization"
+                     labelText="Название обшественного объединения"
+                     defaultValue=""
+                     error={errors['is_other_organization']}
+                     placeholder="..."
+                     custom_required={true}
+                     {...register('is_other_organization', {
+                         required: {value: true, message: 'Необходимо заполнить поле'},
+                     })}
+                 />}
+
 
                 <label>
 					<span className="reg_checkbox_text">
@@ -436,15 +428,24 @@ function RegistrationForm() {
                 <label>
 					<span className="reg_checkbox_text">
 						<span className="custom_required">*</span> Данной отметкой Вы подтверждаете, что изучили и принимаете{' '}
-                        <a href="/signup">Правила сайта</a>
+                        <a href="/statute">Устав общества</a>
 					</span>
                     <input
                         id="has_agreed"
                         name="has_agreed"
                         type="checkbox"
                         aria-label="has_agreed"
-                        {...register('has_agreed')}
+                        {...register('has_agreed', {
+                            required: {value: true, message: 'Заполните все поля'},
+                        })}
                     />
+                    {errors.has_agreed&&(
+                        <span
+                            className={`input_field_text_error`}
+                            data-testid="input-error"
+                            role="alert"
+                        >{'Заполните все поля'}</span>
+                    )}
                 </label>
                 <input
                     className="reg_btn"
@@ -525,11 +526,4 @@ export default RegistrationForm;
 {/*/>*/
 }
 
-//<InputField
-// 	className="reg_field_width"
-// 	id="place_work"
-// 	name="place_work"
-// 	placeholder="..."
-// 	labelText="Место работы"
-// 	{...register('place_work')}
-// />
+
