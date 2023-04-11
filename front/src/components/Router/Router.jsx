@@ -28,7 +28,8 @@ import Normatives from "../../pages/normatives/Normatives";
 import NormativeItem from "../../pages/normative-item/NormativeItem";
 import CentersGallery from "../../pages/centers-gallery/CentersGallery";
 import CenterItemPage from "../../pages/center-item-page/CenterItemPage";
-import Contacts from '../../pages/contacts/Contacts';
+import Contacts from "../../pages/contacts/Contacts";
+
 
 
 const isAuth = true;
