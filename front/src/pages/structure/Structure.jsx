@@ -1,66 +1,129 @@
 import React from 'react';
 import styles from "./Structure.module.scss";
 
-const structure=[
+const Chief = {
+    first_name: "",
+    surname: "",
+    last_name: ""
+};
+const subChief = {
+    first_name: "",
+    surname: "",
+    last_name: ""
+};
+const administrationChief = {
+    first_name: "",
+    surname: "",
+    last_name: ""
+};
+const membersOfAdministration = [
     {
-        title:"Председатель",name:"",
-        content:[
-            {
-                title: "", name:""
-            }]
+        first_name: "",
+        surname: "",
+        last_name: ""
     },
     {
-        title: "Заместитель председателя",name:"",
-        content:[
-            {
-                title: "", name:""
-            }]
+        first_name: "",
+        surname: "",
+        last_name: ""
+    },
+];
+const membersOfCommission = [
+    {
+        first_name: "",
+        surname: "",
+        last_name: ""
     },
     {
-        title:"Правление",
-        content:[
+        first_name: "",
+        surname: "",
+        last_name: ""
+    },
+    {
+        first_name: "",
+        surname: "",
+        last_name: ""
+    },
+    {
+        first_name: "",
+        surname: "",
+        last_name: ""
+    }
+];
+
+const structure = [
+    {
+        title: "Председатель",
+        personal_data:Chief,
+        content:null
+    },
+    {
+        title: "Заместитель председателя",
+        personal_data:subChief,
+        content:null
+    },
+    {
+        title: "Правление",
+        personal_data:null,
+        content: [
             {
-                title: "Секретарь правления", name:""
+                title: "Секретарь правления",
+                members:[administrationChief],
             },
             {
-                title: "Члены правления", name:""
+                title: "Члены правления",
+                members: membersOfAdministration
             },
-           ]
+        ]
     },
     {
-        title:"Ревизионная комиссия",
-        content:[
+        title: "Ревизионная комиссия",
+        personal_data:null,
+        content: [
             {
-                title:"Члены ревизионной комиссии"
+                title: "Члены ревизионной комиссии",
+                members: membersOfCommission
             }
         ]
 
     }
 ];
 
+
 const Structure = () => {
     return (
         <div className="container">
+
             <h1 className={styles.heading}>{'Структура общества'}</h1>
             <div className={styles.tree}>
                 <ul>
-                    {structure?.map((item,idx)=>(
+                    {structure?.map((item, idx) => (
                         <li key={idx}>
-                            <h4>{item?.title}</h4>
+                            <div className={styles.structureBtn}>
+                                <h4>{item?.title}</h4>
+                                {item?.personal_data &&<p className={styles.name}>{`${item?.personal_data.last_name} ${item?.personal_data.first_name} ${item?.personal_data.surname}`}</p>}
+                                {(idx !== 0 && idx !== 1) && <div className={styles.branchWrapper}>
+                                    {item?.content.map((branch, idx) => (
+                                        <div key={idx} className={`${styles.branch} ${styles.structureBtn}`}>
+                                            <h4>{branch?.title}</h4>
+                                            <div>{
+                                                branch?.members.map((item, idx) => (
+                                                    <p key={idx}>{`${item?.last_name} ${item?.first_name} ${item?.surname}`}</p>
+                                                ))
+                                            }</div>
+                                        </div>
 
-                            {(idx!==0 && idx!==1) && <div className={styles.branchWrapper}>
-                                {item?.content.map((branch, idx) => (
-                                    <p key={idx} className={styles.branch}>{branch?.title}</p>
-                                ))}
+                                    ))}
+                                </div>
+                                }
                             </div>
-                            }
-
                         </li>
                     ))}
 
                 </ul>
             </div>
         </div>
+
     );
 };
 

@@ -1,5 +1,6 @@
 .heading{
   text-align: center;
+  margin-top: 20px;
 }
 .tree {
   position: relative;
@@ -18,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .tree li {
@@ -33,7 +34,7 @@
   color: #fff;
   font-size: 20px;
   width: 100%;
-  background: linear-gradient(to top, rgba(196,219,214,0.9), rgba(168,204,255,1));
+  background: linear-gradient(to top, rgba(103,164,251,0.6), rgba(103,206,251,0.7));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,12 +42,11 @@
 
 }
 .branchWrapper:not(:first-child), .branchWrapper:nth-child(2),{
-  border: 1px solid #fff;
+
   border-radius: 4px;
-  padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 90%;
   margin: 10px auto 0;
@@ -54,5 +54,21 @@
   font-size: 20px;
 }
 .branch{
+  border: 1px solid #fff;
+  padding: 10px;
+  width: 100%;
+  p{
+    color:rgb(255, 250, 250);
+    font-size: 15px;
+  }
 
+}
+.structureBtn{
+  width: 100%;
+  margin-bottom: 5px;
+  color: rgb(255, 250, 250);
+}
+.name{
+  color:rgb(245 245 245);
+  font-size: 18px;
 }
