@@ -40,7 +40,8 @@ export const forumSlice = createSlice({
 			})
 			.addCase(loadAllComments.fulfilled, (state, { payload }) => {
 				state.commentStatus = 'idle';
-				state.commentList = [...payload.comments];
+				console.log(payload);
+				state.commentList = [...payload];
 			})
 			.addCase(loadAllComments.rejected, (state) => {
 				state.commentStatus = 'error';

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ForumComments.module.scss';
 import { loadAllComments } from '../../store/forum/forumAPI';
+import { axiosClassic } from '../../api/interceptors';
+import { getCommentsUrl } from '../../config/api.config';
 
 function ForumComments({ comments, url: URL, topicId }) {
 	const dispatch = useDispatch();
@@ -22,43 +24,32 @@ function ForumComments({ comments, url: URL, topicId }) {
 	async function handleUpdateSubmit(event) {
 		event.preventDefault();
 		let data = {
-			id: updComment.id,
+			id: Number(updComment.id),
 			description: updComment.description,
 		};
+		console.log(data);
+		console.log(JSON.stringify(data));
+		let response = await axiosClassic
+			.post(getCommentsUrl(`/edit`), data)
+			.then((res) => {
+				dispatch(loadAllComments({ topicId }));
+				return res.data;
+			})
+			.catch((e) => console.log(e));
 
-		let response = await fetch(`${URL}forum/comments/edit`, {
-			method: 'PUT',
-			credentials: 'include',
-			headers: {
-				Authorisation: 'Bearer ' + token,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		});
-		if (response.ok) {
-			dispatch(loadAllComments(topicId));
-		} else {
-			console.log(response.status);
-		}
 		setUpdComment(null);
 	}
 
 	// удаление комментария:
 	async function handleDelete(event, id) {
 		event.preventDefault();
-		let response = await fetch(`${URL}forum/comments/delete/${id}`, {
-			method: 'DELETE',
-			credentials: 'include',
-			headers: {
-				Authorisation: 'Bearer ' + token,
-				'Content-Type': 'application/json',
-			},
-		});
-		if (response.ok) {
-			dispatch(loadAllComments(topicId));
-		} else {
-			console.log(response.status);
-		}
+		let response = await axiosClassic
+			.get(getCommentsUrl(`/delete/${id}`))
+			.then((res) => {
+				dispatch(loadAllComments({ topicId }));
+				return res.data;
+			})
+			.catch((e) => console.log(e));
 	}
 
 	function renderUpdForm() {

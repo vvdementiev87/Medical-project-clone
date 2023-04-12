@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import ForumForm from '../../components/ForumForm/ForumForm';
 import styles from './Forum.module.scss';
 import { forumURL, loadAllPosts } from '../../store/forum/forumAPI';
+import { getPostsUrl } from '../../config/api.config';
+import { axiosClassic } from '../../api/interceptors';
 
 function Forum() {
 	const dispatch = useDispatch();
@@ -14,6 +16,7 @@ function Forum() {
 	const loadPostsStatus = useSelector((state) => state.forum.status);
 	const titlesList = useSelector((state) => state.forum.titlesList);
 	console.log(titlesList);
+	console.log(currentUserId);
 	useEffect(() => {
 		dispatch(loadAllPosts());
 	}, []);
@@ -24,23 +27,18 @@ function Forum() {
 	// отправка запроса на удаление поста
 	async function handleDelete(event, id) {
 		event.preventDefault();
-		let response = await fetch(`${URL}forum/posts/delete/${id}`, {
-			method: 'DELETE',
-			credentials: 'include',
-			headers: {
-				Authorisation: 'Bearer ' + token,
-				'Content-Type': 'application/json',
-			},
-		});
-		if (response.ok) {
-			dispatch(loadAllPosts());
-		} else {
-			console.log(response.status);
-		}
+		let response = axiosClassic
+			.get(getPostsUrl(`/delete/${id}`))
+			.then((res) => {
+				console.log(id);
+				dispatch(loadAllPosts());
+				return res.data;
+			})
+			.catch((e) => console.log(e));
 	}
 
 	// рендер всех постов
-	function renderAllTitles(titleArray) {
+	function renderAllTitles(titleArray = []) {
 		return titleArray.map((item) => {
 			return (
 				<div key={item.id}>
@@ -73,7 +71,7 @@ function Forum() {
 								{item.last_comment}
 							</p>
 						</div>
-						{item?.author?.author_id === currentUserId && (
+						{item?.author?.id === currentUserId && (
 							<div className={styles.forum__btn_section}>
 								<button
 									className={styles.forum__btn}

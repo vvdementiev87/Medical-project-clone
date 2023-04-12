@@ -5,7 +5,7 @@ export const getAuthUrl = (string) => `api/auth${string}`;
 export const getVideosUrl = (string) => `api/content/videos${string}`;
 export const getArticlesUrl = (string) => `api/content/articles${string}`;
 export const getConferenciesUrl = (string) =>
-	`api/content/conferencies${string}`;
+	`api/content/conferences${string}`;
 export const getCentersUrl = () => `api/community/centers`;
 export const getCenterUrl = (string) => `api/community/center${string}`;
 export const getCentersCategoriesUrl = () => `api/community/centers/categories`;
@@ -18,4 +18,5 @@ export const getRecommendationsUrl = (string) =>
 	`api/profile/recommended${string}`;
 export const getGalleryUrl = (string) => `api/content/gallery${string}`;
 export const getNormativesUrl = (string) => `api/content/normatives${string}`;
-export const getNotificationsUrl = (string) => `api/profile/notifications${string}`;
+export const getNotificationsUrl = (string) =>
+	`api/profile/notifications${string}`;

@@ -10,6 +10,9 @@ import {
 	loadAllComments,
 	loadPostById,
 } from '../../store/forum/forumAPI';
+import Cookies from 'js-cookie';
+import { axiosClassic } from '../../api/interceptors';
+import { getCommentsUrl } from '../../config/api.config';
 
 function ForumTopic() {
 	const URL = forumURL;
@@ -17,7 +20,7 @@ function ForumTopic() {
 	const { topicId } = useParams();
 	const topic = useSelector((state) => state.forum.currentPost);
 	const comments = useSelector((state) => state.forum.commentList);
-	console.log(topic);
+	console.log(topicId);
 	//для пагинации
 	const [currentPage, setCurrentPage] = useState(1);
 	const [commentsPerPage] = useState(10);
@@ -28,8 +31,8 @@ function ForumTopic() {
 	const token = useSelector((state) => state.user.user?.token);
 
 	useEffect(() => {
-		dispatch(loadAllComments({ topicId }));
 		dispatch(loadPostById({ topicId }));
+		dispatch(loadAllComments({ topicId }));
 	}, []);
 
 	function handleTextChange(event) {
@@ -39,28 +42,20 @@ function ForumTopic() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let data = {
-			post_id: topicId,
-			author_id: currentUserId,
+			post_id: Number(topicId),
+			author_id: Number(currentUserId),
 			description: text,
 		};
-
+		console.log(Cookies.get('XSRF-TOKEN'));
 		// отправка запроса на бэк
-		let response = await fetch(`${URL}forum/comments/add`, {
-			method: 'POST',
-			credentials: 'include',
-			headers: {
-				Authorisation: 'Bearer ' + token,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		});
-
-		if (response.ok) {
-			dispatch(loadAllComments(topicId));
-			setText('');
-		} else {
-			console.log(response.status);
-		}
+		let response = await axiosClassic
+			.post(getCommentsUrl(`/add`), data)
+			.then((res) => {
+				dispatch(loadAllComments({ topicId }));
+				setText('');
+				return res.data;
+			})
+			.catch((e) => console.log(e));
 	}
 
 	const lastCommentIndex = currentPage * commentsPerPage;
