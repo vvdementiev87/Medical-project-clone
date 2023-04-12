@@ -15,7 +15,9 @@ export const routes = {
     FORUM: {link: '/forum', name: 'Forum'},
     CONTACTS: {link: '/contacts', name: 'Contacts'},
     STRUCTURE: {link: '/structure', name: 'Structure'},
-    PARTNERS: {link: '/partners', name: 'Partners'}
+    PARTNERS: {link: '/partners', name: 'Partners'},
+    STATUTE: {link: '/statute', name: 'Statute'},
+    NORMATIVES: {link: '/normatives', name: 'Normatives'},
 };
 
 export function PublicRoute({isAuth, to = routes.HOME.link, children}) {

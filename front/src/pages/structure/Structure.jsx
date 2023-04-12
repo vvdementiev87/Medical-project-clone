@@ -1,21 +1,25 @@
 import React from 'react';
 import styles from "./Structure.module.scss";
 
+//Председатель общества
 const Chief = {
     first_name: "",
     surname: "",
     last_name: ""
 };
+//Заместитель председателя
 const subChief = {
     first_name: "",
     surname: "",
     last_name: ""
 };
+//Секретарь правления
 const administrationChief = {
     first_name: "",
     surname: "",
     last_name: ""
 };
+//Члены правления
 const membersOfAdministration = [
     {
         first_name: "",
@@ -28,6 +32,7 @@ const membersOfAdministration = [
         last_name: ""
     },
 ];
+//Члены ревизионной комиссии
 const membersOfCommission = [
     {
         first_name: "",
@@ -50,7 +55,7 @@ const membersOfCommission = [
         last_name: ""
     }
 ];
-
+//Структура общества
 const structure = [
     {
         title: "Председатель",
