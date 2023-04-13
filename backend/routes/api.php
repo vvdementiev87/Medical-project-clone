@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Profile\FavoritesController;
 use App\Http\Controllers\Profile\RecentViewedController;
 use App\Http\Controllers\Profile\RecommendationsController;
@@ -44,6 +45,12 @@ Route::group(['prefix' => 'content', 'as' => '',], static function () {
 Route::group(['prefix' => 'conferences', 'as' => '',], static function () {
     Route::post('registration', [ConferencesController::class, 'registration']);
     Route::post('unregister', [ConferencesController::class, 'unregister']);
+});
+
+Route::group(['prefix' => 'notification', 'as' => '',], static function () {
+    Route::get('get/{id}', array(NotificationController::class, 'get'));
+    Route::get('read/{id}', array(NotificationController::class, 'read'));
+    Route::get('delete/{id}', [NotificationController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'forum', 'as' => '',], static function () {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
 use App\QueryBuilders\CommentQueryBuilder;
+use App\QueryBuilders\PostQueryBuilder;
+use App\QueryBuilders\UserQueryBuilder;
 use Illuminate\Http\JsonResponse;
 use App\Models\Comments;
 use App\Http\Requests\Comments\CreateRequest;
@@ -36,9 +38,15 @@ class CommentsController extends Controller
      */
     public function store(CreateRequest $request): JsonResponse
     {
-        $comment = Comments::create($request->validated());
+        $comment = Comments::create([
+            'author_id' => $request->validated()['author_id'],
+            'description' => $request->validated()['description']
+        ]);
 
         if ($comment) {
+            $comment->post()->attach($request->validated()['post_id']);
+            CommentQueryBuilder::notify($request->validated()['post_id']);
+
             return response()->json($comment, 201);
         }
 
