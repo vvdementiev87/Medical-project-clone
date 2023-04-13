@@ -103,4 +103,15 @@ class PostQueryBuilder extends QueryBuilder
     {
         return $this->model->paginate($quantity);
     }
+
+    /**
+     * @param int $post_id
+     * @return Posts
+     */
+    public static function getPost(int $post_id): Posts
+    {
+        $posts = new Posts();
+        return $posts->find($post_id);
+
+    }
 }

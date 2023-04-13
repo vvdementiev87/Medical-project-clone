@@ -32,4 +32,14 @@ class UserQueryBuilder extends QueryBuilder
     {
         return User::query()->get();
     }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public static function getById(int $id): User
+    {
+        $user = new User();
+        return $user->find($id);
+    }
 }

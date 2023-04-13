@@ -38,6 +38,8 @@ class CommentsController extends Controller
         $comment = Comments::create($request->validated());
 
         if ($comment) {
+            CommentQueryBuilder::notify($request->validated()['post_id']);
+
             return response()->json($comment, 201);
         }
 
