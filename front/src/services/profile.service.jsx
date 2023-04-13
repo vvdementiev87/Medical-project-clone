@@ -4,6 +4,7 @@ import {
 	getRecentViewedUrl,
 	getRecommendationsUrl,
 } from '../config/api.config';
+import { useAuth } from '../hooks/useAuth';
 
 export const ProfileService = {
 	async getRecentViewed() {
@@ -16,14 +17,15 @@ export const ProfileService = {
 			return res.data;
 		});
 	},
-	async getNotifications() {
-		return axiosClassic.get(getNotificationsUrl('')).then((res) => {
+	async getNotifications(id) {
+		return axiosClassic.get(getNotificationsUrl(`/get/${id}`)).then((res) => {
+			console.log(res);
 			return res.data;
 		});
 	},
-	async setNotifications() {
-		return axiosClassic.get(getNotificationsUrl('/mark')).then((res) => {
-			console.log(res.data);
+	async setNotifications(id) {
+		return axiosClassic.get(getNotificationsUrl(`/read/${id}`)).then((res) => {
+			console.log(res);
 			return res.data;
 		});
 	},

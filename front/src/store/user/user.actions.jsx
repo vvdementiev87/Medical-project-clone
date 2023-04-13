@@ -133,9 +133,9 @@ export const getRecommendations = createAsyncThunk(
 
 export const getNotifications = createAsyncThunk(
 	'user/Notifications/get',
-	async (_, thunkApi) => {
+	async ({ id }, thunkApi) => {
 		try {
-			const response = await ProfileService.getNotifications();
+			const response = await ProfileService.getNotifications(id);
 			toastr.success('Notifications', 'Get successfully');
 			return response;
 		} catch (error) {
@@ -147,9 +147,9 @@ export const getNotifications = createAsyncThunk(
 
 export const setNotifications = createAsyncThunk(
 	'user/Notifications/set',
-	async (_, thunkApi) => {
+	async ({ id }, thunkApi) => {
 		try {
-			const response = await ProfileService.setNotifications();
+			const response = await ProfileService.setNotifications(id);
 			toastr.success('Notifications', 'Set successfully');
 			return response;
 		} catch (error) {

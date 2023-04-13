@@ -31,7 +31,7 @@ const ProfileAccount = () => {
 	const [isDisabled, setIsDisabled] = useState(true);
 	const { update, getNotifications } = useActions();
 	useEffect(() => {
-		getNotifications();
+		getNotifications({ id: user.id });
 	}, []);
 
 	const handleClick = () => {
@@ -47,7 +47,7 @@ const ProfileAccount = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.back}>
-				{Object.values(notifications).some((v) => v.status === 'sent') && (
+				{Object.values(notifications).some((v) => v.read_at === null) && (
 					<div className={styles.message} title={'Новые сообщения'}>
 						<MaterialIcon name={'MdMessage'} />
 					</div>

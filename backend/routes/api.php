@@ -12,7 +12,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
-use \App\Http\Controllers\Profile\NotificationController;
+
 use App\Http\Controllers\Content\ConferencesController;
 use App\Http\Controllers\Content\CommunityCenterController;
 use App\Http\Controllers\Admin\RegistrationAdminController;

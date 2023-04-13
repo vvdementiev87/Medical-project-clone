@@ -18,5 +18,4 @@ export const getRecommendationsUrl = (string) =>
 	`api/profile/recommended${string}`;
 export const getGalleryUrl = (string) => `api/content/gallery${string}`;
 export const getNormativesUrl = (string) => `api/content/normatives${string}`;
-export const getNotificationsUrl = (string) =>
-	`api/profile/notifications${string}`;
+export const getNotificationsUrl = (string) => `api/notification${string}`;
