@@ -1,0 +1,74 @@
+.heading{
+  text-align: center;
+  margin-top: 20px;
+}
+.tree {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 20px 0;
+}
+
+.tree ul {
+  position: relative;
+  padding: 20px;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.tree li {
+  list-style-type: none;
+  float: left;
+  position: relative;
+  text-align: center;
+  transition: all 0.5s;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  width: 100%;
+  background: linear-gradient(to top, rgba(137,212,207,0.8), rgba(115,74,232,0.8));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
+}
+.branchWrapper:not(:first-child), .branchWrapper:nth-child(2),{
+
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  margin: 10px auto 0;
+  color: #fff;
+  font-size: 20px;
+}
+.branch{
+  border: 2px solid #fff;
+  padding: 10px;
+  width: 100%;
+  p{
+    color:rgb(255, 250, 250);
+    font-size: 15px;
+  }
+
+}
+.structureBtn{
+  width: 100%;
+  margin-bottom: 5px;
+  color: rgb(255, 250, 250);
+}
+.name{
+  color:rgb(245 245 245);
+  font-size: 18px;
+}
