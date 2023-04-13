@@ -30,16 +30,16 @@ const CenterItemPage = () => {
         ) :
         (
             <div className="container">
-                <h1 className={styles.heading}>{centerItem.title}</h1>
+                <h1 className={styles.heading}>{centerItem.name}</h1>
                 <p dangerouslySetInnerHTML={{ __html: centerItem.description }} className={styles.description}/>
                 {centerItem.photos&&<div className={styles.photos}>
                     <Gallery>
                         <div className={styles.gallery}>
                             {centerItem.photos.map((photo) => (
                                 <Item
-                                    key={photo}
-                                    original={photo}
-                                    thumbnail={photo}
+                                    key={photo?.image_url}
+                                    original={photo?.image_url}
+                                    thumbnail={photo?.image_url}
                                     width="100%"
                                     height="100vh"
                                 >
@@ -47,7 +47,7 @@ const CenterItemPage = () => {
                                         <img
                                             ref={ref}
                                             onClick={open}
-                                            src={photo}
+                                            src={photo?.image_url}
                                         />
                                     )}
                                 </Item>

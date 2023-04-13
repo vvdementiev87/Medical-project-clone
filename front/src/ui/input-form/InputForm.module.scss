@@ -1,7 +1,23 @@
 @import '../../assets/styles/variables';
 
+
+$max-tablet-width: '991px';
+$max-mobile-width: '768px';
+$max-sm-mobile-width: '575px';
+
+@mixin tablet {
+  @media(max-width: $max-tablet-width) {
+    @content;
+  }
+}
+
 .input {
   label {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap:10px;
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 700;
@@ -11,11 +27,26 @@
   }
 
   input {
+    padding: 0;
+    margin: 0;
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 140%;
     color: rgba($primary-text-color, 0.25);
+
+    @include tablet() {
+      gap:0;
+      text-align: center;}
   }
+}
+.error{
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+    color: rgba(#ff0000, 0.25);
+ 
 }

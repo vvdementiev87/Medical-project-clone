@@ -12,7 +12,10 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
+use \App\Http\Controllers\Profile\NotificationController;
 use App\Http\Controllers\Content\ConferencesController;
+use App\Http\Controllers\Content\CommunityCenterController;
+use App\Http\Controllers\Admin\RegistrationAdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,6 +30,8 @@ use App\Http\Controllers\Content\ConferencesController;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/registration', [RegistrationAdminController::class, 'store']);
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);
@@ -60,21 +65,27 @@ Route::group(['prefix' => 'forum', 'as' => '',], static function () {
     Route::get('/posts/delete/{id}', [PostsController::class, 'destroy']);
     Route::post('/posts/edit', [PostsController::class, 'update']);
 
-    Route::get('/comments/{post_id}', [CommentsController::class, 'index']);
+    Route::get('/{post_id}/comments', [CommentsController::class, 'index']);
     Route::post('/comments/add', [CommentsController::class, 'store']);
     Route::get('/comments/delete/{id}', [CommentsController::class, 'destroy']);
     Route::post('/comments/edit', [CommentsController::class, 'update']);
+});
 
+Route::group(['prefix' => 'community', 'as' => '',], static function () {
+    Route::get('centers', [CommunityCenterController::class, 'index']);
+    Route::get('centers/categories', [CommunityCenterController::class, 'getCategories']);
+    Route::get('center/{id}', [CommunityCenterController::class, 'show']);
 });
 
 Route::group(['prefix'=>'profile', 'as'=>'profile'], static function(){
-    Route::post('favorites/add',[FavoritesController::class, 'add']);
-    Route::post('favorites',[FavoritesController::class, 'show']);
-    Route::post('favorites/check',[FavoritesController::class, 'check']);
-    Route::post('favorites/delete',[FavoritesController::class, 'delete']);
-    Route::get('viewed',[RecentViewedController::class, 'show']);
-    Route::get('recommended',[RecommendationsController::class, 'show']);
-
+    Route::post('/favorites/add',[FavoritesController::class, 'add']);
+    Route::post('/favorites',[FavoritesController::class, 'show']);
+    Route::post('/favorites/check',[FavoritesController::class, 'check']);
+    Route::post('/favorites/delete',[FavoritesController::class, 'delete']);
+    Route::get('/viewed',[RecentViewedController::class, 'show']);
+    Route::get('/recommended',[RecommendationsController::class, 'show']);
+    Route::get('/notifications',[NotificationController::class, 'show']);
+    Route::get('/notifications/mark',[NotificationController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';

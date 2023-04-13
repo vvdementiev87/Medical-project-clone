@@ -131,6 +131,34 @@ export const getRecommendations = createAsyncThunk(
 	}
 );
 
+export const getNotifications = createAsyncThunk(
+	'user/Notifications/get',
+	async (_, thunkApi) => {
+		try {
+			const response = await ProfileService.getNotifications();
+			toastr.success('Notifications', 'Get successfully');
+			return response;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const setNotifications = createAsyncThunk(
+	'user/Notifications/set',
+	async (_, thunkApi) => {
+		try {
+			const response = await ProfileService.setNotifications();
+			toastr.success('Notifications', 'Set successfully');
+			return response;
+		} catch (error) {
+			toastrError(error);
+			return thunkApi.rejectWithValue(error.response.data);
+		}
+	}
+);
+
 export const update = createAsyncThunk(
 	'auth/user/update',
 	async (

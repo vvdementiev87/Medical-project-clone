@@ -1,11 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import styles from './Sources.module.scss';
 import { routes } from '../../routes/route';
+import {useAuth} from "../../hooks/useAuth";
 
 const element1 = <FontAwesomeIcon icon={faFile} />;
 const element2 = <FontAwesomeIcon icon={faBook} />;
@@ -17,7 +18,7 @@ const data = [
 		title: 'Литература',
 		description: 'Методические пособия, книги, презентации',
 		link: 'Подробнее...',
-		url: routes.HOME.link,
+		url: routes.ARTICLES.link,
 	},
 	{
 		image: element3,
@@ -29,6 +30,7 @@ const data = [
 ];
 
 const Sources = () => {
+	const { user } = useAuth();
 	return (
 		<div className={styles.sources} id="sources">
 			<div className="container">
@@ -48,7 +50,7 @@ const Sources = () => {
 										<p className={styles.sourcesText}>
 											{item.description}
 										</p>
-										<NavLink to="/" className={styles.link}>Подробнее...</NavLink>
+										<NavLink to={user?item.url:routes.LOGIN.link} className={styles.link}>Подробнее...</NavLink>
 									</div>
 								)
 							})}

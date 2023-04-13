@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import styles from './InputField.module.scss';
 
-export const InputField = forwardRef(({ labelText, error, ...props }, ref) => {
+export const InputField = forwardRef(({ labelText, custom_required,error, ...props }, ref) => {
 	return (
 		<label>
-			{labelText}
+			{labelText} {custom_required?<span className="custom_required">*</span>:''}
 			<input
 				{...props}
 				ref={ref}

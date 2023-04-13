@@ -24,6 +24,9 @@ class ConferencesQueryBuilder extends QueryBuilder
         return $this->model->get();
     }
 
+    /**
+     * @return array
+     */
     function get(): array
     {
         return [

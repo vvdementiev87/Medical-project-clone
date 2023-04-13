@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\NewPasswordRequest;
+use App\Http\Requests\Auth\PasswordResetLinkRequest;
+use App\Models\Account;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,6 +16,19 @@ use Illuminate\Validation\ValidationException;
 
 class NewPasswordController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $id = \auth()->id();
+        $account = Account::where('id', $id)->firstOrFail();
+        $token = Password::createToken($account);
+
+        return response()->json(['resetPasswordToken' => $token]);
+    }
+
     /**
      * @param NewPasswordRequest $request
      * @return JsonResponse
@@ -30,7 +45,6 @@ class NewPasswordController extends Controller
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
                 ])->save();
 
                 event(new PasswordReset($user));
