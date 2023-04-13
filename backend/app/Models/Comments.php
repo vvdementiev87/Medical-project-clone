@@ -21,7 +21,7 @@ class Comments extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
     public function post(): BelongsToMany
     {
