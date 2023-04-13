@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Notifications\CommentsNotification;
 
 class CommentQueryBuilder extends QueryBuilder
 {
@@ -61,4 +62,18 @@ class CommentQueryBuilder extends QueryBuilder
     {
         return $this->model->paginate($quantity);
     }
+
+    /**
+     * @param int $post_id
+     * @return void
+     */
+    public static function notify(int $post_id): void
+    {
+        $post = PostQueryBuilder::getPost($post_id);
+        $user = UserQueryBuilder::getById($post->author_id);
+
+        $user->notify(new CommentsNotification($user->id, $post->title));
+
+    }
 }
+
