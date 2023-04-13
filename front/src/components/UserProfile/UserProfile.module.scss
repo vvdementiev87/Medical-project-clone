@@ -318,7 +318,6 @@ $max-sm-mobile-width: '575px';
     font-weight: 500;
     font-size: 18px;
     line-height: 110%;
-    height: fit-content;
     color: rgba($primary-text-color, 0.25);
     width: 100%;
     @include tablet() {

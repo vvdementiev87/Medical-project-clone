@@ -83,36 +83,55 @@ export const AuthService = {
 	},
 
 	async update(
+		// password_confirmation,
+		email,
+		// password,
 		address,
 		sign_for_news,
 		position,
 		phone,
 		surname,
-		other_info,
+		// other_info,
 		last_name,
 		first_name,
 		experience,
 		education,
-		place_work,
-		category,
+		education_end,
+		company,
+		// category,
 		birth_date,
-		has_agreed
+		specialization,
+		degree,
+		academic_rank,
+		interests,
+		is_other_organization
 	) {
+		console.log(interests);
+		sign_for_news = sign_for_news ? true : false;
+		const interestsList = interests.map((item) => item.value).join(', ');
 		const response = await axiosClassic.post(getAuthUrl('/user/update'), {
+			// password_confirmation,
+			//email,
+			// password,
 			address,
 			sign_for_news,
 			position,
 			phone,
 			surname,
-			other_info,
+			// other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			place_work,
-			category,
+			education_end,
+			company,
+			// category,
 			birth_date,
-			has_agreed,
+			specialization,
+			degree,
+			academic_rank,
+			interests: interestsList,
+			is_other_organization,
 		});
 		console.log(response);
 		if (response?.data.accessToken) {

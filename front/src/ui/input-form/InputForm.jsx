@@ -13,7 +13,9 @@ const InputForm = forwardRef(
 		},
 		ref
 	) => {
-		const [dynamicLength, setDynamicLength] = useState(defaultValue.length + 1);
+		const [dynamicLength, setDynamicLength] = useState(
+			defaultValue?.length + 1
+		);
 
 		return (
 			<div className={styles.input} style={style}>

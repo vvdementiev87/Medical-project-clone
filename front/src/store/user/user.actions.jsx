@@ -163,41 +163,62 @@ export const update = createAsyncThunk(
 	'auth/user/update',
 	async (
 		{
+			// password_confirmation,
+			email,
+			// password,
 			address,
 			sign_for_news,
 			position,
 			phone,
 			surname,
-			other_info,
+			// other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			place_work,
-			category,
+			education_end,
+			company,
+			// category,
 			birth_date,
+			specialization,
+			degree,
+			academic_rank,
+			interests,
+			is_other_organization,
 		},
 		thunkApi
 	) => {
 		try {
+			console.log(interests);
+			console.log(sign_for_news);
 			const response = await AuthService.update(
+				// password_confirmation,
+				email,
+				// password,
 				address,
 				sign_for_news,
 				position,
 				phone,
 				surname,
-				other_info,
+				// other_info,
 				last_name,
 				first_name,
 				experience,
 				education,
-				place_work,
-				category,
-				birth_date
+				education_end,
+				company,
+				// category,
+				birth_date,
+				specialization,
+				degree,
+				academic_rank,
+				interests,
+				is_other_organization
 			);
 			toastr.success('User update', 'Completed successfully');
 			return response.data;
 		} catch (error) {
+			console.log(error);
 			toastrError(error);
 			return thunkApi.rejectWithValue(error);
 		}
