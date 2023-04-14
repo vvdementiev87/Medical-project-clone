@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/registration', [RegistrationAdminController::class, 'store']);
+Route::post('/registration', [RegistrationAdminController::class, 'store']);
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);

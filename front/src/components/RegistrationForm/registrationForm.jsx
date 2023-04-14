@@ -1,12 +1,10 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { getCsrfToken } from '../../api/interceptors';
 import { useActions } from '../../hooks/useActions';
 import { InputField } from '../basic/InputField/InputField';
 import { TextAreaField } from '../basic/TextAreaField/TextAreaField';
 import Select from 'react-select';
 import { Controller, useForm } from 'react-hook-form';
-import PopupInput from '../PopupInput/PopupInput';
-
 export const optionList = [
 	{
 		value: 'Организация и менеджмент симуляционного центра',
@@ -82,23 +80,17 @@ export const customStylesError = {
 };
 
 function RegistrationForm() {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		reset,
-		control,
-	} = useForm({ mode: 'all' });
+	const { register, handleSubmit, formState, reset, control } = useForm({
+		mode: 'all',
+	});
 	const { register: registerAction } = useActions();
 	const [responseError, setResponseError] = useState(null);
-	const [selectedOptions, setSelectedOptions] = useState([]);
-	const [isShowInput, setIsShowInput] = useState(false);
-	const [isMemberOrganization, setIsMemberOrganization] = useState(() => false);
-	const [otherOrganizations, setOtherOrganizations] = useState('');
+	const [selectedOptions, setSelectedOptions] = useState(null);
 	const [checked, setChecked] = useState(false);
+	console.log(formState);
 
 	const onSubmit = async (data) => {
-		// await getCsrfToken();
+		await getCsrfToken();
 		console.log(data);
 		const {
 			// password_confirmation,
@@ -123,6 +115,8 @@ function RegistrationForm() {
 			academic_rank,
 			interests,
 			is_other_organization,
+			is_member,
+			has_agreed,
 		} = data;
 
 		try {
@@ -149,6 +143,8 @@ function RegistrationForm() {
 				academic_rank,
 				interests,
 				is_other_organization,
+				is_member,
+				has_agreed,
 			});
 		} catch (error) {
 			setResponseError(error.response.data.errors);
@@ -170,7 +166,7 @@ function RegistrationForm() {
 					custom_required={true}
 					placeholder="Петров"
 					labelText="Фамилия"
-					error={errors['last_name']}
+					error={formState.errors['last_name']}
 					{...register('last_name', {
 						required: { value: true, message: 'Укажите фамилию' },
 					})}
@@ -182,7 +178,7 @@ function RegistrationForm() {
 					placeholder="Петр"
 					labelText="Имя"
 					custom_required={true}
-					error={errors['first_name']}
+					error={formState.errors['first_name']}
 					{...register('first_name', {
 						required: { value: true, message: 'Укажите имя' },
 					})}
@@ -193,7 +189,7 @@ function RegistrationForm() {
 					name="surname"
 					placeholder="Петрович"
 					labelText="Отчество"
-					error={errors.surname}
+					error={formState.errors.surname}
 					{...register('surname')}
 				/>
 				<InputField
@@ -204,7 +200,7 @@ function RegistrationForm() {
 					placeholder="01.01.1977"
 					type="date"
 					labelText="Дата рождения"
-					error={errors['birth_date']}
+					error={formState.errors['birth_date']}
 					custom_required={true}
 					{...register('birth_date', {
 						required: { value: true, message: 'Укажите дату рождения' },
@@ -216,7 +212,7 @@ function RegistrationForm() {
 					id="phone"
 					name="phone"
 					placeholder="+375..."
-					error={errors['phone']}
+					error={formState.errors['phone']}
 					type="tel"
 					labelText="Телефон в международном формате"
 					custom_required={true}
@@ -232,7 +228,7 @@ function RegistrationForm() {
 					placeholder="example@mail.com"
 					type="email"
 					labelText="Email"
-					error={errors.email}
+					error={formState.errors.email}
 					custom_required={true}
 					{...register('email', {
 						required: { value: true, message: 'Укажите email' },
@@ -250,7 +246,7 @@ function RegistrationForm() {
 					name="address"
 					labelText="Aдрес, включая почтовый индекс"
 					placeholder="..."
-					error={errors['address']}
+					error={formState.errors['address']}
 					custom_required={true}
 					aria-label="address"
 					{...register('address', {
@@ -264,7 +260,7 @@ function RegistrationForm() {
 					name="education"
 					aria-label="education"
 					labelText="Профессиональное образование: учебное заведение"
-					error={errors['education']}
+					error={formState.errors['education']}
 					custom_required={true}
 					placeholder="..."
 					{...register('education', {
@@ -278,7 +274,7 @@ function RegistrationForm() {
 					name="education_end"
 					placeholder="..."
 					labelText="Год окончания учебного заведения"
-					error={errors['education_end']}
+					error={formState.errors['education_end']}
 					custom_required={true}
 					{...register('education_end', {
 						required: {
@@ -293,7 +289,7 @@ function RegistrationForm() {
 					id="specialization"
 					name="specialization"
 					placeholder="..."
-					error={errors['specialization']}
+					error={formState.errors['specialization']}
 					labelText="Специальность"
 					custom_required={true}
 					{...register('specialization', {
@@ -307,7 +303,7 @@ function RegistrationForm() {
 					name="experience"
 					placeholder="..."
 					type="number"
-					error={errors['experience']}
+					error={formState.errors['experience']}
 					custom_required={true}
 					labelText="Стаж работы в специальности"
 					{...register('experience', {
@@ -320,7 +316,7 @@ function RegistrationForm() {
 					id="company"
 					name="company"
 					placeholder="..."
-					error={errors['company']}
+					error={formState.errors['company']}
 					custom_required={true}
 					labelText="Место работы"
 					{...register('company', {
@@ -335,7 +331,7 @@ function RegistrationForm() {
 					placeholder="..."
 					labelText="Должность"
 					custom_required={true}
-					error={errors.position}
+					error={formState.errors.position}
 					{...register('position', {
 						required: { value: true, message: 'Укажите должность' },
 					})}
@@ -347,7 +343,7 @@ function RegistrationForm() {
 					name="degree"
 					placeholder="..."
 					labelText="Ученая степень"
-					error={errors.degree}
+					error={formState.errors.degree}
 					{...register('degree')}
 				/>
 
@@ -357,7 +353,7 @@ function RegistrationForm() {
 					name="academic_rank"
 					placeholder="..."
 					labelText="Ученое звание"
-					error={errors.academic_rank}
+					error={formState.errors.academic_rank}
 					{...register('academic_rank')}
 				/>
 
@@ -368,45 +364,34 @@ function RegistrationForm() {
 					custom_required={true}
 					control={control}
 					rules={{ required: true }}
-					render={({ field }) => (
-						<label>
-							{'Область профессиональных интересов'}
-							<span className="custom_required ms-1">*</span>
-							<Select
-								{...field}
-								placeholder="..."
-								isMulti
-								isSearchable
-								options={optionList}
-								styles={
-									!errors.interests || selectedOptions.length > 0
-										? customStyles
-										: customStylesError
-								}
-								className="w-100 mt-2"
-								value={selectedOptions}
-								onChange={(options) => {
-									if (!options) {
-										setSelectedOptions([]);
-									} else {
-										if (options[options.length - 1]?.value === 'Другое') {
-											setIsShowInput(true);
-										} else {
-											setSelectedOptions(options);
-											setIsShowInput(false);
-										}
+					render={({ field: { onChange, onBlur, value, name, ref } }) => {
+						return (
+							<label>
+								{'Область профессиональных интересов'}
+								<span className="custom_required ms-1">*</span>
+								<Select
+									options={optionList}
+									onChange={onChange}
+									isMulti={true}
+									s
+									onBlur={onBlur}
+									value={value}
+									name={name}
+									ref={ref}
+									placeholder="..."
+									isSearchable
+									styles={
+										!formState.errors.interests || selectedOptions.length > 0
+											? customStyles
+											: customStylesError
 									}
-								}}
-							/>
-							<PopupInput
-								setSelectedOptions={setSelectedOptions}
-								isShowInput={isShowInput}
-								setIsShowInput={setIsShowInput}
-							/>
-						</label>
-					)}
+									className="w-100 mt-2"
+								/>
+							</label>
+						);
+					}}
 				/>
-				{errors.interests && selectedOptions.length < 1 && (
+				{formState.errors.interests && selectedOptions.length < 1 && (
 					<span
 						className={`input_field_text_error mt-negative-15`}
 						data-testid="input-error"
@@ -438,7 +423,7 @@ function RegistrationForm() {
 						aria-label="is_other_organization"
 						labelText="Название обшественного объединения"
 						defaultValue=""
-						error={errors['is_other_organization']}
+						error={formState.errors['is_other_organization']}
 						placeholder="..."
 						custom_required={true}
 						{...register('is_other_organization', {
@@ -475,7 +460,7 @@ function RegistrationForm() {
 							required: { value: true, message: 'Заполните все поля' },
 						})}
 					/>
-					{errors.has_agreed && (
+					{formState.errors.has_agreed && (
 						<span
 							className={`input_field_text_error`}
 							data-testid="input-error"

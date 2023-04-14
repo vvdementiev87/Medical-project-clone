@@ -30,7 +30,7 @@ class RegisteredUserRequest extends FormRequest
             'surname' => 'string|alpha_dash:ascii',
             'birth_date' => 'required|date',
             'email' => 'required|email|unique:accounts,email',
-            'phone' => ['required','regex:/^(\+375|80)(24|29|25|44|33)(\d{3})(\d{2})(\d{2})$/'],
+            'phone' => ['required'],
             'address' => 'required|string',
             'education' => 'required|string',
             'education_end' => 'required|string',

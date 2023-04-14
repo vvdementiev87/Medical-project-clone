@@ -5,13 +5,8 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const send = <FontAwesomeIcon icon={faArrowRight} />;
 
-const PopupInput = ({ setSelectedOptions, isShowInput, setIsShowInput }) => {
+const PopupInput = ({ handleOnClick, isShowInput }) => {
 	const [value, setValue] = useState('');
-
-	const handleSubmit = (e) => {
-		setSelectedOptions((prev) => [...prev, { value: value, label: value }]);
-		setIsShowInput(false);
-	};
 
 	return (
 		<div className={`${isShowInput ? styles.active : ''} ${styles.show}`}>
@@ -26,7 +21,7 @@ const PopupInput = ({ setSelectedOptions, isShowInput, setIsShowInput }) => {
 					}}
 					placeholder="Профессиональный интерес"
 				/>
-				<button type="button" onClick={handleSubmit}>
+				<button type="button" onClick={() => handleOnClick(value)}>
 					{send}
 				</button>
 			</div>
