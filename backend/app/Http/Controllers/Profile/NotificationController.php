@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profile\Notification;
-use App\QueryBuilders\EventsQueryBuilder;
 use App\QueryBuilders\Profile\NotificationsQueryBuilder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
@@ -22,6 +19,7 @@ class NotificationController extends Controller
         if ($notifications) {
             return response()->json($notifications);
         }
+
         return response()->json([
             'message' => 'Error loading notifications',
         ], 404);
@@ -38,6 +36,7 @@ class NotificationController extends Controller
         if ($notifications) {
             return response()->json($notifications);
         }
+
         return response()->json([
             'message' => 'Error loading notifications',
         ], 404);

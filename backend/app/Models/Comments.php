@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Notifications\Notifiable;
 
 class Comments extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'comments';
 
@@ -20,10 +21,10 @@ class Comments extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function post(): BelongsTo
+    public function post(): BelongsToMany
     {
-        return $this->belongsTo(Posts::class, 'post_id', 'id');
+        return $this->belongsToMany(Posts::class, 'comments_has_post', 'comment_id', 'post_id');
     }
 }

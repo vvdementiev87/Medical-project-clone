@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+input.custom_required{
+  position: relative;
+}
+input.custom_required::after{
+   content: "*";
+  display: block;
+   color:red;
+   position: absolute;
+   top: -5px;
+   right: -10px;
+ }

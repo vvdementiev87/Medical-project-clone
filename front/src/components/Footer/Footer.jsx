@@ -7,6 +7,7 @@ import Instagram from '../../assets/images/instagram.png';
 import Youtube from '../../assets/images/youtube.png';
 import Phone from '../../assets/images/telephone.png';
 import Mail from '../../assets/images/envelope.png';
+import {routes} from "../../routes/route";
 
 const Footer = () => {
 	return (
@@ -19,17 +20,17 @@ const Footer = () => {
 					<h5>Общество</h5>
 					<ul className={styles.footerList}>
 						<li>
-							<Link to="/">Устав</Link>
+							<Link to={routes.STATUTE.link}>Устав</Link>
 						</li>
 						<li>
-							<Link to="/">Структура</Link>
+							<Link to={routes.STRUCTURE.link}>Структура</Link>
 						</li>
 						<li>
-							<Link to="/"> Нормативные документы</Link>
+							<Link to={routes.NORMATIVES.link}> Нормативные документы</Link>
 						</li>
 
 						<li>
-							<Link to="/photos">Фотогалерея</Link>
+							<Link to={routes.PHOTOS.link}>Фотогалерея</Link>
 						</li>
 					</ul>
 				</section>
@@ -37,11 +38,11 @@ const Footer = () => {
 					<h5>Обучение</h5>
 					<ul className={styles.footerList}>
 						<li>
-							<Link to="/centers">Центры</Link>
+							<Link to={routes.CENTERS.link}>Симуляционные центры</Link>
 						</li>
 
 						<li>
-							<Link to="/"> Учебные материалы</Link>
+							<Link to={routes.STUDY.link}> Учебные материалы</Link>
 						</li>
 					</ul>
 				</section>
@@ -64,7 +65,7 @@ const Footer = () => {
 						<li className={styles.socials}>
 							<div>
 								<Link
-									to="https://www.instagram.com/"
+									to="https://instagram.com/bosom_official_?igshid=YmMyMTA2M2Y="
 									rel="nofollow noopener noreferrer"
 									target="_blank"
 									className="everywhere-button"
@@ -73,7 +74,7 @@ const Footer = () => {
 								</Link>
 
 								<Link
-									to="https://www.facebook.com/"
+									to="https://www.facebook.com/pg/bosom.official/offers/"
 									rel="nofollow noopener noreferrer"
 									target="_blank"
 									className="everywhere-button"

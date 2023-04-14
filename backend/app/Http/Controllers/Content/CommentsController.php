@@ -25,7 +25,6 @@ class CommentsController extends Controller
             ], 400);
         }
 
-        dd(response()->json($result));
         return response()->json($result);
     }
 
@@ -39,6 +38,8 @@ class CommentsController extends Controller
         $comment = Comments::create($request->validated());
 
         if ($comment) {
+            CommentQueryBuilder::notify($request->validated()['post_id']);
+
             return response()->json($comment, 201);
         }
 

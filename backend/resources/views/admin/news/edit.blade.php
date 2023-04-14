@@ -4,7 +4,7 @@
         <h1 class="h2">Редактирование новости</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url("https://bosomed.ru/middleware/admin/news") }}" class="btn btn-sm btn-outline-secondary">Назад</a>
+                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news") }}" class="btn btn-sm btn-outline-secondary">Назад</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -15,7 +15,7 @@
                 <x-alert type="danger" :message="$error"></x-alert>
             @endforeach
         @endif
-        <form method="post" action="{{ url("https://bosomed.ru/middleware/admin/news/".$news->id ."/update") }}">
+        <form method="post" action="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news/".$news->id) }}">
             @csrf
             @method('put')
             <div class="form-group">
