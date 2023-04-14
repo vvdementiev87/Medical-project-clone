@@ -1,0 +1,22 @@
+.bold {
+    font-weight: bold;
+}
+
+.payment__list_item {
+    padding-left: 24px;
+}
+.payment__download {
+    display: block;
+    margin-bottom: 60px;
+}
+
+.payment__link {
+    text-decoration: underline;
+}
+
+.payment__img {
+    width: 500px;
+    @media (max-width: 550px) {
+        width: 300px;
+    }
+}

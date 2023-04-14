@@ -102,7 +102,7 @@ const Header = ({ isAuth }) => {
 										</Link>
 									</li>
 									<li>
-										<Link to="/" className="dropdown-item" onClick={hideMenu}>
+										<Link to="/payments" className="dropdown-item" onClick={hideMenu}>
 											Оплатить взносы
 										</Link>
 									</li>
