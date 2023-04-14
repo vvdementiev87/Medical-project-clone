@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import styles from './TopSection.module.scss';
-import topFoto from '../../assets/testImages/Top.png';
-import topClinicFoto from '../../assets/testImages/clinic.jpg';
-import topEmergencyFoto from '../../assets/testImages/emergency.jpg';
-import topTrainingFoto from '../../assets/testImages/training.jpg';
+import robotoFoto from '../../assets/images/topSection/robot.jpg';
+import sonoFoto from '../../assets/images/topSection/sono.jpg';
+import laparoFoto from '../../assets/images/topSection/laparo.jpg';
+import colonoFoto from '../../assets/images/topSection/colono.jpg';
 import {useNavigate} from "react-router-dom";
 import RoundedButton from "../../ui/rounded-button/RoundedButton";
 
 
 
-const images = [topFoto, topClinicFoto, topTrainingFoto, topEmergencyFoto];
+const images = [robotoFoto, sonoFoto, laparoFoto, colonoFoto];
 
 const TopSection = () => {
     const navigate = useNavigate();

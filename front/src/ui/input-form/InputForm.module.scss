@@ -35,6 +35,7 @@ $max-sm-mobile-width: '575px';
     font-size: 18px;
     line-height: 140%;
     color: rgba($primary-text-color, 0.25);
+
     @include tablet() {
       gap:0;
       text-align: center;}

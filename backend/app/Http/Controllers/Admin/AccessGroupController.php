@@ -3,61 +3,93 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AccessGroup\CreateRequest;
+use App\Http\Requests\AccessGroup\EditRequest;
+use App\Models\AccessGroup;
 use App\QueryBuilders\AccessGroupQueryBuilder;
+use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 
 class AccessGroupController extends Controller
 {
-
     /**
      * @param  AccessGroupQueryBuilder  $queryBuilder
      * @return View
      */
     public function index(AccessGroupQueryBuilder $queryBuilder): View
     {
-        return \view('admin.accessGroup.index', [
+        return view('admin.accessGroup.index', [
             'accessGroup' => $queryBuilder->getCollection(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @return View
      */
-    public function store(Request $request) //TODO будет дополняться
+    public function create(): View
     {
-        //
+        return view('admin.accessGroup.create');
     }
 
     /**
-     * Display the specified resource.
+     * @param CreateRequest $request
+     * @return RedirectResponse
      */
-    public function show(string $id) //TODO будет дополняться
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+        $newGroup = AccessGroup::create($request->validated());
+
+        if ($newGroup->save()) {
+            return redirect()->route('admin.accessGroup.index')->with('success', 'Access group created');
+        }
+
+        return back()->with('error', 'Access group can not be create');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param AccessGroup $accessGroup
+     * @return View
      */
-    public function edit(string $id) //TODO будет дополняться
+    public function edit(AccessGroup $accessGroup): View
     {
-        //
+        return view('admin.accessGroup.edit', [
+            'group' => $accessGroup,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param EditRequest $request
+     * @param AccessGroup $accessGroup
+     * @return RedirectResponse
      */
-    public function update(Request $request, string $id) //TODO будет дополняться
+    public function update(EditRequest $request, AccessGroup $accessGroup): RedirectResponse
     {
-        //
+        $result = $accessGroup->fill($request->validated());
+
+        if ($result->save()) {
+            return redirect()->route('admin.accessGroup.index')->with('success', 'Access group updated');
+        }
+
+        return back()->with('error', 'Access group can not be update');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param AccessGroup $accessGroup
+     * @return JsonResponse|RedirectResponse
      */
-    public function destroy(string $id) //TODO будет дополняться
+    public function destroy(AccessGroup $accessGroup): JsonResponse|RedirectResponse
     {
-        //
+        try{
+            $accessGroup->delete();
+
+            return redirect()->with('success', 'Access group updated');
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage(), [$exception]);
+
+            return response()->json('error', 400);
+        }
     }
 }

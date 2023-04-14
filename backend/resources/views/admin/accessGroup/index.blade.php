@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Список пользователей</h1>
+        <h1 class="h2">Список групп доступа</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="#" class="btn btn-sm btn-outline-secondary">Добавить пользователя</a>
+                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/accessGroup/create") }}" class="btn btn-sm btn-outline-secondary">Добавить группу доступа</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -27,8 +27,8 @@
                 <td>{{ $group->created_at }}</td>
                 <td>{{ $group->updated_at }}</td>
                 <td>
-                    <a href="#">измениить</a>
-                    <a href="javascript:;" class="delete" rel="{{ $group->id }}">удалить</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/accessGroup/" . $group->id . "/edit") }}">измениить</a>
+                    <a href="javascript:;" class="delete btn btn-sm btn-outline-secondary" rel="{{ $group->id }}">удалить</a>
                 </td>
             </tr>
         @empty
@@ -48,8 +48,8 @@
             elements.forEach(function(elem, key) {
                 elem.addEventListener("click", function() {
                     const id = this.getAttribute('rel');
-                    if(confirm(`Confirm delete user with #id = ${id}`)) {
-                        send(`/admin/users/${id}`).then(() => {
+                    if(confirm(`Confirm delete group with #id = ${id}`)) {
+                        send(`/admin/accessGroup/${id}`).then(() => {
                             location.reload();
                         });
                     }
