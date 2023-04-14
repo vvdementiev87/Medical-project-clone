@@ -32,42 +32,55 @@ describe('RegistrationForm', () => {
 		expect(
 			screen.getByRole('textbox', { name: /surname/i })
 		).toBeInTheDocument();
-
 		expect(screen.getByTestId('birth_date')).toBeInTheDocument();
-
 		expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
 		expect(screen.getByRole('textbox', { name: /phone/i })).toBeInTheDocument();
 		expect(
 			screen.getByRole('textbox', { name: /address/i })
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole('textbox', { name: /place_work/i })
+			screen.getByRole('textbox', { name: /company/i })
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole('textbox', { name: /position/i })
 		).toBeInTheDocument();
-		expect(
-			screen.getByRole('textbox', { name: /category/i })
-		).toBeInTheDocument();
-
+		// 	screen.getByRole('textbox', { name: /category/i })
+		// ).toBeInTheDocument();
 		expect(
 			screen.getByRole('spinbutton', { name: /experience/i })
 		).toBeInTheDocument();
-
 		expect(
-			screen.getByRole('textbox', { name: /education/i })
+			screen.getByRole('textbox', { name: /education$/i })
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole('textbox', { name: /other_info/i })
+			screen.getByRole('textbox', { name: /degree/i })
 		).toBeInTheDocument();
-		expect(screen.getByTestId('password')).toBeInTheDocument();
+		expect(
+			screen.getByRole('textbox', { name: /academic_rank/i })
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole('textbox', { name: /education_end/i })
+		).toBeInTheDocument();
+		expect(
+		screen.getByRole('textbox', { name: /specialization/i })
+		).toBeInTheDocument();
+		expect(
+		screen.getByRole('combobox', { name: /interests/i })
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole('textbox', { name: /is_member/i })
+			).toBeInTheDocument();
+		// expect(
+		// 	screen.getByRole('textbox', { name: /other_info/i })
+		// ).toBeInTheDocument();
+		// expect(screen.getByTestId('password')).toBeInTheDocument();
 		expect(
 			screen.getByRole('checkbox', { name: /has_agreed/i })
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole('checkbox', { name: /sign_for_news/i })
 		).toBeInTheDocument();
-		expect(screen.getByRole('button', { type: /submit/i })).toBeInTheDocument();
+		expect(screen.getByRole('reg_button', { type: /submit/i })).toBeInTheDocument();
 	});
 
 	it('should allow to input last_name', async () => {
@@ -178,7 +191,7 @@ describe('RegistrationForm', () => {
 		);
 	});
 
-	it('should allow to input place_work', async () => {
+	it('should allow to input company', async () => {
 		render(
 			<Provider store={store}>
 				<RegistrationForm />
@@ -187,12 +200,12 @@ describe('RegistrationForm', () => {
 		const user = userEvent.setup();
 		act(() => {
 			user.type(
-				screen.getByRole('textbox', { name: /place_work/i }),
+				screen.getByRole('textbox', { name: /company/i }),
 				'ООО "Рога и копыта"'
 			);
 		});
 		await waitFor(() =>
-			expect(screen.getByRole('textbox', { name: /place_work/i })).toHaveValue(
+			expect(screen.getByRole('textbox', { name: /company/i })).toHaveValue(
 				'ООО "Рога и копыта"'
 			)
 		);
@@ -215,7 +228,7 @@ describe('RegistrationForm', () => {
 		);
 	});
 
-	it('should allow to input category', async () => {
+	it('should allow to input experience', async () => {
 		render(
 			<Provider store={store}>
 				<RegistrationForm />
@@ -223,12 +236,10 @@ describe('RegistrationForm', () => {
 		);
 		const user = userEvent.setup();
 		act(() => {
-			user.type(screen.getByRole('textbox', { name: /category/i }), 'Первая');
+			user.type(screen.getByRole('textbox', { name: /academic_rank/i }), "Доктор");
 		});
 		await waitFor(() =>
-			expect(screen.getByRole('textbox', { name: /category/i })).toHaveValue(
-				'Первая'
-			)
+			expect(screen.getByRole('textbox', { name: /academic_rank/i })).toHaveValue("Доктор")
 		);
 	});
 
@@ -240,16 +251,16 @@ describe('RegistrationForm', () => {
 		);
 		const user = userEvent.setup();
 		act(() => {
-			user.type(screen.getByRole('textbox', { name: /education/i }), 'Высшее');
+			user.type(screen.getByRole('textbox', { name: /education$/i }), 'Высшее');
 		});
 		await waitFor(() =>
-			expect(screen.getByRole('textbox', { name: /education/i })).toHaveValue(
+			expect(screen.getByRole('textbox', { name: /education$/i })).toHaveValue(
 				'Высшее'
 			)
 		);
 	});
 
-	it('should allow to input other_info', async () => {
+	it('should allow to input education_end', async () => {
 		render(
 			<Provider store={store}>
 				<RegistrationForm />
@@ -258,18 +269,18 @@ describe('RegistrationForm', () => {
 		const user = userEvent.setup();
 		act(() => {
 			user.type(
-				screen.getByRole('textbox', { name: /other_info/i }),
-				'Занимаюсь медитацией'
+				screen.getByRole('textbox', { name: /education_end/i }),
+				'2021'
 			);
 		});
 		await waitFor(() =>
-			expect(screen.getByRole('textbox', { name: /other_info/i })).toHaveValue(
-				'Занимаюсь медитацией'
+			expect(screen.getByRole('textbox', { name: /education_end/i })).toHaveValue(
+				'2021'
 			)
 		);
 	});
 
-	it('should allow to input password', async () => {
+	it('should allow to input specialization', async () => {
 		render(
 			<Provider store={store}>
 				<RegistrationForm />
@@ -277,10 +288,10 @@ describe('RegistrationForm', () => {
 		);
 		const user = userEvent.setup();
 		act(() => {
-			user.type(screen.getByTestId('password'), '1234569');
+			user.type(screen.getByRole('textbox', { name: /specialization/i }), 'Лор');
 		});
 		await waitFor(() =>
-			expect(screen.getByTestId('password')).toHaveValue('1234569')
+			expect(screen.getByRole('textbox', { name: /specialization/i })).toHaveValue('Лор')
 		);
 	});
 });

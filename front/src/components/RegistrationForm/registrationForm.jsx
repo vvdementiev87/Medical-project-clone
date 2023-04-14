@@ -310,6 +310,7 @@ function RegistrationForm() {
                 </label>
                 <input
                     className="reg_btn"
+                    role="reg_button"
                     name="submit"
                     type="submit"
                     onClick={handleSubmit(onSubmit)}

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../../store/store.jsx';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 
 describe('LoginForm', () => {
@@ -25,7 +25,7 @@ describe('LoginForm', () => {
 		);
 		expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
 		expect(
-			screen.getByRole('textbox', { name: /password/i })
+			screen.getByLabelText(/password/i)
 		).toBeInTheDocument();
 		expect(screen.getByRole('button', { type: /submit/i })).toBeInTheDocument();
 	});
@@ -57,14 +57,11 @@ describe('LoginForm', () => {
 			</Provider>
 		);
 		const user = userEvent.setup();
+		const inputPassword = screen.getByLabelText(/password/i);
 		act(() => {
-			user.type(screen.getByRole('textbox', { name: /password/i }), '123456');
+			user.type(inputPassword, '123456');
 		});
-		await waitFor(() =>
-			expect(screen.getByRole('textbox', { name: /password/i })).toHaveValue(
-				'123456'
-			)
-		);
+		await waitFor(() => expect(inputPassword).toHaveValue('123456'));
 	});
 
 	it('should allow the email to be deleted', async () => {
@@ -89,7 +86,7 @@ describe('LoginForm', () => {
 			</Provider>
 		);
 		const user = userEvent.setup();
-		const inputPassword = screen.getByRole('textbox', { name: /password/i });
+		const inputPassword = screen.getByLabelText(/password/i);
 		act(() => {
 			user.type(inputPassword, '123456');
 		});
