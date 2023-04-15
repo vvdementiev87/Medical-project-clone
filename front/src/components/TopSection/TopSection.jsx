@@ -30,9 +30,10 @@ const TopSection = () => {
                                 аттестации, внедрение передовых технологий в сфере
                                 здравоохранения
                             </p>
-                            <RoundedButton onClick={() => {
-                                navigate(`/`);
-                            }} text={"Подробнее"}>
+                            <RoundedButton
+                                to="/history"
+                                text="Подробнее"
+                            >
                             </RoundedButton>
                         </div>
                     </div>
