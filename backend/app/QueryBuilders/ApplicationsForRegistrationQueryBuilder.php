@@ -43,7 +43,11 @@ class ApplicationsForRegistrationQueryBuilder
         return collect($application)->all();
     }
 
-    public function destroyApplicationId(int $id)
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function destroyApplicationId(int $id):void
     {
         $this->model->find($id)->delete();
     }
