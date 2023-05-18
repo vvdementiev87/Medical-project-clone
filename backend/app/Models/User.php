@@ -81,9 +81,14 @@ class User extends Authenticatable
                 $user[$key] = $value;
             }
         }
-
-        $password = Str::random(5);
-        $accounts = array_merge($account, ['password' => Hash::make($password)]);
+$password_list=[
+    ['password'=>'vRdwfRK9', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0u5CpTfNMV9HwRoySnQUYMsGA9uUsq4f2'],
+    ['password'=>'kNEBs7Se', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0uHtqVjrB.YOkiF/PUonyfdx20weDKSty'],
+    ['password'=>'0Nqps8OP', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0u6AYR3Y6sx2SOW.FAzFbyvmGK7qPXnRS'],
+    ['password'=>'UDxDYg7x', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0ufC2lC3xoqqlGHVNyTZRkRvte2AA26t2'],
+];
+        $password = $password_list[array_rand($password_list)];
+        $accounts = array_merge($account, ['password' => Hash::make($password['hash'])]);
 
         $id_account = DB::table('accounts')->insertGetId(array_merge($accounts));
 
@@ -93,7 +98,7 @@ class User extends Authenticatable
 
         DB::table('users')->insert($user);
 
-        Mail::to($data['email'])->send(new AcceptApplicationMail($password));
+        Mail::to($data['email'])->send(new AcceptApplicationMail($password['password']));
 
     }
 
