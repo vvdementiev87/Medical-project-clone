@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 class PostController extends Controller
 {
     /**
-     * @param  PostQueryBuilder  $queryBuilder
+     * @param PostQueryBuilder $queryBuilder
      * @return View
      */
     public function index(PostQueryBuilder $queryBuilder): View
@@ -38,21 +38,21 @@ class PostController extends Controller
     }
 
     /**
-     * @param  CreateRequest  $request
+     * @param CreateRequest $request
      * @return RedirectResponse
      */
     public function store(CreateRequest $request): RedirectResponse
     {
         $post = Posts::create($request->validated());
 
-        if($post){
+        if ($post) {
             return redirect()->route('admin.posts.index')->with('success', 'Post added');
         }
         return \back()->with('error', 'Post can be added');
     }
 
     /**
-     * @param Posts            $post
+     * @param Posts $post
      * @param UserQueryBuilder $queryBuilder
      * @return View
      */
@@ -65,15 +65,14 @@ class PostController extends Controller
     }
 
     /**
-     * @param  EditRequest  $request
-     * @param  Posts        $post
+     * @param EditRequest $request
+     * @param Posts $post
      * @return RedirectResponse
      */
     public function update(EditRequest $request, Posts $post): RedirectResponse
     {
-        $post = $post->fill($request->validated());
-
-        if($post->save()){
+        $result = $post->fill($request->validated());
+        if ($result->save()) {
             return redirect()->route('admin.posts.index')->with('success', 'Post update');
         }
 
@@ -81,12 +80,12 @@ class PostController extends Controller
     }
 
     /**
-     * @param  Posts $post
+     * @param Posts $post
      * @return JsonResponse
      */
     public function destroy(Posts $post): JsonResponse
     {
-        try{
+        try {
             $post->comments()->delete();
             $post->delete();
 

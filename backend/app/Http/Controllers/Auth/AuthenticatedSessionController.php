@@ -26,6 +26,7 @@ class AuthenticatedSessionController extends Controller
         $account = \auth()->user();
         $user = User::where('account_id', $account->id)->first();
         $user['email']= $account->email;
+        $user['role']=$user->accessGroup;
 
         return response()->json([
             'user' => $user,

@@ -65,9 +65,9 @@ class NewsController extends Controller
      */
     public function update(EditRequest $request, News $news): RedirectResponse
     {
-        $news = $news->fill($request->validated());
+        $result = $news->fill($request->validated());
 
-        if($news->save()){
+        if($result->save()){
             return redirect()->route('admin.news.index')->with('success', 'News update');
         }
         return \back()->with('error', 'News can not be updated');

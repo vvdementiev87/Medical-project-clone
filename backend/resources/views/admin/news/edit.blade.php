@@ -4,7 +4,8 @@
         <h1 class="h2">Редактирование новости</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news") }}" class="btn btn-sm btn-outline-secondary">Назад</a>
+                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news") }}"
+                   class="btn btn-sm btn-outline-secondary">Назад</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
@@ -20,19 +21,24 @@
             @method('put')
             <div class="form-group">
                 <label for="title">Заголовок</label>
-                <input type="text" id="title" name="title" value="{{ $news->title }}" class="form-control @error('title') is-invalid @enderror">
+                <input type="text" id="title" name="title" value="{{ $news->title }}"
+                       class="form-control @error('title') is-invalid @enderror">
             </div>
             <div class="form-group">
                 <label for="short_description">Краткое описание</label>
-                <input type="text" id="short_description" name="short_description" value="{{ $news->short_description }}" class="form-control @error('short_description') is-invalid @enderror">
+                <input type="text" id="short_description" name="short_description"
+                       value="{{ $news->short_description }}"
+                       class="form-control @error('short_description') is-invalid @enderror">
             </div>
             <div class="form-group">
                 <label for="description">Текст новости</label>
-                <textarea id="description" name="description" value="{{ $news->description }}" class="form-control @error('description') is-invalid @enderror">{{ $news->description }}</textarea>
+                <textarea id="description" name="description" value="{{ $news->description }}"
+                          class="form-control @error('description') is-invalid @enderror">{{ $news->description }}</textarea>
             </div>
             <div class="form-group">
                 <label for="image_url">Url картинки</label>
-                <input type="url" id="image_url" name="image_url" value="{{ $news->image_url }}" class="form-control @error('image_url') is-invalid @enderror">
+                <input type="text" id="image_url" name="image_url" value="{{ $news->image_url }}"
+                       class="form-control @error('image_url') is-invalid @enderror">
             </div>
             <br>
             <button type="submit" class="btn btn-sm btn-outline-secondary">Изменить</button>

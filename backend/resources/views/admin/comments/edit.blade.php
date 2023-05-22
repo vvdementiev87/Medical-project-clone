@@ -15,7 +15,7 @@
                 <x-alert type="danger" :message="$error"></x-alert>
             @endforeach
         @endif
-        <form method="post" action="{{ url(App\Classes\Helpers::getHost(true) . "$/admin/comments/" . $comment->id) }}">
+        <form method="post" action="{{ url(App\Classes\Helpers::getHost(true) . "/admin/comments/" . $comment->id) }}">
             @csrf
             @method('put')
             <div class="form-group">

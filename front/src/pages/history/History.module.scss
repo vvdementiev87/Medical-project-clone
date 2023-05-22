@@ -1,0 +1,53 @@
+@import '../../assets/styles/variables';
+
+.history {
+    margin-bottom: 60px;
+
+    .text {
+        text-align: justify;
+    }
+
+    li {
+        list-style: auto;
+    }
+
+    ul {
+    padding-left: 32px;
+        li {
+            list-style: disc;
+        }
+    }
+    
+    .caption {
+        text-align: center;
+        color: $text-gray;
+    }
+    .row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 32px 0 16px;
+        grid-gap: 20px;
+        flex-wrap: wrap;
+
+        figure {
+            width: 49%;
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+
+            .imageWrapper {
+                flex-grow: 1;
+            
+            }
+        }
+        
+        p {
+            height: 90%;
+        }
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}

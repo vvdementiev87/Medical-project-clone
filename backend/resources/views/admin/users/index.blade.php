@@ -2,13 +2,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Список пользователей</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/users/create") }}"
-                   class="btn btn-sm btn-outline-secondary">Добавить пользователя</a>
-                <button class="btn btn-sm btn-outline-secondary">#</button>
-            </div>
-        </div>
+
     </div>
     <table class="table table-striped table-sm">
         <thead>
@@ -36,7 +30,7 @@
         @forelse ($usersList as $user)
             <tr>
                 <td>{{ $user->id }}</td>
-                <td>{{ $user->accessGroups }}</td>
+                <td>{{ $user->accessGroup->implode('name', ', ') }}</td>
                 <td>{{ $user->last_name }}</td>
                 <td>{{ $user->first_name }}</td>
                 <td>{{ $user->surname }}</td>
@@ -63,7 +57,7 @@
         @endforelse
         </tbody>
     </table>
-    {{ $usersList->links() }}
+    {{ $usersList->links('pagination::bootstrap-5')}}
 @endsection
 
 @push("js")

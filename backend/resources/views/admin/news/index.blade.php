@@ -4,17 +4,18 @@
         <h1 class="h2">Список новостей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news/create") }}" class="btn btn-sm btn-outline-secondary">Добавить новость</a>
+                <a href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news/create") }}"
+                   class="btn btn-sm btn-outline-secondary">Добавить новость</a>
                 <button class="btn btn-sm btn-outline-secondary">#</button>
             </div>
         </div>
     </div>
 
-@if (session('success'))
-    <div id="top-alert" class="alert alert-primary" role="alert">
-        {{ session('success') }}
-    </div>
-@endif
+    @if (session('success'))
+        <div id="top-alert" class="alert alert-primary" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div>
         <table class="table table-striped table-sm">
@@ -41,7 +42,8 @@
                     <td>{{ $news->created_at }}</td>
                     <td>{{ $news->updated_at }}</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url("https://bosomed.ru/middleware/admin/news/".$news->id ."/edit") }}">измениить</a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           href="{{ url(App\Classes\Helpers::getHost(true) . "/admin/news/".$news->id ."/edit") }}">измениить</a>
                         <a href="javascript:;" class="delete btn btn-sm btn-outline-secondary" rel="{{ $news->id }}">удалить</a>
                     </td>
                 </tr>
@@ -53,6 +55,7 @@
 
             </tbody>
         </table>
+        {{$newsList->links('pagination::bootstrap-5')}}
     </div>
 @endsection
 

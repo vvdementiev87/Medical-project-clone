@@ -15,7 +15,7 @@ use Illuminate\Http\RedirectResponse;
 class UserController extends Controller
 {
     /**
-     * @param  UserQueryBuilder  $queryBuilder
+     * @param UserQueryBuilder $queryBuilder
      * @return View
      */
     public function index(UserQueryBuilder $queryBuilder): View
@@ -26,7 +26,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param  AccessGroupQueryBuilder  $queryBuilder
+     * @param AccessGroupQueryBuilder $queryBuilder
      * @return View
      */
     public function create(AccessGroupQueryBuilder $queryBuilder): View
@@ -37,7 +37,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param  CreateRequest  $request
+     * @param CreateRequest $request
      * @return RedirectResponse
      */
     public function store(CreateRequest $request): RedirectResponse
@@ -54,8 +54,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param  User                     $user
-     * @param  AccessGroupQueryBuilder  $accessGroupBuilder
+     * @param User $user
+     * @param AccessGroupQueryBuilder $accessGroupBuilder
      * @return View
      */
     public function edit(User $user, AccessGroupQueryBuilder $accessGroupBuilder): View
@@ -67,15 +67,16 @@ class UserController extends Controller
     }
 
     /**
-     * @param  EditRequest  $request
-     * @param  User         $user
+     * @param EditRequest $request
+     * @param User $user
      * @return RedirectResponse
      */
     public function update(EditRequest $request, User $user): RedirectResponse
     {
-        $user = $user->fill($request->validated());
+        $result = $user->fill($request->validated());
 
-        if ($user) {
+
+        if ($result->save()) {
             $user->accessGroup()->sync($request->getAccessGroupId());
             return redirect()->route('admin.users.index')->with('success', 'User added');
         }
@@ -84,12 +85,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param  User  $user
+     * @param User $user
      * @return JsonResponse
      */
     public function destroy(User $user): JsonResponse
     {
-        try{
+        try {
             $user->delete();
 
             return \response()->json('ok');

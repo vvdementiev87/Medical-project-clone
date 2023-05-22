@@ -29,6 +29,7 @@ import NormativeItem from '../../pages/normative-item/NormativeItem';
 import CentersGallery from '../../pages/centers-gallery/CentersGallery';
 import CenterItemPage from '../../pages/center-item-page/CenterItemPage';
 import Contacts from '../../pages/contacts/Contacts';
+import History from '../../pages/history/History';
 
 const isAuth = true;
 
@@ -37,7 +38,7 @@ function Router() {
 
 	return (
 		<>
-			<Header isAuth={!!user} />
+			<Header isAuth={!!user } />
 			<div className={styles.router}>
 				<Routes>
 					<Route exec path={routes.HOME.link} element={<Home />} />
@@ -78,7 +79,7 @@ function Router() {
 					<Route
 						path={routes.FORUM.link}
 						element={
-							<PrivateRoute isAuth={!!user}>
+							<PrivateRoute isAuth={!!user&& user?.role.some(item => item.id === 3)}>
 								<Forum />
 							</PrivateRoute>
 						}
@@ -86,7 +87,7 @@ function Router() {
 					<Route
 						path={`${routes.FORUM.link}/:topicId`}
 						element={
-							<PrivateRoute isAuth={!!user}>
+							<PrivateRoute isAuth={!!user&& user?.role.some(item => item.id === 3)}>
 								<ForumTopic />
 							</PrivateRoute>
 						}
@@ -95,7 +96,7 @@ function Router() {
 					<Route
 						path={routes.STUDY.link}
 						element={
-							<PrivateRoute isAuth={!!user}>
+							<PrivateRoute isAuth={!!user&& user?.role.some(item => item.id === 3)}>
 								<ArticleVideoSwitchPage />
 							</PrivateRoute>
 						}
@@ -120,6 +121,10 @@ function Router() {
 					/>
 					<Route path={`${routes.PHOTOS.link}/:id`} element={<EventPhotos />} />
 					<Route path={routes.CONTACTS.link} element={<Contacts />} />
+					<Route
+						path={routes.HISTORY.link}
+						element={<History/>}
+					/>
 					<Route
 						path="*"
 						element={<h2 className={styles.h2}>Страница не найдена</h2>}

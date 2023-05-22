@@ -5,6 +5,7 @@ namespace App\QueryBuilders;
 use App\Models\AccessGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AccessGroupQueryBuilder extends QueryBuilder
 {
@@ -17,5 +18,13 @@ class AccessGroupQueryBuilder extends QueryBuilder
     function getCollection(): Collection
     {
         return $this->model->get();
+    }
+    /**
+     * @param int $quantity
+     * @return LengthAwarePaginator
+     */
+    public function getGroupWithPagination(int $quantity = 11): LengthAwarePaginator
+    {
+        return $this->model->paginate($quantity);
     }
 }

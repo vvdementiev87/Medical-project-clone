@@ -74,19 +74,20 @@ class User extends Authenticatable
 
     public function add_data_account_and_user($data): void
     {
-        foreach($data as $key => $value){
+        foreach ($data as $key => $value) {
             if ($key == 'email') {
                 $account[$key] = $value;
-            }elseif ($key != 'created_at' && $key != 'updated_at') {
+            } elseif ($key != 'created_at' && $key != 'updated_at') {
                 $user[$key] = $value;
             }
         }
-$password_list=[
-    ['password'=>'vRdwfRK9', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0u5CpTfNMV9HwRoySnQUYMsGA9uUsq4f2'],
-    ['password'=>'kNEBs7Se', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0uHtqVjrB.YOkiF/PUonyfdx20weDKSty'],
-    ['password'=>'0Nqps8OP', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0u6AYR3Y6sx2SOW.FAzFbyvmGK7qPXnRS'],
-    ['password'=>'UDxDYg7x', 'hash'=>'$2a$10$CwTycUXWue0Thq9StjUM0ufC2lC3xoqqlGHVNyTZRkRvte2AA26t2'],
-];
+        $password_list = [
+            ['password' => 'vRdwfRK9', 'hash' => '$2a$10$CwTycUXWue0Thq9StjUM0u5CpTfNMV9HwRoySnQUYMsGA9uUsq4f2'],
+            ['password' => 'kNEBs7Se', 'hash' => '$2a$10$CwTycUXWue0Thq9StjUM0uHtqVjrB.YOkiF/PUonyfdx20weDKSty'],
+            ['password' => '0Nqps8OP', 'hash' => '$2a$10$CwTycUXWue0Thq9StjUM0u6AYR3Y6sx2SOW.FAzFbyvmGK7qPXnRS'],
+            ['password' => 'UDxDYg7x', 'hash' => '$2a$10$CwTycUXWue0Thq9StjUM0ufC2lC3xoqqlGHVNyTZRkRvte2AA26t2'],
+        ];
+
         $password = $password_list[array_rand($password_list)];
         $accounts = array_merge($account, ['password' => Hash::make($password['hash'])]);
 
@@ -97,6 +98,8 @@ $password_list=[
         $user = array_merge($user, $user_account_data);
 
         DB::table('users')->insert($user);
+        $user = User::where('account_id', $id_account)->first();
+        $user->accessGroup()->attach([2,4]);
 
         Mail::to($data['email'])->send(new AcceptApplicationMail($password['password']));
 
@@ -109,7 +112,7 @@ $password_list=[
     {
         return $this->belongsToMany(
             AccessGroup::class,
-            'access_group_has_users',
+            'access_group_has_user',
             'user_id',
             'group_id',
         );

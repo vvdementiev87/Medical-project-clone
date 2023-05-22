@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="image_url">Url картинки</label>
-                <input type="url" id="image_url" name="image_url" value="{{ old('image_url') }}" class="form-control @error('image_url') is-invalid @enderror">
+                <input type="text" id="image_url" name="image_url" value="{{ old('image_url') }}" class="form-control @error('image_url') is-invalid @enderror">
             </div>
             <br>
             <button type="submit" class="btn btn-sm btn-outline-secondary">Добавить+</button>

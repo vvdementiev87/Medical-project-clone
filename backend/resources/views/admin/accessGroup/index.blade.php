@@ -39,6 +39,7 @@
 
         </tbody>
     </table>
+    {{$accessGroup->links('pagination::bootstrap-5')}}
 @endsection
 
 @push("js")

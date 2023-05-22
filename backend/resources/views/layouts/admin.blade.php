@@ -20,6 +20,7 @@
     <meta name="theme-color" content="#712cf9">
 </head>
 <body>
+
 <x-admin.header></x-admin.header>
 <div class="container-fluid">
     <div class="row">

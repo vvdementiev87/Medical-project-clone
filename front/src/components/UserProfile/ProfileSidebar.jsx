@@ -3,8 +3,10 @@ import styles from './UserProfile.module.scss';
 import React from 'react';
 import MaterialIcon from '../../ui/MaterialIcon';
 import cn from 'classnames';
+import { useAuth } from '../../hooks/useAuth';
 
 const ProfileSidebar = ({ handleOnclick, selectedComponent }) => {
+	const {user}=useAuth();
 	return (
 		<div className={styles.sidebar}>
 			<h3>Меню</h3>
@@ -62,6 +64,7 @@ const ProfileSidebar = ({ handleOnclick, selectedComponent }) => {
 				<MaterialIcon name={'MdRecentActors'} />
 				<p>Недавно просмотренные</p>
 			</div>
+			{user?.role.some(item => item.id === 1) &&
 			<div
 				className={cn(styles.sidebarItem, {
 					[styles.selectedItem]: selectedComponent === 7,
@@ -72,7 +75,7 @@ const ProfileSidebar = ({ handleOnclick, selectedComponent }) => {
 			>
 				<MaterialIcon name={'MdAdminPanelSettings'} />
 				<p>Панель адинистратора</p>
-			</div>
+			</div>}
 		</div>
 	);
 };
