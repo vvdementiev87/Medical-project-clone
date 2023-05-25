@@ -51,9 +51,9 @@ class PostsController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function showPost(int $id): JsonResponse
+    public function showPost(string $id): JsonResponse
     {
-        $result = PostQueryBuilder::getPostById($id);
+        $result = PostQueryBuilder::getPostById((int)$id);
 
         if (!$result) {
             return response()->json([
@@ -71,7 +71,7 @@ class PostsController extends Controller
     {
         $update_data = $request->validated();
 
-        $post = Posts::find($update_data['id']);
+        $post = Posts::find($update_data['post_id']);
         $post->fill(['title' => $update_data['title'], 'description' => $update_data['description']]);
 
         if ($post->save()) {

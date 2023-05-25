@@ -12,7 +12,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\PostsController;
 use App\Http\Controllers\Content\CommentsController;
 use App\Http\Controllers\Content\GalleryThemeController;
-use \App\Http\Controllers\Profile\NotificationController as ProfileController;
+
 use App\Http\Controllers\Content\ConferencesController;
 use App\Http\Controllers\Content\CommunityCenterController;
 use App\Http\Controllers\Admin\RegistrationAdminController;
@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/registration', [RegistrationAdminController::class, 'store']);
+Route::post('/registration', [RegistrationAdminController::class, 'store']);
 
 Route::group(['prefix' => 'content', 'as' => '',], static function () {
     Route::get('videos', [VideosController::class, 'index']);

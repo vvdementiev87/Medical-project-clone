@@ -3,14 +3,15 @@ import { useActions } from '../../hooks/useActions';
 import { useAuth } from '../../hooks/useAuth';
 import styles from './UserProfile.module.scss';
 import cn from 'classnames';
+import { dateFormater, dateFormaterWithTime } from '../../utils/date-formater';
 const ProfileMessages = () => {
-	const { notifications } = useAuth();
+	const { user, notifications } = useAuth();
 	const { getNotifications, setNotifications } = useActions();
 	useEffect(() => {
-		getNotifications();
+		getNotifications({ id: user.id });
 		return () => {
-			Object.values(notifications).some((v) => v.status === 'sent') &&
-				setNotifications();
+			Object.values(notifications).some((v) => v.read_at === null) &&
+				setNotifications({ id: user.id });
 		};
 	}, []);
 	console.log(notifications);
@@ -20,13 +21,15 @@ const ProfileMessages = () => {
 				Object.keys(notifications).map((key) => (
 					<div
 						className={cn(styles.item, {
-							[styles.item_sent]: notifications[key].status === 'sent',
+							[styles.item_sent]: notifications[key].read_at === null,
 						})}
 						key={key}
 					>
-						<p>{notifications[key].message}</p>
+						<p>{notifications[key].data.data}</p>
 
-						<span>{notifications[key]?.created_at}</span>
+						<span>
+							{dateFormaterWithTime(new Date(notifications[key]?.created_at))}
+						</span>
 					</div>
 				))}
 		</div>

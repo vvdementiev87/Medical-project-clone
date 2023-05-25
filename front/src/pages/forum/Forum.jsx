@@ -1,72 +1,120 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import PostAddForm from '../../components/PostsItem/PostAddForm';
-import PostsItem from '../../components/PostsItem/PostsItem';
-import { useActions } from '../../hooks/useActions';
-import { useForum } from '../../hooks/useForum';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ForumForm from '../../components/ForumForm/ForumForm';
 import styles from './Forum.module.scss';
-import Pagination from '../../ui/pagination/Pagination';
-import { useAuth } from '../../hooks/useAuth';
-
-const PageSize = 9;
+import { forumURL, loadAllPosts } from '../../store/forum/forumAPI';
+import { getPostsUrl } from '../../config/api.config';
+import { axiosClassic } from '../../api/interceptors';
 
 function Forum() {
-	const { user } = useAuth();
-	const { getAllPosts } = useActions();
-	const { posts: titlesList, isLoading } = useForum();
-	const [isVisible, setIsVisible] = useState(false);
-
-	const [currentPage, setCurrentPage] = useState(1);
-	const currentTableData = useMemo(() => {
-		const firstPageIndex = (currentPage - 1) * PageSize;
-		const lastPageIndex = firstPageIndex + PageSize;
-		return (
-			titlesList &&
-			Object.fromEntries(
-				Object.entries(titlesList).slice(firstPageIndex, lastPageIndex)
-			)
-		);
-	}, [currentPage, titlesList]);
-
+	const dispatch = useDispatch();
+	const URL = forumURL;
+	const currentUser = useSelector((state) => state.user.user);
+	const currentUserId = useSelector((state) => state.user.user?.id);
+	const token = useSelector((state) => state.user.user?.token);
+	const loadPostsStatus = useSelector((state) => state.forum.status);
+	const titlesList = useSelector((state) => state.forum.titlesList);
+	console.log(titlesList);
+	console.log(currentUserId);
 	useEffect(() => {
-		getAllPosts();
+		dispatch(loadAllPosts());
 	}, []);
 
-	return (
-		<>
-			<h2 className={styles.title}>Форум</h2>
-			<div className={styles.container}>
-				{isLoading ? (
-					<h1>Loading...</h1>
-				) : (
-					currentTableData &&
-					Object.keys(currentTableData).map((key) => (
-						<PostsItem key={key} post={currentTableData[key]} />
-					))
-				)}
-				<div className={styles.pagination}>
-					{user && (
-						<button
-							title="Save changes"
-							className={styles.reply}
-							onClick={() => {
-								setIsVisible(!isVisible);
-							}}
-						>
-							Создать пост
-						</button>
-					)}
-					{currentTableData && (
-						<Pagination
-							currentPage={currentPage}
-							totalCount={Object.entries(titlesList).length}
-							pageSize={PageSize}
-							onPageChange={(page) => setCurrentPage(page)}
-						/>
+	//редактирование поста
+	const [updPost, setUpdPost] = useState(null);
+
+	// отправка запроса на удаление поста
+	async function handleDelete(event, id) {
+		event.preventDefault();
+		let response = axiosClassic
+			.get(getPostsUrl(`/delete/${id}`))
+			.then((res) => {
+				console.log(id);
+				dispatch(loadAllPosts());
+				return res.data;
+			})
+			.catch((e) => console.log(e));
+	}
+
+	// рендер всех постов
+	function renderAllTitles(titleArray = []) {
+		return titleArray.map((item) => {
+			return (
+				<div key={item.id}>
+					<section className={styles.forum__topic}>
+						<div className={styles.forum__topic_content}>
+							<Link to={`${item.id}`}>
+								<h3 className={styles.forum__topic_title}>
+									#{item.id} {item.title}
+								</h3>
+							</Link>
+							<p className={styles.forum__topic_text}>
+								<span>
+									Создан:
+									<br />
+								</span>
+								{item.created_at}
+							</p>
+							<p className={styles.forum__topic_text}>
+								<span>
+									Комментарии:
+									<br />
+								</span>
+								{item.comments_count}
+							</p>
+							<p className={styles.forum__topic_text}>
+								<span>
+									Последний комментарий:
+									<br />
+								</span>
+								{item.last_comment}
+							</p>
+						</div>
+						{item?.author?.id === currentUserId && (
+							<div className={styles.forum__btn_section}>
+								<button
+									className={styles.forum__btn}
+									onClick={() => {
+										setUpdPost(item);
+									}}
+								>
+									РЕДАКТИРОВАТЬ
+								</button>
+								<button
+									className={styles.forum__btn}
+									onClick={(e) => {
+										handleDelete(e, item.id);
+									}}
+								>
+									УДАЛИТЬ
+								</button>
+							</div>
+						)}
+					</section>
+					{updPost && updPost.id === item.id && (
+						<ForumForm updPost={updPost} setUpdPost={setUpdPost} url={URL} />
 					)}
 				</div>
-				{isVisible && <PostAddForm />}
+			);
+		});
+	}
+
+	return (
+		<div className={styles.page__container}>
+			<h2 className={styles.forum__title}>Форум БОСОМ </h2>
+			<div className={styles.forum__greeting}>
+				{!currentUser
+					? 'Вы не вошли'
+					: `Добро пожаловать, ${currentUser.first_name}`}
 			</div>
-		</>
+			<div className={styles.forum__container}>
+				{loadPostsStatus === 'loading' && <h1>Загрузка...</h1>}
+				{loadPostsStatus === 'idle' && renderAllTitles(titlesList)}
+				{loadPostsStatus === 'error' && <h1>Что-то пошло не так!</h1>}
+				<ForumForm updPost={null} setUpdPost={setUpdPost} url={URL} />
+			</div>
+		</div>
 	);
 }
 

@@ -8,10 +8,11 @@ import MaterialIcon from '../../ui/MaterialIcon';
 import { dateFormater } from '../../utils/date-formater';
 import ProfileFields from './ProfileFields';
 import styles from './UserProfile.module.scss';
-
+import { optionList } from '../RegistrationForm/registrationForm';
 const ProfileAccount = () => {
 	const { user, notifications } = useAuth();
-	const { register, handleSubmit, formState, reset } = useForm({
+	console.log(user);
+	const { register, handleSubmit, formState, reset, control } = useForm({
 		defaultValues: {
 			first_name: user.first_name,
 			last_name: user.last_name,
@@ -20,18 +21,25 @@ const ProfileAccount = () => {
 			phone: user.phone,
 			address: user.address,
 			birth_date: dateFormater(new Date(user.birth_date)),
-			place_work: user.place_work,
+			company: user.company,
 			experience: user.experience,
-			position: user.position,
-			category: user.category,
 			education: user.education,
-			other_info: user.other_info,
+			education_end: dateFormater(new Date(user.education_end)),
+			specialization: user.specialization,
+			degree: user.degree,
+			academic_rank: user.academic_rank,
+			position: user.position,
+			education: user.education,
+			interests: optionList.filter((item) =>
+				user.interests.split(', ').includes(item.value)
+			),
+			sign_for_news: user.sign_for_news,
 		},
 	});
 	const [isDisabled, setIsDisabled] = useState(true);
 	const { update, getNotifications } = useActions();
 	useEffect(() => {
-		getNotifications();
+		getNotifications({ id: user.id });
 	}, []);
 
 	const handleClick = () => {
@@ -40,14 +48,14 @@ const ProfileAccount = () => {
 	const onSubmit = async (data) => {
 		await getCsrfToken();
 		console.log(data);
-		update(data);
+		await update(data);
 		setIsDisabled(!isDisabled);
 	};
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.back}>
-				{Object.values(notifications).some((v) => v.status === 'sent') && (
+				{Object.values(notifications).some((v) => v.read_at === null) && (
 					<div className={styles.message} title={'Новые сообщения'}>
 						<MaterialIcon name={'MdMessage'} />
 					</div>
@@ -74,6 +82,7 @@ const ProfileAccount = () => {
 					isDisabled={isDisabled}
 					formState={formState}
 					register={register}
+					control={control}
 					user={user}
 				/>
 				{!isDisabled && (
@@ -86,7 +95,7 @@ const ProfileAccount = () => {
 						<LoginButton
 							type={'submit'}
 							title={<MaterialIcon name={'MdSave'} />}
-							handleClick={isDisabled ? handleClick : handleSubmit(onSubmit)}
+							handleClick={handleSubmit(onSubmit)}
 						/>
 					</div>
 				)}

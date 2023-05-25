@@ -1,46 +1,68 @@
 import Cookies from 'js-cookie';
 import { getContentType } from '../../api/api.helpers';
 import { axiosClassic } from '../../api/interceptors';
-import { getAuthUrl } from '../../config/api.config';
+import {
+	getAuthUrl,
+	getCentersCategoriesUrl,
+	getRegistrationUrl,
+} from '../../config/api.config';
 import { removeTokensStorage, saveToStorage } from './auth.helpers';
 
 export const AuthService = {
 	async register(
-		password_confirmation,
+		// password_confirmation,
 		email,
-		password,
+		// password,
 		address,
 		sign_for_news,
 		position,
 		phone,
 		surname,
-		other_info,
+		// other_info,
 		last_name,
 		first_name,
 		experience,
 		education,
-		place_work,
-		category,
+		education_end,
+		company,
+		// category,
 		birth_date,
+		specialization,
+		degree,
+		academic_rank,
+		interests,
+		is_other_organization,
+		is_member,
 		has_agreed
 	) {
-		const response = await axiosClassic.post(getAuthUrl('/register'), {
-			password_confirmation,
+		sign_for_news = sign_for_news ? true : false;
+		is_member = is_member ? true : false;
+		has_agreed = has_agreed ? true : false;
+		const interestsList = interests.map((item) => item.value).join(', ');
+		const response = await axiosClassic.post(getRegistrationUrl(''), {
+			// password_confirmation,
 			email,
-			password,
+			// password,
 			address,
 			sign_for_news,
 			position,
 			phone,
 			surname,
-			other_info,
+			// other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			place_work,
-			category,
+			education_end,
+			company,
+			// category,
 			birth_date,
+			specialization,
+			degree,
+			academic_rank,
+			interests: interestsList,
+			is_other_organization,
+			is_member,
 			has_agreed,
 		});
 		console.log(response);
@@ -83,36 +105,55 @@ export const AuthService = {
 	},
 
 	async update(
+		// password_confirmation,
+		email,
+		// password,
 		address,
 		sign_for_news,
 		position,
 		phone,
 		surname,
-		other_info,
+		// other_info,
 		last_name,
 		first_name,
 		experience,
 		education,
-		place_work,
-		category,
+		education_end,
+		company,
+		// category,
 		birth_date,
-		has_agreed
+		specialization,
+		degree,
+		academic_rank,
+		interests,
+		is_other_organization
 	) {
+		console.log(interests);
+		sign_for_news = sign_for_news ? true : false;
+		const interestsList = interests.map((item) => item.value).join(', ');
 		const response = await axiosClassic.post(getAuthUrl('/user/update'), {
+			// password_confirmation,
+			//email,
+			// password,
 			address,
 			sign_for_news,
 			position,
 			phone,
 			surname,
-			other_info,
+			// other_info,
 			last_name,
 			first_name,
 			experience,
 			education,
-			place_work,
-			category,
+			education_end,
+			company,
+			// category,
 			birth_date,
-			has_agreed,
+			specialization,
+			degree,
+			academic_rank,
+			interests: interestsList,
+			is_other_organization,
 		});
 		console.log(response);
 		if (response?.data.accessToken) {

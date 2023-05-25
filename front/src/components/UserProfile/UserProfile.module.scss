@@ -318,7 +318,6 @@ $max-sm-mobile-width: '575px';
     font-weight: 500;
     font-size: 18px;
     line-height: 110%;
-    height: fit-content;
     color: rgba($primary-text-color, 0.25);
     width: 100%;
     @include tablet() {
@@ -453,7 +452,8 @@ $max-sm-mobile-width: '575px';
   }
 }
 .notifications{
-  min-height: 90vh; 
+  min-height: 90vh;
+  flex-grow: 2; 
 }
 .formContainer{
   margin: 40px auto 40px;

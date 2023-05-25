@@ -62,7 +62,7 @@ function LoginForm() {
 					{...register('password', {
 						required: { value: true, message: 'Заполните поле пароль' },
 						minLength: {
-							value: 6,
+							value: 3,
 							message: 'Пароль должен быть не меньше 6 символов',
 						},
 					})}
