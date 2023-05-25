@@ -30,6 +30,8 @@ import CentersGallery from '../../pages/centers-gallery/CentersGallery';
 import CenterItemPage from '../../pages/center-item-page/CenterItemPage';
 import Contacts from '../../pages/contacts/Contacts';
 import History from '../../pages/history/History';
+import Structure from '../../pages/structure/Structure';
+import Partners from '../../pages/Partners/Partners';
 
 
 
@@ -84,7 +86,7 @@ function Router() {
 					<Route
 						path={routes.FORUM.link}
 						element={
-							<PrivateRoute isAuth={!!user&& user?.role.some(item => item.id === 3)}>
+							<PrivateRoute isAuth={!!user && user?.role.some(item => item.id === 3)}>
 								<Forum />
 							</PrivateRoute>
 						}
@@ -92,7 +94,7 @@ function Router() {
 					<Route
 						path={`${routes.FORUM.link}/:topicId`}
 						element={
-							<PrivateRoute isAuth={!!user&& user?.role.some(item => item.id === 3)}>
+							<PrivateRoute isAuth={!!user && user?.role.some(item => item.id === 3)}>
 								<ForumTopic />
 							</PrivateRoute>
 						}

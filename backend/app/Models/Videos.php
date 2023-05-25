@@ -12,6 +12,15 @@ class Videos extends Model
 
     protected $table = 'videos';
 
+    protected $fillable = [
+        'video_youtube_id',
+        'author',
+        'title',
+        'description',
+        'image_url',
+        'text_html',
+
+    ];
     /**
      * Отдаём все видео
      *

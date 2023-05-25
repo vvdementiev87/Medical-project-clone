@@ -3,9 +3,9 @@
 namespace App\QueryBuilders;
 
 use App\Models\RegistrationOrders;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Carbon\Carbon;
 
 class RegistrationOrdersQueryBuilder extends QueryBuilder
 {
@@ -14,6 +14,15 @@ class RegistrationOrdersQueryBuilder extends QueryBuilder
     function __construct()
     {
         $this->model = RegistrationOrders::query();
+    }
+
+    /**
+     * @param $quantity
+     * @return LengthAwarePaginator
+     */
+    public function getRegistrationWithPagination($quantity = 20): LengthAwarePaginator
+    {
+        return $this->model->paginate($quantity);
     }
 
     /**

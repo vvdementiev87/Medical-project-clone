@@ -3,9 +3,12 @@
 namespace App\QueryBuilders;
 
 use App\Models\Conferences;
+use DateTime;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
+use Meilisearch\Contracts\Data;
 
 class ConferencesQueryBuilder extends QueryBuilder
 {
@@ -36,24 +39,24 @@ class ConferencesQueryBuilder extends QueryBuilder
     }
 
     /**
-     * @return Collection
+     * @param int $quantity
+     * @return LengthAwarePaginator
      */
-    function getFutureConferences(): Collection
+    public function getConferencesWithPagination(int $quantity = 20): LengthAwarePaginator
     {
-        return $this->model
-            ->whereDate('date_start', '>', Carbon::now())
-            ->latest('date_start')
-            ->get();
+        return $this->model->paginate($quantity);
     }
 
-    /**
-     * @return Collection
-     */
-    function getPastConferences(): Collection
+
+
+    function getFutureConferences()
     {
-        return $this->model
-            ->whereDate('date_end', '<', Carbon::now())
-            ->get();
+        return \DB::table('conferences')->whereTime('date_start', '>', now())->get();
+    }
+
+    function getPastConferences()
+    {
+        return \DB::table('conferences')->whereTime('date_end', '<', now())->get();
     }
 
     /**

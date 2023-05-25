@@ -12,6 +12,15 @@ class Articles extends Model
 
     protected $table = 'articles';
 
+    protected $fillable = [
+        'author',
+        'title',
+        'description',
+        'image_url',
+        'short_text',
+        'text_html',
+
+    ];
     /**
      * Отдаём все статьи
      *
