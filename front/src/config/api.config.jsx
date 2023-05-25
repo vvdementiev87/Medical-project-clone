@@ -7,6 +7,8 @@ export const getVideosUrl = (string) => `api/content/videos${string}`;
 export const getArticlesUrl = (string) => `api/content/articles${string}`;
 export const getConferenciesUrl = (string) =>
 	`api/content/conferences${string}`;
+	export const getConferenciesRegistrationUrl = (string) =>
+	`api/conferences${string}`;
 export const getCentersUrl = () => `api/community/centers`;
 export const getCenterUrl = (string) => `api/community/center${string}`;
 export const getCentersCategoriesUrl = () => `api/community/centers/categories`;

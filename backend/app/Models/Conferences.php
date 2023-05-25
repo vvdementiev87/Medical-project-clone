@@ -12,7 +12,7 @@ class Conferences extends Model
     protected $table = 'conferences';
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
         'short_text',
         'image',
@@ -21,7 +21,7 @@ class Conferences extends Model
         'date_end',
         'is_active',
         'all_places',
-        'alredy_exist',
+        'already_exist',
         'program'
     ];
 
