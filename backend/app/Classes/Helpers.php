@@ -24,5 +24,10 @@ class Helpers
         return $_ENV['API_SITE_PROTOCOL'] . '://' . $_ENV['API_SITE_URL'];
     }
 
+    public static function getFront(bool $isAdmin = false): string
+    {
+               return $_ENV['FRONTEND_URL'];
+    }
+
 
 }

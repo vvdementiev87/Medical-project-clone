@@ -45,6 +45,7 @@
 
             </tbody>
         </table>
+        {{$commentList->links('pagination::bootstrap-5')}}
     </div>
 @endsection
 

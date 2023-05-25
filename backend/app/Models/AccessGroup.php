@@ -23,7 +23,11 @@ class AccessGroup extends Model
      */
     public function Users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,);
+        return $this->belongsToMany(
+            User::class,
+            'access_group_has_user',
+            'group_id',
+            'user_id');
     }
 
     /**

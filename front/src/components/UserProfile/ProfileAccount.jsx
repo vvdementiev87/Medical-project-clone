@@ -55,6 +55,9 @@ const ProfileAccount = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.back}>
+				{user?.role.some(item => item.id === 4)&&<div className={styles.message} title={'Новые сообщения'}>
+						<p>Оплатите членские взносы</p>
+					</div>}
 				{Object.values(notifications).some((v) => v.read_at === null) && (
 					<div className={styles.message} title={'Новые сообщения'}>
 						<MaterialIcon name={'MdMessage'} />

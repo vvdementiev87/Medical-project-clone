@@ -7,7 +7,7 @@
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
             {{--todo сделать редирект на главную страницу.--}}
-            <a class="nav-link px-3" href="#">Выйти</a>
+            <a class="nav-link px-3" href="{{ url(\App\Classes\Helpers::getFront()) }}">Выйти</a>
         </div>
     </div>
 </header>

@@ -11,6 +11,13 @@ class News extends Model
 
     protected $table = 'news';
 
+    protected $fillable = [
+        'title',
+        'short_description',
+        'description',
+        'image_url',
+    ];
+
     /**
      * @return mixed
      */
@@ -20,6 +27,7 @@ class News extends Model
             'id',
             'title',
             'short_description',
+            'description',
             'image_url',
         ])->get();
     }
@@ -33,6 +41,7 @@ class News extends Model
         return \DB::table('news')->select([
             'id',
             'title',
+            'short_description',
             'description',
             'image_url',
         ])->find($id);

@@ -22,7 +22,7 @@ class AccessGroupController extends Controller
     public function index(AccessGroupQueryBuilder $queryBuilder): View
     {
         return view('admin.accessGroup.index', [
-            'accessGroup' => $queryBuilder->getCollection(),
+            'accessGroup' => $queryBuilder->getGroupWithPagination(),
         ]);
     }
 

@@ -43,9 +43,9 @@ class CommentController extends Controller
      */
     public function update(EditRequest $request, Comments $comment): RedirectResponse
     {
-        $comment = $comment->fill($request->validated());
+        $result = $comment->fill($request->validated());
 
-        if($comment->save()){
+        if($result->save()){
             return redirect()->route('admin.comments.index')->with('success', 'Commment update');
         }
 
